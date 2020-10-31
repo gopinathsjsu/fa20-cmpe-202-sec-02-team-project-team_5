@@ -25,6 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'xyag)ta^(u=^l$m2&j041hej5e#ii&(ln5%6+n46gk
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', True)
+print("DEBUG: ", DEBUG)
 
 # Whitelist hostnames later for production
 ALLOWED_HOSTS = ['*']
