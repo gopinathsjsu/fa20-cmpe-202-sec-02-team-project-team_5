@@ -1,2 +1,2 @@
 web: gunicorn backend.home_finder.wsgi
-release: python manage.py migrate --noinput
+release: python backend/manage.py migrate --noinput
