@@ -24,7 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'xyag)ta^(u=^l$m2&j041hej5e#ii&(ln5%6+n46gktb80rpmk')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', True)
+
+def get_bool_from_string(value):
+    if str(value).lower() in ['true']:
+        return True
+
+    return False
+
+
+DEBUG = get_bool_from_string(os.getenv('DEBUG', True))
 print("DEBUG: ", DEBUG)
 
 # Whitelist hostnames later for production
