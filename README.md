@@ -1,12 +1,15 @@
 # HomeFinder Backend Development
 
 ### About
+	This code repo provides a detail on how to setup django restful framework along with connectivity to postgresql.
+	The backend foler contains HomeFinder django project with "samplerestful" as sample app
+	This code base serves as reference to build build apps and CRUD operations related to them.
 
-### Requirements
+### Architecture
 
-### System Design
-
-### Installations
+	![alt text](https://www.google.com/url?sa=i&url=https%3A%2F%2Fbezkoder.com%2Fdjango-rest-api%2F&psig=AOvVaw0Etv0P8aPB0NPFnvwCdKRT&ust=1604306766340000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDBwc764OwCFQAAAAAdAAAAABAE)
+	
+### Requirements & Installations
 * Backend Django REST Environment Setup (Insatll below packages and tools)
   * Python 3.7.3
   * Virtula environment wrapper : pip install virtualenvwrapper-win
@@ -18,3 +21,4 @@
   * Postman to query REST API outside the application : https://www.postman.com/downloads/
 
 ### Acknowledgements
+	Image credits : {z} Koder
