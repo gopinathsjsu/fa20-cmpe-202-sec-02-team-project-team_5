@@ -7,7 +7,7 @@ This setup serves as reference to build build apps and CRUD operations related t
 
 ### Architecture
 
-![](django-rest-api-tutorial-example-architecture%20spaces.png)
+![](Backend/djangorest-postgresql%20architecture.png)
 	
 ### Requirements & Installations
 * Backend Django REST Environment Setup (Insatll below packages and tools)
