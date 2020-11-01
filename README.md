@@ -7,7 +7,7 @@ This setup serves as reference to build build apps and CRUD operations related t
 
 ### Architecture
 
-![alt text](https://github.com/Deepthi-Jallepalli/fa20-cmpe-202-sec-02-team-project-team_5/blob/djallepalli/django-rest-api-tutorial-example-architecture.png?raw=true)
+![](django-rest-api-tutorial-example-architecture%20spaces.png)
 	
 ### Requirements & Installations
 * Backend Django REST Environment Setup (Insatll below packages and tools)
