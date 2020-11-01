@@ -3,7 +3,7 @@
 ### About
 	This code repo provides a detail on how to setup django restful framework along with connectivity to postgresql.
 	The backend foler contains HomeFinder django project with "samplerestful" as sample app
-	This code base serves as reference to build build apps and CRUD operations related to them.
+	This setup serves as reference to build build apps and CRUD operations related to them.
 
 ### Architecture
 
