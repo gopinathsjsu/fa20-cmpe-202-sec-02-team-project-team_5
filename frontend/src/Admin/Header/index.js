@@ -3,7 +3,9 @@ import Menu from './Menu';
 
 function Header(props) {
   return (
-    <Menu userInfo={null} />
+    <>
+      <Menu userInfo={null} />
+    </>
   );
 }
 

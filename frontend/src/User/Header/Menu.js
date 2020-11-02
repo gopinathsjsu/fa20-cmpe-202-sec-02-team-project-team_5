@@ -5,7 +5,7 @@ import './Menu.css';
 
 function Menu(props) {
   return (
-  <Container>
+  <Container className='menu-container'>
     <Row>
       <Col>
       <Nav className="justify-content-left" activeKey="/home">
@@ -21,7 +21,7 @@ function Menu(props) {
       </Nav>
       </Col>
       <Col xs={6}>
-      <Navbar.Brand>Home Finder</Navbar.Brand>
+      <Navbar.Brand><Link to='/home'>Home Finder</Link></Navbar.Brand>
       </Col>
       <Col>
         <Nav className="justify-content-end" activeKey="/home">
@@ -31,7 +31,11 @@ function Menu(props) {
           <NavDropdown.Item><Link to='/applications'>Applications</Link></NavDropdown.Item>
         </NavDropdown>
           <Nav.Item>
-            <Nav.Link>Sign in</Nav.Link>
+            {localStorage.getItem('email') ? (
+              <Nav.Link><Link to='/sign-out'>Sign out</Link></Nav.Link>
+            ) : (
+              <Nav.Link><Link to='/sign-in'>Sign in</Link></Nav.Link>
+            )}
           </Nav.Item>
         </Nav>
       </Col>

@@ -1,18 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Header from './Header';
-import Body from './Body';
 import {BrowserRouter as Router} from 'react-router-dom'
+import User from './User';
+import Admin from './Admin';
+import React from 'react'
+export const DataContext = React.createContext({});
+export const useDataContext = () => React.useContext(DataContext);
+
+const initialState = {logggedIn : false,
+}
 
 function App() {
+  const [data, setData] = React.useState(initialState);
   return (
-    <div className="App">
-      <Router>
-        <Header />
-        <Body />
-      </Router>
-    </div>
+    <DataContext.Provider value={{ data, setData }}>
+      <div className="App">
+        <Router>
+          {localStorage.getItem('userType') === 'admin' ? (
+            <Admin/>
+          ) : (
+            <User/>
+          )}
+        </Router>
+      </div>
+    </DataContext.Provider>
   );
 }
 

@@ -1,0 +1,17 @@
+.nav a {
+  color:black !important;
+}
+
+.menu-container .row{
+  height: 80px;
+}
+
+.menu-container .navbar-brand{
+  font-size: 40px;
+  font-weight: 500;
+  color: rgb(0, 106, 255);
+}
+
+.menu-container .col{
+  margin: auto;
+}
