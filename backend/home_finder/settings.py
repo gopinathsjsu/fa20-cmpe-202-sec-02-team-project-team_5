@@ -12,16 +12,18 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from dotenv import find_dotenv, load_dotenv
+load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'xyag)ta^(u=^l$m2&j041hej5e#ii&(ln5%6+n46gktb80rpmk')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -32,7 +34,7 @@ def get_bool_from_string(value):
     return False
 
 
-DEBUG = get_bool_from_string(os.getenv('DEBUG', True))
+DEBUG = get_bool_from_string(os.getenv('DEBUG'))
 print("DEBUG: ", DEBUG)
 
 # Whitelist hostnames later for production
@@ -48,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core.apps.CoreConfig',
+    'rest_framework',
+    # 'home_finder.core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -90,9 +95,9 @@ if DEBUG:
     db_settings = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DATABASE_NAME', 'home_finder'),
-            'USER': os.getenv('DATABASE_USER', 'home_finder_user'),
-            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+            'NAME': os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
