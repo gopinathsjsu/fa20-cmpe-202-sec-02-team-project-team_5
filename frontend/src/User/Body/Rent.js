@@ -10,7 +10,7 @@ function Rent(props) {
   },[]);
   return (
     <div>
-      <h2 style = {{color: '#000'}}>Buy Homes</h2>
+      <h2 style = {{color: '#000'}}>Rent Homes</h2>
       <Grids homes = {homes}></Grids>
     </div>
   );

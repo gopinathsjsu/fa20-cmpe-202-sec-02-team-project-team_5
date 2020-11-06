@@ -10,7 +10,7 @@ function Sell(props) {
   },[]);
   return (
     <div>
-      <h2 style = {{color: '#000'}}>Buy Homes</h2>
+      <h2 style = {{color: '#000'}}>Sell Homes</h2>
       <Grids homes = {homes}></Grids>
     </div>
   );
