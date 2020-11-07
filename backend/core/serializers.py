@@ -5,7 +5,7 @@ It helps in data flow in Json formart to and fro communication (Json to Python a
 """
 
 from rest_framework import serializers
-from core.models import User,Role,UserType,UserStatus,UserAdditionalInfo
+from core.models import *
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,6 +17,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__' 
+
+
+class UserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields =  ('email_id', 'password')
+
+class CustomeResponseSerializer(serializers.Serializer):
+    success = serializers.BooleanField()
+    message = serializers.CharField(max_length=200)
+    user_id = serializers.IntegerField()
 
 class UserTypeSerializer(serializers.ModelSerializer):
     class Meta:
