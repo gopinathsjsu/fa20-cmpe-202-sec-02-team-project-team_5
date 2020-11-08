@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'rest_framework',
     'rest_framework.authtoken'
+    'home_listing.apps.HomeListingConfig',
 ]
 
 MIDDLEWARE = [
