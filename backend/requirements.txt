@@ -4,3 +4,4 @@ djangorestframework==3.12.1
 psycopg2==2.8.6
 pytz==2020.1
 sqlparse==0.4.1
+djangorestframework-jwt==4.5.0
