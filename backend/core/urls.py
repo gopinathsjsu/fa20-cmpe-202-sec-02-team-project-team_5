@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from core.views import *
 from django.conf.urls import url
 
 urlpatterns = [
 
-    url('roles$', views.roles_list, name='roles_list'),
-    url('register$', views.add_user, name='add_user')
+    url('register$', UserRegistrationView.as_view()),
+    url('login$', UserLoginView.as_view())
 ]
