@@ -1,14 +1,14 @@
 import React from 'react';
-import {Navbar,Nav,NavDropdown,Form,FormControl,Button,Container,Row,Col} from 'react-bootstrap';
+import {Navbar,Nav,NavDropdown,Dropdown, Form,FormControl,Button,Container,Row,Col} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Menu.css';
+import {FaUser, FaSignInAlt, FaSignOutAlt} from 'react-icons/fa';
 
 function Menu(props) {
   return (
   <Container className='menu-container'>
-    <Row>
-      <Col>
-      <Nav className="justify-content-left" activeKey="/home">
+    <Navbar>
+      <Nav className="mr-auto">
         <Nav.Item>
           <Nav.Link><Link to='/buy'>Buy</Link></Nav.Link>
         </Nav.Item>
@@ -19,27 +19,25 @@ function Menu(props) {
           <Nav.Link><Link to='/rent'>Rent</Link></Nav.Link>
         </Nav.Item>
       </Nav>
-      </Col>
-      <Col xs={6}>
       <Navbar.Brand><Link to='/home'>Home Finder</Link></Navbar.Brand>
-      </Col>
-      <Col>
-        <Nav className="justify-content-end" activeKey="/home">
-        <NavDropdown title="Manage Rentals" id="basic-nav-dropdown">
-          <NavDropdown.Item><Link to='/list-a-rentals'>List a rental</Link></NavDropdown.Item>
-          <NavDropdown.Item><Link to='/my-listings'>My Listings</Link></NavDropdown.Item>
-          <NavDropdown.Item><Link to='/applications'>Applications</Link></NavDropdown.Item>
-        </NavDropdown>
-          <Nav.Item>
-            {localStorage.getItem('email') ? (
-              <Nav.Link><Link to='/sign-out'>Sign out</Link></Nav.Link>
-            ) : (
-              <Nav.Link><Link to='/sign-in'>Sign in</Link></Nav.Link>
-            )}
-          </Nav.Item>
+        <Nav className="ml-auto" activeKey="/home">
+          {localStorage.getItem('email') ? (
+            
+              <NavDropdown title={<FaUser/>} id="basic-nav-dropdown">
+                <NavDropdown.Item><Link to='/favourite-searches'>Favorite Searches</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link to='/favourite-homes'>Favorite Homes</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link to='/listings'>Listings</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link to='/applications'>Applications(Buy/Sell)</Link></NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item><Link to='/sign-out'>Sign out &nbsp;<FaSignOutAlt/></Link></NavDropdown.Item>
+              </NavDropdown>
+          ) : (
+            <Nav.Item>
+              <Nav.Link><Link to='/sign-in'>Sign in  &nbsp;</Link></Nav.Link>
+            </Nav.Item>
+          )}
         </Nav>
-      </Col>
-    </Row>
+    </Navbar>
   </Container>  
   );
 }

@@ -5,7 +5,7 @@ import RedirectToSignin from './RedirectToSignin';
 function Home(props) {
   return (
     <div className = 'home'>
-      <RedirectToSignin/>
+      {/* <RedirectToSignin/> */}
       <div className = 'header'>
         <h2>Reimagine home!</h2>
         <h2>We’ll help you find a place you’ll love.</h2>

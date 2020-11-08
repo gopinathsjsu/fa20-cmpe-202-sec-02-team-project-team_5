@@ -1,12 +1,18 @@
 import React from 'react';
 import {Modal, Container, Row, Col, Button, Tabs, Tab, Form} from 'react-bootstrap';
 import RedirectToHome from './RedirectToHome';
+import { Redirect } from 'react-router-dom';
 import { useDataContext } from './../../App';
 
 function SignIn(props) {
 
-   const [show, setShow] = React.useState(true);
+  const [show, setShow] = React.useState(true);
   const {data,setData} = useDataContext();
+  const [closeModal,setCloseModal] = React.useState(null);
+
+  const handleClose = (e) => {
+    setCloseModal(<Redirect to={`/home`} />);
+  }
 
   const handleAdminSigninSubmit = (e) => {
     e.preventDefault();
@@ -54,9 +60,10 @@ function SignIn(props) {
   }
 
   return (
-    <Modal show={show} aria-labelledby="contained-modal-title-vcenter">
+    <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter">
       <RedirectToHome />
-      <Modal.Header >
+      {closeModal}
+      <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Welcome to Home Finder
         </Modal.Title>
