@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('core', '0004_auto_20201109_0632'),
+        ('core', '0002_auto_20201106_2248'),
         ('home_listing', '0001_initial'),
     ]
 
