@@ -4,6 +4,11 @@ from django.conf.urls import url
 
 urlpatterns = [
 
-    url('register$', UserRegistrationView.as_view()),
-    url('login$', UserLoginView.as_view())
+    url('user/register$', UserRegistrationView.as_view()),
+    url('user/login$', UserLoginView.as_view()),
+    url('admin/users$',PendingUserView.as_view()),
+    url('admin/update/user$',UpdateUserStatusView.as_view())
+    
+    # url('user-admin/(?P<userId>\d+)$',PendingUserView.as_view()),
+    # url('update-userinfo$', ApproveUserView.as_view())
 ]
