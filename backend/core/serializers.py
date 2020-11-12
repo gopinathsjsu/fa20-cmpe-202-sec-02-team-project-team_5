@@ -14,12 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('user_type','user_status') 
+        fields = ('first_name','last_name','email_id','user_type','user_status') 
 
 class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields =  ('user_type',)
+        fields =  ('first_name','last_name','email_id','user_type')
 
 class RetriveUsersSerializer(serializers.ModelSerializer):
     class Meta:
