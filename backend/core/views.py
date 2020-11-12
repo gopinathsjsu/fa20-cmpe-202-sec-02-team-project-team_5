@@ -13,7 +13,7 @@ from rest_framework.generics import GenericAPIView,CreateAPIView,ListAPIView
 from django.contrib.auth.hashers import make_password,check_password
 
 # Core app views. All core app views are authenticated using JWT token authorization.
-class UserRegistrationView(GenericAPIView):#latest
+class UserRegistrationView(GenericAPIView):
     """
     This view is created for any user to register to HomeFinder application. 
     Validated the user infomation and adds the user to database with pending status.
@@ -104,5 +104,3 @@ class UpdateUserStatusView(GenericAPIView):
                 return JsonResponse({'message': 'Admin authentication failed'}, status=status.HTTP_412_PRECONDITION_FAILED)
         else:
             return JsonResponse({'message': 'Provide user details'}, status=status.HTTP_400_BAD_REQUEST)
-
-

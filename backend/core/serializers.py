@@ -6,7 +6,23 @@ It helps in data flow in Json formart to and fro communication (Json to Python a
 from core.models import *
 from rest_framework import serializers
 
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = '__all__' 
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = '__all__'
+
+class UserStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserStatus
+        fields = '__all__'
+
 class UserSerializer(serializers.ModelSerializer):
+    role = RoleSerializer()
+    user_status = UserStatusSerializer()
     class Meta:
         model = User
         fields = '__all__' 

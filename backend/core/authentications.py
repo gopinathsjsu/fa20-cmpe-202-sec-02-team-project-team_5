@@ -14,7 +14,7 @@ class JWTAuthentication():
     @staticmethod
     def isAdmin(userId):
         isAdmin_ = False
-        user_info = User.objects.filter(role__name='Admin',id = userId)
+        user_info = User.objects.filter(role__name='admin',id = userId)
         if user_info:
             isAdmin_ = True
         return isAdmin_
