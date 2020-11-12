@@ -43,18 +43,19 @@ class UserLoginView(GenericAPIView):
         email_id = data.get('email_id')
         password = data.get('password')
         if email_id and password:
-            user = JWTAuthentication.validate_token(request)        
-            if user:
-                encrypted_password = user.password
-                res = check_password(password,encrypted_password)
-                if res:
-                    access_token = JWTAuthentication.generate_access_token(user.id)
-                    user_serializer = UserLoginSerializer(user)
-                    response_data = {'message':'Login successful','user_details': user_serializer.data, 'token': access_token}
-                    return JsonResponse(response_data, status=status.HTTP_200_OK)
-                else:
-                    return JsonResponse({'message': 'Invalid password'}, status=status.HTTP_412_PRECONDITION_FAILED)
-            else:
+            try:
+                user = User.objects.get(email_id=email_id)     
+                if user:
+                    encrypted_password = user.password
+                    res = check_password(password,encrypted_password)
+                    if res:
+                        access_token = JWTAuthentication.generate_access_token(user.id)
+                        user_serializer = UserLoginSerializer(user)
+                        response_data = {'message':'Login successful','user_details': user_serializer.data, 'token': access_token}
+                        return JsonResponse(response_data, status=status.HTTP_200_OK)
+                    else:
+                        return JsonResponse({'message': 'Invalid password'}, status=status.HTTP_412_PRECONDITION_FAILED)
+            except Exception:
                 return JsonResponse({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         else:
             return JsonResponse({'message': 'Provide login details'}, status=status.HTTP_400_BAD_REQUEST)
@@ -67,7 +68,7 @@ class PendingUserView(GenericAPIView):
         admin = JWTAuthentication.validate_token(request)
         if JWTAuthentication.isAdmin(admin.id):
             try:
-                pending_users = User.objects.filter(user_status__name='Pending')  
+                pending_users = User.objects.filter(user_status__name='pending')  
                 if pending_users:
                     serializer = RetriveUsersSerializer(pending_users,many=True)
                     response_data = {'message':'Users retrival succesful','users_list': serializer.data}
