@@ -21,8 +21,6 @@ class UserStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
-    role = RoleSerializer()
-    user_status = UserStatusSerializer()
     class Meta:
         model = User
         fields = '__all__' 
