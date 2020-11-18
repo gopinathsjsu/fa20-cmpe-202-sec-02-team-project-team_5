@@ -10,8 +10,11 @@ class ListingType(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
-    deleted_why = models.TextField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 # HomeType indicated the type of house listed such as Apartment, Town House, Condo etc
@@ -22,8 +25,11 @@ class HomeType(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
-    deleted_why = models.TextField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 # HomeStatus indicates the listing type such as Sold, Pending, Rented out, Available etc
@@ -34,8 +40,11 @@ class HomeStatus(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
-    deleted_why = models.TextField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 # listing has the details of the listing
 class Listing(models.Model):
@@ -51,24 +60,24 @@ class Listing(models.Model):
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     price = models.IntegerField()
-    sqft_area = models.IntegerField(null=True)
+    sqft_area = models.IntegerField(null=True, blank=True)
     bedrooms = models.IntegerField()
     bathroom = models.IntegerField()
-    flooring = models.CharField(max_length=100, null=True)
+    flooring = models.CharField(max_length=100, null=True, blank=True)
     year_built = models.IntegerField()
-    kitchen = models.CharField(max_length=100, null=True)
-    laundry = models.CharField(max_length=100, null=True)
-    parking_type = models.CharField(max_length=100, null=True)
-    air_conditioner = models.CharField(max_length=100, null=True)
-    heater = models.CharField(max_length=100, null=True)
-    available_date = models.DateTimeField(null=True)
-    lease_term = models.IntegerField(null=True)
-    security_deposit = models.IntegerField(null=True)
+    kitchen = models.CharField(max_length=100, null=True, blank=True)
+    laundry = models.CharField(max_length=100, null=True, blank=True)
+    parking_type = models.CharField(max_length=100, null=True, blank=True)
+    air_conditioner = models.BooleanField(default=False)
+    heater = models.CharField(max_length=100, null=True, blank=True)
+    available_date = models.DateTimeField(null=True, blank=True)
+    lease_term = models.IntegerField(null=True, blank=True)
+    security_deposit = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
-    deleted_why = models.TextField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
 
 # HomeSchedule indicates the listing schedule details such as scheduled date and time,
@@ -77,11 +86,11 @@ class HomeSchedule(models.Model):
     scheduled_by = models.ForeignKey(User, models.DO_NOTHING)
     listing = models.ForeignKey(Listing, models.DO_NOTHING)
     schedule_datetime = models.DateTimeField()
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
-    deleted_why = models.TextField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
 # Image has the path to the images for listings
 class Image(models.Model):
@@ -90,7 +99,8 @@ class Image(models.Model):
     url = models.URLField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField()
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
 
 
