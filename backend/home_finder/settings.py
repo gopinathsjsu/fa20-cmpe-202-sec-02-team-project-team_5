@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'home_listing.apps.HomeListingConfig',
     'favorites.apps.FavoritesConfig',
     'corsheaders',
+    'applications.apps.ApplicationsConfig',
 ]
 
 MIDDLEWARE = [
