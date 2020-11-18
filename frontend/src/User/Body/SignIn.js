@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Container, Row, Col, Button, Tabs, Tab, Form} from 'react-bootstrap';
+import {Modal, Container, Row, Col, Button, Tabs, Tab, Form, Alert} from 'react-bootstrap';
 import RedirectToHome from './RedirectToHome';
 import { Redirect } from 'react-router-dom';
 import { useDataContext } from './../../App';
@@ -10,8 +10,12 @@ import jwt_decode from 'jwt-decode';
 function SignIn(props) {
 
   const [show, setShow] = React.useState(true);
+  const [userLoginError, showUserLoginError] = React.useState('');
+  const [userRegisterError, showUserRegisterError] = React.useState('');
+  const [adminLoginError, showAdminLoginError] = React.useState('');
   const {data,setData} = useDataContext();
   const [closeModal,setCloseModal] = React.useState(null);
+  axios.defaults.withCredentials = true;
 
   const handleClose = (e) => {
     setCloseModal(<Redirect to={`/home`} />);
@@ -23,12 +27,11 @@ function SignIn(props) {
     // set the with credentials to true
     // make a post request with the user data
     const formData = {
-      email: form.email.value,
+      email_id: form.email.value,
       password: form.password.value,
     };
-    console.log("@@@@@@@@@@@",rooturl);
     //axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
-    axios.post(`${rooturl}/users/login`, formData)
+    axios.post(`${rooturl}/core/user/login`, formData,{ validateStatus: false })
     .then((response) => {
       console.log('Status Code : ', response.status);
       if (response.status === 200) {
@@ -38,6 +41,11 @@ function SignIn(props) {
           localStorage.setItem("email", formData.email);
           setShow(false);
           setData({...data,logggedIn: true});
+      }else{
+        let errors = Object.values(response.data || {'error' : ['Something went wrong']});
+        showAdminLoginError(errors.map(error => {
+          return <Alert variant="danger">{error}</Alert>
+        }));
       }
     });
   } 
@@ -48,13 +56,28 @@ function SignIn(props) {
     // set the with credentials to true
     // make a post request with the user data
     const formData = {
-      email: form.email.value,
+      last_name: form.lastName.value,
+      first_name: form.firstName.value,
+      email_id: form.email.value,
       password: form.password.value,
     };
-    localStorage.setItem("userType", 'user');
-    localStorage.setItem("email", formData.email);
-    setShow(false);
-    setData({...data,logggedIn: true});
+    axios.defaults.withCredentials = true;
+    axios.post(`${rooturl}/core/user/register`, formData,{ validateStatus: false })
+    .then((response) => {
+      if (response.status === 201) {
+          let decodedUserInfo = JSON.stringify(jwt_decode(response.data.token));
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("userType", 'user');
+          localStorage.setItem("email", formData.email);
+          setShow(false);
+          setData({...data,logggedIn: true});
+      }else{
+        let errors = Object.values(response.data || {'error' : ['Something went wrong']});
+        showUserRegisterError(errors.map(error => {
+          return <Alert variant="danger">{error}</Alert>
+        }));
+      }
+    });
   }
 
   const handleUserSigninSubmit = (e) => {
@@ -63,10 +86,10 @@ function SignIn(props) {
     // set the with credentials to true
     // make a post request with the user data
     const formData = {
-      email: form.email.value,
+      email_id: form.email.value,
       password: form.password.value,
     };
-    axios.post(`${rooturl}/users/login`, formData)
+    axios.post(`${rooturl}/core/user/login`, formData,{ validateStatus: false })
     .then((response) => {
       console.log('Status Code : ', response.status);
       if (response.status === 200) {
@@ -76,6 +99,11 @@ function SignIn(props) {
           localStorage.setItem("email", formData.email);
           setShow(false);
           setData({...data,logggedIn: true});
+      }else{
+        let errors = Object.values(response.data || {'error' : ['Something went wrong']});
+        showUserLoginError(errors.map(error => {
+          return <Alert variant="danger">{error}</Alert>
+        }));
       }
     });
   }
@@ -95,6 +123,7 @@ function SignIn(props) {
           <Container>
             <br />
             <Form onSubmit={handleUserSigninSubmit}>
+              {userLoginError}
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" name='email' placeholder="Enter email" required/>
@@ -114,6 +143,15 @@ function SignIn(props) {
           <Container>
             <br />
             <Form onSubmit={handleRegisterSubmit}>
+              {userRegisterError}            
+              <Form.Group controlId="formBasicFirstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text" name='firstName' placeholder="First Name" required/>
+              </Form.Group>
+              <Form.Group controlId="formBasicLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" name='lastName' placeholder="Last Name" required/>
+              </Form.Group>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" name='email' placeholder="Enter email" required/>
@@ -139,6 +177,7 @@ function SignIn(props) {
           <Container>
             <br />
             <Form onSubmit={handleAdminSigninSubmit}>
+              {adminLoginError}
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" name='email' placeholder="Enter email" required/>

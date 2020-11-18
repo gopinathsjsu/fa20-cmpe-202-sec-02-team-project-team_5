@@ -38,7 +38,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
 class RetriveUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields =  ('first_name','last_name','email_id','user_type')
+        fields =  ('id','first_name','last_name','email_id','user_type')
 
 class UserTypeSerializer(serializers.ModelSerializer):
     class Meta:
