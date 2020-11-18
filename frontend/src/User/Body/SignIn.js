@@ -3,6 +3,9 @@ import {Modal, Container, Row, Col, Button, Tabs, Tab, Form} from 'react-bootstr
 import RedirectToHome from './RedirectToHome';
 import { Redirect } from 'react-router-dom';
 import { useDataContext } from './../../App';
+import axios from 'axios';
+import { rooturl } from '../../config/config';
+import jwt_decode from 'jwt-decode';
 
 function SignIn(props) {
 
@@ -23,10 +26,20 @@ function SignIn(props) {
       email: form.email.value,
       password: form.password.value,
     };
-    localStorage.setItem("userType", 'admin');
-    localStorage.setItem("email", formData.email);
-    setShow(false);
-    setData({...data,logggedIn: true});
+    console.log("@@@@@@@@@@@",rooturl);
+    //axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
+    axios.post(`${rooturl}/users/login`, formData)
+    .then((response) => {
+      console.log('Status Code : ', response.status);
+      if (response.status === 200) {
+          let decodedUserInfo = JSON.stringify(jwt_decode(response.data.token));
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("userType", 'admin');
+          localStorage.setItem("email", formData.email);
+          setShow(false);
+          setData({...data,logggedIn: true});
+      }
+    });
   } 
 
   const handleRegisterSubmit = (e) => {
@@ -53,10 +66,18 @@ function SignIn(props) {
       email: form.email.value,
       password: form.password.value,
     };
-    localStorage.setItem("userType", 'user');
-    localStorage.setItem("email", formData.email);
-    setShow(false);
-    setData({...data,logggedIn: true});
+    axios.post(`${rooturl}/users/login`, formData)
+    .then((response) => {
+      console.log('Status Code : ', response.status);
+      if (response.status === 200) {
+          let decodedUserInfo = JSON.stringify(jwt_decode(response.data.token));
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("userType", 'user');
+          localStorage.setItem("email", formData.email);
+          setShow(false);
+          setData({...data,logggedIn: true});
+      }
+    });
   }
 
   return (
