@@ -10,6 +10,7 @@ import SignOut from './SignOut';
 function Body(props) {
   return (
     <Switch>
+      <Route exact path="/" component={Home} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/buy" component={Buy} />
       <Route exact path="/sell" component={Sell} />

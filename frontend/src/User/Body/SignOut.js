@@ -6,8 +6,8 @@ const SignOut = () => {
   const {data,setData} = useDataContext();
   localStorage.removeItem('email');
   localStorage.removeItem('userType');
-  setData({...data,logggedIn: true});
-  return <Redirect to={`/sign-in`} />;
+  setData({...data,logggedIn: false});
+  return <Redirect to={`/home`} />;
 };
 
 export default SignOut;
