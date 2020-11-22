@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Listing, HomeStatus
+from .models import *
 from core.models import User
 
 
@@ -8,6 +8,7 @@ class ImageSerializer(serializers.Serializer):
 
 
 class ListingSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     city = serializers.CharField()
     state = serializers.CharField()
     country = serializers.CharField()
@@ -43,17 +44,41 @@ class ListingSerializer(serializers.Serializer):
         return ImageSerializer(obj.image_set, many=True).data
 
 
-class HomeStatusRelatedField(serializers.RelatedField):
-    def to_native(self, value):
-        print("value: ", value)
+class HomeStatusFieldSerializer(serializers.Field):
+    def to_internal_value(self, value):
         return HomeStatus.objects.get(name=value)
 
 
+class HomeTypeFieldSerializer(serializers.Field):
+    def to_internal_value(self, value):
+        return HomeType.objects.get(name=value)
+
+
+class ListingTypeSerializer(serializers.Field):
+    def to_internal_value(self, value):
+        return ListingType.objects.get(name=value)
+
+
+class CreateImagesSerializer(serializers.Serializer):
+    images = serializers.ListField(child=serializers.URLField())
+
+    def create(self, validated_data):
+        print("create images validated data: ", validated_data)
+
+        image_objs = []
+        for image_url in validated_data["images"]:
+            image_objs.append(
+                Image(url=image_url, listing=validated_data["listing"])
+            )
+
+        return Image.objects.bulk_create(image_objs)
+
+
 class CreateListingSerializer(serializers.Serializer):
-    listed_by = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    listing_type = serializers.StringRelatedField()
-    home_type = serializers.StringRelatedField()
-    home_status = HomeStatusRelatedField(read_only=True)
+
+    listing_type = ListingTypeSerializer()
+    home_type = HomeTypeFieldSerializer()
+    home_status = HomeStatusFieldSerializer()
     description = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     zip_code = serializers.CharField()
     street_address = serializers.CharField()
@@ -76,13 +101,6 @@ class CreateListingSerializer(serializers.Serializer):
     security_deposit = serializers.IntegerField(required=False, allow_null=True)
 
 
-    # def get_home_status(self, obj):
-    #     print("obj: ", obj)
-    #     return HomeStatus.objects.get(name=obj["home_sta"])
-
-
     def create(self, validated_data):
         return Listing.objects.create(**validated_data)
 
-    # class Meta:
-    #     model = Listing
