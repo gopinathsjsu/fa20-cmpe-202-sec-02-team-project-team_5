@@ -19,12 +19,14 @@ class Role(models.Model):
 
     class Meta:
         db_table = 'role'
+    def __str__(self):
+        return self.name
 
 
 class User(models.Model):
-    DEFAULT_ROLE = 2
-    DEFAULT_USER_STATUS = 1
-    DEFAULT_USER_TYPE = 2
+    DEFAULT_ROLE = 'user'
+    DEFAULT_USER_STATUS = 'pending'
+    DEFAULT_USER_TYPE = 'default'
     
     id = models.AutoField(primary_key=True)
     role = models.ForeignKey(Role,default=DEFAULT_ROLE,on_delete=models.CASCADE)
@@ -41,7 +43,6 @@ class User(models.Model):
 
     class Meta:
         db_table = 'user'
-
 
 class UserAdditionalInfo(models.Model):
  
@@ -70,6 +71,8 @@ class UserStatus(models.Model):
 
     class Meta:
         db_table = 'user_status'
+    def __str__(self):
+        return self.name
 
 
 class UserType(models.Model):
@@ -83,3 +86,5 @@ class UserType(models.Model):
 
     class Meta:
         db_table = 'user_type'
+    def __str__(self):
+        return self.name

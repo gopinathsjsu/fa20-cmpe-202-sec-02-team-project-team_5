@@ -85,17 +85,25 @@ class UpdateUserStatusView(GenericAPIView):
     This view allows Admin to approve or reject the users whose registeration status is pending
     """
     def put(self, request):
-        data = request.data
-        user_id = data.get('user_id')
-        user_status = data.get('user_status')
-        if user_id and user_status:
+        
+        serializer = UserStatusUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+
+
+
+        # data = request.data
+        # user_id = data.get('user_id')
+        # user_status = data.get('user_status')
+        # if user_id and user_status:
             admin = JWTAuthentication.validate_token(request)      
             if JWTAuthentication.isAdmin(admin.id):
                 try:
-                    user_info = User.objects.get(id=user_id)
+                    user_info = User.objects.get(id=data['id'])
                     if user_info:
-                        user_info.user_status_id = user_status
-                        user_info.save()
+                        serializer.save()
+                        # user_info.user_status_id = user_status
+                        # user_info.save()
                         return JsonResponse({'message': 'Update successful'}, status=status.HTTP_201_CREATED)
                     else:
                         return JsonResponse({'message': 'No user found'}, status=status.HTTP_404_NOT_FOUND)
