@@ -6,10 +6,6 @@ It helps in data flow in Json formart to and fro communication (Json to Python a
 from core.models import *
 from rest_framework import serializers
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = '__all__' 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
@@ -48,4 +44,4 @@ class UserTypeSerializer(serializers.ModelSerializer):
 class UserAdditionalInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAdditionalInfo
-        fields = '__all__' 
+        fields = ('date_of_birth','credit_score','annual_salary') 
