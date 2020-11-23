@@ -8,6 +8,7 @@ from django.contrib.postgres.fields.citext import CIEmailField
 from django.conf import settings
 import datetime
 
+
 class Role(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
@@ -19,17 +20,54 @@ class Role(models.Model):
 
     class Meta:
         db_table = 'role'
+    def __str__(self):
+        return self.name
 
+class UserStatus(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True,blank=True)
+
+    class Meta:
+        db_table = 'user_status'
+    def __str__(self):
+        return self.name
+
+
+class UserType(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True,blank=True)
+
+    class Meta:
+        db_table = 'user_type'
+    def __str__(self):
+        return self.name
 
 class User(models.Model):
-    DEFAULT_ROLE = 2
-    DEFAULT_USER_STATUS = 1
-    DEFAULT_USER_TYPE = 2
+
+    def get_default_role():
+        return Role.objects.get(name="user").id
+    def get_default_user_type():
+        return UserType.objects.get(name="default").id
+    def get_default_user_status():
+        return UserStatus.objects.get(name="pending").id 
+    DEFAULT_ROLE = 4    
+    DEFAULT_USER_STATUS = 4
+    DEFAULT_USER_TYPE = 6           
     
     id = models.AutoField(primary_key=True)
-    role = models.ForeignKey(Role,default=DEFAULT_ROLE,on_delete=models.CASCADE)
-    user_status = models.ForeignKey('UserStatus',default=DEFAULT_USER_STATUS,on_delete=models.CASCADE)
-    user_type = models.ForeignKey('UserType',default=DEFAULT_USER_TYPE,on_delete=models.CASCADE)
+    role = models.ForeignKey(Role,default=get_default_role,on_delete=models.CASCADE)
+    user_status = models.ForeignKey(UserStatus,default=get_default_user_status,on_delete=models.CASCADE)
+    user_type = models.ForeignKey(UserType,default=get_default_user_type,on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email_id = CIEmailField(max_length=100,unique=True) # CREATE EXTENSION IF NOT EXISTS citext; 
@@ -41,7 +79,6 @@ class User(models.Model):
 
     class Meta:
         db_table = 'user'
-
 
 class UserAdditionalInfo(models.Model):
  
@@ -59,27 +96,3 @@ class UserAdditionalInfo(models.Model):
     class Meta:
         db_table = 'user_additional_info'
 
-class UserStatus(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True,blank=True)
-
-    class Meta:
-        db_table = 'user_status'
-
-
-class UserType(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True,blank=True)
-
-    class Meta:
-        db_table = 'user_type'

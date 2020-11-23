@@ -1,18 +1,12 @@
-import json
-import jwt
 from core.models import *
 from core.serializers import *
 from applications.serializers import *
-from django.conf import settings
+from home_listing.models import *
 from rest_framework import status
-from django.core import serializers
-from django.http import HttpResponse
-from rest_framework.response import Response
 from core.authentications import JWTAuthentication
 from django.http.response import JsonResponse
 from rest_framework.generics import GenericAPIView,CreateAPIView,ListAPIView
-from django.contrib.auth.hashers import make_password,check_password
-
+from home_finder.utility import Util
 
 class SubmitApplicationView(GenericAPIView):
     """
@@ -20,13 +14,18 @@ class SubmitApplicationView(GenericAPIView):
     """
     def post(self, request):
         user = JWTAuthentication.validate_token(request)
-        serializer = SubmitApplicationSerializer(data=request.data)
-        if serializer.is_valid():
-            data = serializer.validated_data
-            serializer.save()
-            user_application = Application.objects.get(user=user.id)
-            serializer = ApplicationSerializer(user_application)
-            response_data = {'message':'Application submission successful','application_details': serializer.data}
-            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+        application_data = request.data['application_details']
+        home_listing_id = application_data['home_listing']
+        additional_info_serializer = CreateUserAdditionalInfoSerializer(data=request.data['user_details'])
+        application_serializer = CreateApplicationSerializer(data=request.data['application_details'])
+        
+        if additional_info_serializer.is_valid() and application_serializer.is_valid():
+            application = application_serializer.save(user=user)
+            user_application = ApplicationSerializer(application[0])
+            user_additional_info = additional_info_serializer.save(user=user)
+            user_info = UserAdditionalInfoSerializer(user_additional_info[0])
+            to_email = Listing.objects.get(id=home_listing_id).listed_by.email_id
+            Util.send_email('subject', 'body of the message', 'from@gmail.com', [to_email])
+            return JsonResponse({'message':'Application submission successful'}, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'message':'Application submission unsuccessful'},status=status.HTTP_400_BAD_REQUEST)      

@@ -1,12 +1,6 @@
-import json
-import jwt
 from core.models import *
 from core.serializers import *
-from django.conf import settings
 from rest_framework import status
-from django.core import serializers
-from django.http import HttpResponse
-from rest_framework.response import Response
 from core.authentications import JWTAuthentication
 from django.http.response import JsonResponse
 from rest_framework.generics import GenericAPIView,CreateAPIView,ListAPIView
@@ -18,19 +12,21 @@ class UserRegistrationView(GenericAPIView):
     This view is created for any user to register to HomeFinder application. 
     Validated the user infomation and adds the user to database with pending status.
     """
-    serializer_class = UserSerializer
-
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            data = serializer.validated_data
-            data['password'] = make_password(data['password'])
-            serializer.save()
-            user_info = User.objects.get(email_id=data['email_id'])
-            serializer = UserRegistrationSerializer(user_info)
-            access_token = JWTAuthentication.generate_access_token(user_info.id)
-            response_data = {'message':'User registration successful','user_details': serializer.data,'token': access_token}
-            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():     
+            user_info = User.objects.filter(email_id=request.data['email_id'])
+            if not user_info:
+                data = serializer.validated_data
+                data['password'] = make_password(data['password'])
+                user_info = serializer.save()
+                serializer = UserRegistrationSerializer(user_info)
+                access_token = JWTAuthentication.generate_access_token(user_info.id)
+                response_data = {'message':'User registration successful','user_details': serializer.data,'token': access_token}
+                return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+            else:
+                response_data = {'message':'User already exists with provided email id'}
+                return JsonResponse(response_data)
         else:
             return JsonResponse(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -85,14 +81,15 @@ class UpdateUserStatusView(GenericAPIView):
     This view allows Admin to approve or reject the users whose registeration status is pending
     """
     def put(self, request):
-        data = request.data
-        user_id = data.get('user_id')
-        user_status = data.get('user_status')
-        if user_id and user_status:
+        
+        serializer = UserStatusUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            user_status = data.get('user_status')
             admin = JWTAuthentication.validate_token(request)      
             if JWTAuthentication.isAdmin(admin.id):
                 try:
-                    user_info = User.objects.get(id=user_id)
+                    user_info = User.objects.get(id=data['id'])
                     if user_info:
                         user_info.user_status_id = user_status
                         user_info.save()
