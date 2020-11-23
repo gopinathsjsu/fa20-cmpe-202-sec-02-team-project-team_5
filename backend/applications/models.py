@@ -3,7 +3,8 @@ from core.models import User
 from home_listing.models import Listing
 
 
-class Application(models.Model):   
+class Application(models.Model):
+
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, models.DO_NOTHING)
     home_listing = models.ForeignKey(Listing, models.DO_NOTHING)
