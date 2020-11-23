@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'favorites.apps.FavoritesConfig',
     'corsheaders',
     'applications.apps.ApplicationsConfig',
+    'algoliasearch_django',
 ]
 
 MIDDLEWARE = [
@@ -180,6 +181,10 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=86400),
 }
 
+ALGOLIA = {
+    'APPLICATION_ID': os.getenv('APPLICATION_ID'),
+    'API_KEY': os.getenv('API_KEY')
+}
 #Email Notification SMTP settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
