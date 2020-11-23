@@ -79,6 +79,8 @@ class Listing(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     deleted_why = models.TextField(null=True, blank=True)
 
+    def images(self):
+        return [image.url for image in self.image_set.all()]
 
 # HomeSchedule indicates the listing schedule details such as scheduled date and time,
 class HomeSchedule(models.Model):
