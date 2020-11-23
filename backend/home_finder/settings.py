@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'favorites.apps.FavoritesConfig',
     'corsheaders',
     'applications.apps.ApplicationsConfig',
+    'algoliasearch_django',
 ]
 
 MIDDLEWARE = [
@@ -178,4 +179,9 @@ JWT_ALGORITHM = os.getenv('JWT_ALGORITHM')
 JWT_AUTH = { 
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=86400),
+}
+
+ALGOLIA = {
+    'APPLICATION_ID': os.getenv('APPLICATION_ID'),
+    'API_KEY': os.getenv('API_KEY')
 }
