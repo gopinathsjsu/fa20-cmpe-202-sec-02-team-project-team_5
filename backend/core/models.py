@@ -80,6 +80,7 @@ class User(models.Model):
     class Meta:
         db_table = 'user'
 
+
 class UserAdditionalInfo(models.Model):
  
     id = models.AutoField(primary_key=True)

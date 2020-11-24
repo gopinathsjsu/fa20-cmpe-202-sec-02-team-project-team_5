@@ -87,7 +87,7 @@ class HomeSchedule(models.Model):
     id = models.AutoField(primary_key=True)
     scheduled_by = models.ForeignKey(User, models.DO_NOTHING)
     listing = models.ForeignKey(Listing, models.DO_NOTHING)
-    schedule_datetime = models.DateTimeField()
+    schedule_datetime = models.DateTimeField()  # Split date and time into 2 fields
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

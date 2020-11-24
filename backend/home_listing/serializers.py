@@ -107,8 +107,9 @@ class CreateListingSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         print("validated_data", validated_data)
         Listing.objects.filter(id=instance.id).update(**validated_data)
-        # listing.save()
+
         instance.refresh_from_db()
+        instance.save()
 
         return instance
 
