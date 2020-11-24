@@ -2,6 +2,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from core.authentications import JWTAuthentication
+from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
+
 
 from .models import Listing
 from .serializers import ListingSerializer
@@ -21,12 +24,50 @@ def listings(request):
         images_serializer.save(listing=new_listing)
         return JsonResponse(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
 
-    return JsonResponse(images_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # get /listings/listing_id/
+# @csrf_exempt
+@api_view(['PUT', 'GET', 'DELETE'])
 def listing_detail_view(request, listing_id):
-    queryset = Listing.objects.filter(deleted_at__isnull=True)
+    print("get/put listing view")
+    if request.method == "GET":
+        queryset = Listing.objects.filter(deleted_at__isnull=True)
+        listing = get_object_or_404(queryset, pk=listing_id)
+
+        serializer = ListingSerializer(listing)
+        return JsonResponse(serializer.data)
+    elif request.method == "PUT":
+        return update_listing(request, listing_id)
+    else:
+        return delete_listing(request, listing_id)
+
+def update_listing(request, listing_id):
+    user = JWTAuthentication.validate_token(request)
+
+    queryset = Listing.objects.filter(listed_by=user)
     listing = get_object_or_404(queryset, pk=listing_id)
 
-    serializer = ListingSerializer(listing)
-    return JsonResponse(serializer.data)
+    # images_serializer = CreateImagesSerializer(data=dict(request.data))
+    request.data.pop("images")
+    listing_serializer = CreateListingSerializer(listing, data=request.data)
+
+    if listing_serializer.is_valid():
+        print("put is valid")
+        updated_listing = listing_serializer.save()
+        return JsonResponse(ListingSerializer(updated_listing).data, status=status.HTTP_200_OK)
+
+    return JsonResponse(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def delete_listing(request, listing_id):
+    user = JWTAuthentication.validate_token(request)
+
+    queryset = Listing.objects.filter(listed_by=user)
+    listing = get_object_or_404(queryset, pk=listing_id)
+    listing.deleted_at = datetime.now()
+    listing.deleted_why = request.data.get("deleted_why", "user deleted")
+    listing.save()
+
+
+    return JsonResponse({ "status" : "Successfully deleted" }, status=status.HTTP_204_NO_CONTENT)
