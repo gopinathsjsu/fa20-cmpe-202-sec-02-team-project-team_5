@@ -10,30 +10,30 @@ function Menu(props) {
     <Navbar>
       <Nav className="mr-auto">
         <Nav.Item>
-          <Nav.Link><Link to='/buy'>Buy</Link></Nav.Link>
+          <Nav.Link href='/buy'>Buy</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link><Link to='/sell'>Sell</Link></Nav.Link>
+          <Nav.Link href='/sell'>Sell</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link><Link to='/rent'>Rent</Link></Nav.Link>
+          <Nav.Link href='/rent'>Rent</Nav.Link>
         </Nav.Item>
       </Nav>
-      <Navbar.Brand><Link to='/home'>Home Finder</Link></Navbar.Brand>
+      <Navbar.Brand to='/home'>Home Finder</Navbar.Brand>
         <Nav className="ml-auto" activeKey="/home">
           {localStorage.getItem('email') ? (
             
               <NavDropdown title={<FaUser/>} id="basic-nav-dropdown">
-                <NavDropdown.Item><Link to='/favourite-searches'>Favorite Searches</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link to='/favourite-homes'>Favorite Homes</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link to='/listings'>Listings</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link to='/applications'>Applications(Buy/Sell)</Link></NavDropdown.Item>
+                <NavDropdown.Item href='/favourite-searches'>Favorite Searches</NavDropdown.Item>
+                <NavDropdown.Item href='/favourite-homes'>Favorite Homes</NavDropdown.Item>
+                <NavDropdown.Item href='/listings'> Listings</NavDropdown.Item>
+                <NavDropdown.Item href='/applications'> Applications(Buy/Sell)</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item><Link to='/sign-out'>Sign out &nbsp;<FaSignOutAlt/></Link></NavDropdown.Item>
+                <NavDropdown.Item href='/sign-out'>Sign out &nbsp;<FaSignOutAlt/></NavDropdown.Item>
               </NavDropdown>
           ) : (
             <Nav.Item>
-              <Nav.Link><Link to='/sign-in'>Sign in  &nbsp;</Link></Nav.Link>
+              <Nav.Link href='/sign-in'>Sign in  &nbsp;</Nav.Link>
             </Nav.Item>
           )}
         </Nav>
