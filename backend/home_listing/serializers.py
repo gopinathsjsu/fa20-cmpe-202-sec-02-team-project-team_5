@@ -6,6 +6,10 @@ from core.models import User
 class ImageSerializer(serializers.Serializer):
     url = serializers.URLField()
 
+class OpenHouseSerializer(serializers.Serializer):
+    open_house_date = serializers.CharField()
+    open_house_start_time = serializers.CharField()
+    open_house_end_time = serializers.CharField()
 
 class ListingSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -31,7 +35,7 @@ class ListingSerializer(serializers.Serializer):
     listed_by = serializers.SerializerMethodField()
     created_at = serializers.DateTimeField()
     images = serializers.SerializerMethodField()
-
+    open_house = serializers.SerializerMethodField()
     lease_term = serializers.IntegerField()
     available_date = serializers.DateTimeField()
     security_deposit = serializers.IntegerField()
@@ -43,6 +47,10 @@ class ListingSerializer(serializers.Serializer):
     def get_images(self, obj):
         return ImageSerializer(obj.image_set, many=True).data
 
+    def get_open_house(self, obj):
+        # open_house = obj.open_house["open_house_date"]
+        # print("the open house obj is ", obj.objects.get.all())
+        return OpenHouseSerializer(obj.openhouse_set, many=True).data
 
 class HomeStatusFieldSerializer(serializers.Field):
     def to_internal_value(self, value):
@@ -73,6 +81,20 @@ class CreateImagesSerializer(serializers.Serializer):
 
         return Image.objects.bulk_create(image_objs)
 
+
+class CreateOpenHouseSerializer(serializers.Serializer):
+    open_house = serializers.ListField(child=serializers.DictField())
+
+    def create(self, validated_data):
+        print("create open house validated data: ", validated_data)
+        open_house_objs = []
+        for open_house in validated_data["open_house"]:
+            open_house_objs.append(
+                OpenHouse(open_house_date=open_house["open_house_date"], open_house_start_time=open_house["open_house_start_time"],
+                          open_house_end_time=open_house["open_house_end_time"], listing=validated_data["listing"])
+                )
+
+        return OpenHouse.objects.bulk_create(open_house_objs)
 
 class CreateListingSerializer(serializers.Serializer):
 
@@ -113,3 +135,10 @@ class CreateListingSerializer(serializers.Serializer):
 
         return instance
 
+
+class CreateListingScheduleSerializer(serializers.Serializer):
+    schedule_visits_date = serializers.DateField()
+    schedule_visits_time = serializers.TimeField()
+
+    def create(self, validated_data):
+        return HomeSchedule.objects.create(**validated_data)

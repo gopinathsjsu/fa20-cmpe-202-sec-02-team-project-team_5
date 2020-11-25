@@ -179,3 +179,80 @@ Response body: (response sent to frontend)
 
 
 5) GET all the listings, the request should go to Algolia Database.
+
+
+6) Schedule open house:
+The user can create the open house schedules while creating the listings or updating the listings.
+POST /listings/
+http://localhost:8000/listings/
+
+Request Body : (from frontend to backend)
+{
+	"listing_type" : "rent",
+	"home_type" : "apartments",
+	"home_status" : "available",
+	"zip_code" : "91111",
+	"street_address" : "1000, Race Street",
+	"city" : "San Carlos",
+	"state" : "CA",
+	"description" : "Testing data",
+	"country" : "United States",
+	"price" : 2500,
+	"bedrooms" : 3,
+	"bathroom" : 2,
+	"sqft_area" : 1000,
+	"year_built" : 1990,
+	"images" : ["https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg", "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg"],
+	"open_house" : [ {"open_house_date" : "2020-11-24", "open_house_start_time" : "01:33:12", "open_house_end_time" : "02:33:12"}, {"open_house_date" : "2020-11-26", "open_house_start_time" : "12:33:12", "open_house_end_time" : "13:33:12"}]
+}
+
+Response Body: (from backend to frontend)
+{
+    "id": 50,
+    "city": "San Carlos",
+    "state": "CA",
+    "country": "United States",
+    "bedrooms": 3,
+    "bathroom": 2,
+    "year_built": 1990,
+    "home_type": "apartments",
+    "home_status": "available",
+    "description": "Testing data",
+    "zip_code": "91111",
+    "street_address": "1000, Race Street",
+    "air_conditioner": false,
+    "heater": null,
+    "price": 2500,
+    "flooring": null,
+    "sqft_area": 1000,
+    "kitchen": null,
+    "laundry": null,
+    "parking_type": null,
+    "listed_by": "prerana shekhar",
+    "created_at": "2020-11-24T20:04:11.634899Z",
+    "images": [
+        {
+            "url": "https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg"
+        },
+        {
+            "url": "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg"
+        }
+    ],
+    "open_house": [
+        {
+            "open_house_date": "2020-11-24",
+            "open_house_start_time": "01:33:12",
+            "open_house_end_time": "02:33:12"
+        },
+        {
+            "open_house_date": "2020-11-26",
+            "open_house_start_time": "12:33:12",
+            "open_house_end_time": "13:33:12"
+        }
+    ],
+    "lease_term": null,
+    "available_date": null,
+    "security_deposit": null
+}
+
+
