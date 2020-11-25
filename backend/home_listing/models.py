@@ -82,13 +82,39 @@ class Listing(models.Model):
     def images(self):
         return [image.url for image in self.image_set.all()]
 
+    def open_houses(self):
+        result = []
+
+        for open_house in self.openhouse_set.all():
+            result.append({
+                "open_house_date": open_house.open_house_date,
+                "open_house_start_time": open_house.open_house_start_time,
+                "open_house_end_time": open_house.open_house_end_time
+            })
+
+        return result
+
+
 # HomeSchedule indicates the listing schedule details such as scheduled date and time,
 class HomeSchedule(models.Model):
     id = models.AutoField(primary_key=True)
     scheduled_by = models.ForeignKey(User, models.DO_NOTHING)
     listing = models.ForeignKey(Listing, models.DO_NOTHING)
-    schedule_datetime = models.DateTimeField()  # Split date and time into 2 fields
-    description = models.TextField(null=True, blank=True)
+    schedule_visits_date = models.DateField(null=True, blank=True)
+    schedule_visits_time = models.TimeField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True) # remove this
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
+
+
+class OpenHouse(models.Model):
+    id = models.AutoField(primary_key=True)
+    listing = models.ForeignKey(Listing, models.DO_NOTHING)
+    open_house_date = models.DateField(null=True, blank=True)
+    open_house_start_time = models.TimeField(null=True, blank=True)
+    open_house_end_time = models.TimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
