@@ -7,6 +7,8 @@ from core.authentications import JWTAuthentication
 from django.http.response import JsonResponse
 from rest_framework.generics import GenericAPIView,CreateAPIView,ListAPIView
 from home_finder.utility import Util
+from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 class SubmitApplicationView(GenericAPIView):
     """
@@ -25,7 +27,35 @@ class SubmitApplicationView(GenericAPIView):
             user_additional_info = additional_info_serializer.save(user=user)
             user_info = UserAdditionalInfoSerializer(user_additional_info[0])
             to_email = Listing.objects.get(id=home_listing_id).listed_by.email_id
-            Util.send_email('subject', 'body of the message', 'from@gmail.com', [to_email])
-            return JsonResponse({'message':'Application submission successful'}, status=status.HTTP_201_CREATED)
+            Util.send_email('Recieved New Application', 'Please navigate to your listings to review applications'\
+            , 'from@gmail.com', [to_email])
+            return JsonResponse({'message':'Application submitted successfully'}, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse({'message':'Application submission unsuccessful'},status=status.HTTP_400_BAD_REQUEST)      
+            return JsonResponse({'message':'Application submission unsuccessful'},status=status.HTTP_400_BAD_REQUEST)
+
+class ListApplications(GenericAPIView):
+    """
+    This view is created to allow seller/landlord/realtor to view the submitted application assosiated with their posted listsing.
+    """
+    def get(self,request):
+        user = JWTAuthentication.validate_token(request)
+        criterion1 = Q(deleted_at__isnull=True)
+        listing_id = int(request.GET.get('listing_id', None))
+        criterion2 = Q(home_listing=listing_id)
+        querylist = Application.objects.filter(criterion1 & criterion2)
+
+        serializer = ListHomeListingApplications(querylist,many=True)
+        result = serializer.data
+        for i, app in enumerate(querylist):
+            user_info =  UserAdditionalInfo.objects.get(user=app.user)
+            user_info_serializer = ListUserAddDeatilsSerializer(user_info)
+            result[i]['user_info'] = user_info_serializer.data
+
+        return JsonResponse(result,status=status.HTTP_201_CREATED,safe=False)
+
+
+
+
+
+
+

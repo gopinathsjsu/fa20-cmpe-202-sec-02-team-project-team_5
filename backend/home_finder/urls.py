@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^listings/', include('home_listing.urls')),
     url(r'^favorites/', include('favorites.urls')),
     url(r'^applications/', include('applications.urls')),
-
 ]

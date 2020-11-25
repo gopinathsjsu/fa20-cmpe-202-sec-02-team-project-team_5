@@ -45,7 +45,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         slug_field='name')
     class Meta:
         model = User
-        exclude = ('id','password')
+        fields = ('role','user_status','user_type','first_name','last_name','email_id')
         
 class RetriveUsersSerializer(serializers.ModelSerializer):
     user_type = serializers.SlugRelatedField(
@@ -55,10 +55,31 @@ class RetriveUsersSerializer(serializers.ModelSerializer):
         model = User
         fields =  ('id','first_name','last_name','email_id','user_type')
 
-class UserAdditionalInfoSerializer(serializers.ModelSerializer):
+
+class FlattenMixin(object):
+    """Flatens the specified related objects in this representation"""
+    def to_representation(self, obj):
+        assert hasattr(self.Meta, 'flatten'), (
+            'Class {serializer_class} missing "Meta.flatten" attribute'.format(
+                serializer_class=self.__class__.__name__
+            )
+        )
+        # Get the current object representation
+        rep = super(FlattenMixin, self).to_representation(obj)
+        # Iterate the specified related objects with their serializer
+        for field, serializer_class in self.Meta.flatten:
+            serializer = serializer_class(context = self.context)
+            objrep = serializer.to_representation(getattr(obj, field))
+            #Include their fields, prefixed, in the current   representation
+            for key in objrep:
+                rep[key] = objrep[key]
+        return rep
+
+class UserAdditionalInfoSerializer(FlattenMixin,serializers.ModelSerializer):
     class Meta:
         model = UserAdditionalInfo
-        fields = ('sex','date_of_birth','credit_score','annual_salary') 
+        fields = ('sex','date_of_birth','credit_score','annual_salary')
+        flatten = [ ('user', UserRegistrationSerializer) ]
 
 class UserLoginSerializer(serializers.ModelSerializer):
     user_type = serializers.SlugRelatedField(

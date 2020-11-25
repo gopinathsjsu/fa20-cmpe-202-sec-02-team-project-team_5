@@ -4,6 +4,6 @@ from django.conf.urls import url
 
 urlpatterns = [
 
-    url('user/submit$', SubmitApplicationView.as_view())
-
+    url('submit$', SubmitApplicationView.as_view()),
+    url('', ListApplications.as_view())
 ]

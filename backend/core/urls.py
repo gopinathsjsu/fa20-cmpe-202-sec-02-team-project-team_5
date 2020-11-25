@@ -7,6 +7,7 @@ urlpatterns = [
     url('user/register$', UserRegistrationView.as_view()),
     url('user/login$', UserLoginView.as_view()),
     url('admin/users$',PendingUserView.as_view()),
-    url('admin/update/user$',UpdateUserStatusView.as_view())
+    url('admin/update/user$',UpdateUserStatusView.as_view()),
+    url('user/info$',UserAccountInfo.as_view()),
 
 ]

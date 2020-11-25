@@ -1,0 +1,69 @@
+Applications APIs:
+
+1. Submit/Update Rental/Buyer application.
+
+Authorization required in Header
+
+POST    http://127.0.0.1:8000/applications/submit
+
+Request:
+
+{
+    "application_details": {
+        "home_listing": 1,
+        "offered_price": 26
+    },
+    "user_details":{
+        "sex": "F",
+        "date_of_birth": "2020-03-22",
+        "credit_score": 650,
+        "employment_type" : "Engineer",
+        "annual_salary": 3009        
+    }
+}
+
+Note : user_details like sex, employement_type are only non-mandatory fileds for this POST request
+
+Response:
+
+{
+    "message": "Application submission successful"
+}
+
+======================================================
+
+2. Retrive applications submitted per home_listing
+
+Authorization required in Header
+
+GET     http://127.0.0.1:8000/applications/?listing_id=1
+
+Response:
+[
+    {
+        "status": "pending",
+        "offered_price": "26.00",
+        "created_at": "2020-11-25T00:59:39.707Z",
+        "user": "Tej Yash",
+        "user_info": {
+            "sex": null,
+            "date_of_birth": "2020-03-22",
+            "credit_score": 650,
+            "employment_type": null,
+            "annual_salary": "3009.00"
+        }
+    },
+    {
+        "status": "pending",
+        "offered_price": "26.00",
+        "created_at": "2020-11-23T06:11:04.898Z",
+        "user": "Marry Marry",
+        "user_info": {
+            "sex": null,
+            "date_of_birth": "2020-03-22",
+            "credit_score": 650,
+            "employment_type": null,
+            "annual_salary": "3009.00"
+        }
+    }
+]
