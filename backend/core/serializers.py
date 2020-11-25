@@ -55,7 +55,6 @@ class RetriveUsersSerializer(serializers.ModelSerializer):
         model = User
         fields =  ('id','first_name','last_name','email_id','user_type')
 
-
 class FlattenMixin(object):
     """Flatens the specified related objects in this representation"""
     def to_representation(self, obj):
@@ -93,12 +92,12 @@ class UserStatusUpdateSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     user_status = UserStatusFieldSerializer()
     role = RoleFieldSerializer(required=False)
-    user_status = UserStatusFieldSerializer(required=False)
     user_type = UserTypeFieldSerializer(required=False)
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
     email_id = serializers.CharField(required=False)
     password = serializers.CharField(required=False)
+    deleted_why = serializers.CharField(required=False)
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)

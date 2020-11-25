@@ -8,6 +8,8 @@ from django.contrib.auth.hashers import make_password,check_password
 from home_finder.utility import Util
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from datetime import datetime
+from django.utils import timezone
 
 # Core app views. All core app views are authenticated using JWT token authorization.
 class UserRegistrationView(GenericAPIView):
@@ -17,8 +19,8 @@ class UserRegistrationView(GenericAPIView):
     """
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():     
-            user_info = User.objects.filter(email_id=request.data['email_id'])
+        if serializer.is_valid():
+            user_info = User.objects.get(email_id=request.data['email_id'])
             if not user_info:
                 data = serializer.validated_data
                 data['password'] = make_password(data['password'])
@@ -27,9 +29,10 @@ class UserRegistrationView(GenericAPIView):
                 access_token = JWTAuthentication.generate_access_token(user_info.id)
                 response_data = {'message':'User registration successful','user_details': serializer.data,'token': access_token}
                 return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+            elif user_info.deleted_at:
+                return JsonResponse({'message':'Can not register, user deactivated'},status=status.HTTP_412_PRECONDITION_FAILED)
             else:
-                response_data = {'message':'User already exists with provided email id'}
-                return JsonResponse(response_data)
+                return JsonResponse({'message':'User already exists with provided email id'},status=status.HTTP_400_BAD_REQUEST)
         else:
             return JsonResponse(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -119,6 +122,9 @@ class UpdateUserStatusView(GenericAPIView):
             return JsonResponse({'message': 'Provide user details'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserAccountInfo(GenericAPIView):
+    """
+    This view allows to retrive user account profile
+    """
     def get(self,request):
         user = JWTAuthentication.validate_token(request)
         user_account = UserAdditionalInfo.objects.get(user=user.id)
@@ -128,3 +134,35 @@ class UserAccountInfo(GenericAPIView):
             serializer = UserRegistrationSerializer(user)
         response_data = {'message':'User details retrival succesful','user_deatils': serializer.data}
         return JsonResponse(response_data,status=status.HTTP_200_OK)
+
+class RemoveUserView(GenericAPIView):
+    """
+    This view allows Admin to remove users
+    """
+    def post(self, request):
+        serializer = UserStatusUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            user_id = data.get('id')
+            user_status = data.get('user_status')
+            reason = data.get('deleted_why')
+            admin = JWTAuthentication.validate_token(request)
+            if JWTAuthentication.isAdmin(admin.id):
+                try:
+                    user = User.objects.get(id=user_id)
+                    if user:
+                        user.user_status_id= user_status
+                        user.deleted_at = timezone.now()
+                        user.deleted_why = reason
+                        user.is_active = False
+                        user.save()
+                        return JsonResponse({'message': 'User deleted'}, status=status.HTTP_201_CREATED)
+                    else:
+                        return JsonResponse({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+                except Exception as ex:
+                    print(ex)
+                    return JsonResponse({'message': 'Unable to process the request'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                return JsonResponse({'message': 'Admin authentication failed'}, status=status.HTTP_412_PRECONDITION_FAILED)
+        else:
+            return JsonResponse({'message': 'Provide user details'}, status=status.HTTP_400_BAD_REQUEST)
