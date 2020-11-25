@@ -89,7 +89,7 @@ class UserAdditionalInfo(models.Model):
     date_of_birth = models.DateField(default=datetime.date.today)
     credit_score = models.IntegerField(default=700)
     employment_type = models.CharField(max_length=100,null=True,blank=True)
-    annual_salary = models.DecimalField(max_digits=6, decimal_places=2)
+    annual_salary = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True,blank=True)
