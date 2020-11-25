@@ -5,12 +5,16 @@
 .nav-link {
   font-size:18px;
   color:black !important;
-  margin-right: 5spx;
+  margin-right: 5px;
 }
 
 a:hover {
   color: blue !important;
 } 
+
+.menu-container {
+  height:100px;
+}
 
 .menu-container .row{
   height: 80px;
@@ -25,7 +29,6 @@ a:hover {
 .menu-container .col{
   margin: auto;
 }
-
 
 .logo {
   height: 100px;
