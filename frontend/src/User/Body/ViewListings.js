@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Grids from './Grids/Grids';
 
 function ViewListings(props) {
     const[homes, setHomes] = useState([]);
