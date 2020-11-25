@@ -3,7 +3,7 @@ import ListingsGrid from './Grids/ListingsGrid';
 
 const Rent = () => {
   return (
-    <ListingsGrid type = "Listing" />
+    <ListingsGrid type = "rent" />
   );
 }
 
