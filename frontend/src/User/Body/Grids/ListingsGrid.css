@@ -5,12 +5,14 @@
 }
   
 .ais-Hits-item {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
+    margin-right: 2em;
 }
 
 .ais-Hits-list {
     display: flex;
     flex-wrap: wrap;;
+    justify-content: center;
     list-style-type: none;
 }
   

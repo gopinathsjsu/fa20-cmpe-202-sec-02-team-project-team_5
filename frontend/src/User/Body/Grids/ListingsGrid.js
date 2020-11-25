@@ -6,9 +6,9 @@ import {InstantSearch,Hits}from 'react-instantsearch-dom';
 import './ListingsGrid.css';
 
 const Hit = (listing) => {
-    const homes = listing.hit;
+    const house_listing = listing.hit;
     return (
-      <Grids className="home-info" homes = {homes}></Grids>
+      <Grids className="home-info" house = {house_listing}></Grids>
     );
 }
 
@@ -17,11 +17,10 @@ const searchClient = algoliasearch(
     '015c1da5c884e9c79068465473b92e79'
 );
 
-const ListingsGrid = (props) => {
+const ListingsGrid = ({type}) => {
     return (
         <div>
-          <h2 style = {{color: '#000'}}>Buy Homes</h2>
-          <InstantSearch indexName={props.type} searchClient={searchClient}>
+          <InstantSearch indexName={type} searchClient={searchClient}>
             <Hits hitComponent={Hit} />
           </InstantSearch>
         </div>

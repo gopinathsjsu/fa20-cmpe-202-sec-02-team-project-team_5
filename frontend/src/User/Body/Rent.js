@@ -1,19 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import Grids from './Grids/Grids';
+import React from 'react';
+import ListingsGrid from './Grids/ListingsGrid';
 
-function Rent(props) {
-  const[homes, setHomes] = useState([]);
-  useEffect(() => {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    fetch(proxyurl + "https://home-finder-backend-staging.herokuapp.com/listings/1")
-      .then((response) => response.json())
-      .then((data) => setHomes(data));
-  },[]);
+const Rent = () => {
   return (
-    <div>
-      <h2 style = {{color: '#000'}}>Rent Homes</h2>
-      <Grids homes = {homes}></Grids>
-    </div>
+    <ListingsGrid type = "Listing" />
   );
 }
 
