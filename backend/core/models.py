@@ -17,6 +17,7 @@ class Role(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True,blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'role'
@@ -31,6 +32,7 @@ class UserStatus(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True,blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'user_status'
@@ -46,6 +48,7 @@ class UserType(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True,blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'user_type'
@@ -76,6 +79,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True,blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'user'
@@ -93,6 +97,7 @@ class UserAdditionalInfo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True,blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'user_additional_info'

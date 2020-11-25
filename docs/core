@@ -138,3 +138,22 @@ Response:
         "email_id": "Tej.Tej@gmail.com"
     }
 }
+
+6. Remove User
+
+Admin Authorization is required in header
+
+POST    http://127.0.0.1:8000/core/admin/remove/user
+
+Request :
+{
+    "id": 71,
+    "user_status": "deactivated",
+    "deleted_why": "background verification failed"
+}
+
+Response:
+
+{
+    "message": "User deleted"
+}
