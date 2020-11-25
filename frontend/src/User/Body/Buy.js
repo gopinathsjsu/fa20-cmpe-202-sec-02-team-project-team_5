@@ -1,18 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import Grids from './Grids/Grids';
+import React from 'react';
+import ListingsGrid from './Grids/ListingsGrid';
 
-const Buy = (props) => {
-  const[homes, setHomes] = useState([]);
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((data) => setHomes(data));
-  },[]);
+const Buy = () => {
   return (
-    <div>
-      <h2 style = {{color: '#000'}}>Buy Homes</h2>
-      <Grids homes = {homes}></Grids>
-    </div>
+    <ListingsGrid type = "Listing" />
   );
 }
 

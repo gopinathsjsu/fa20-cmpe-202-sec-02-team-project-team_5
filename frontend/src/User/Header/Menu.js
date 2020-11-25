@@ -13,13 +13,13 @@ function Menu(props) {
           <Nav.Link href='/buy'>Buy</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href='/sell'>Sell</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
           <Nav.Link href='/rent'>Rent</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href='/sell'>Sell</Nav.Link>
+        </Nav.Item>
       </Nav>
-      <Navbar.Brand to='/home'>Home Finder</Navbar.Brand>
+      <Navbar.Brand href='/home'>Home Finder</Navbar.Brand>
         <Nav className="ml-auto" activeKey="/home">
           {localStorage.getItem('email') ? (
             
@@ -33,7 +33,7 @@ function Menu(props) {
               </NavDropdown>
           ) : (
             <Nav.Item>
-              <Nav.Link href='/sign-in'>Sign in  &nbsp;</Nav.Link>
+              <Nav.Link href='/sign-in'>Sign in &nbsp;</Nav.Link>
             </Nav.Item>
           )}
         </Nav>

@@ -4,7 +4,8 @@ import Grids from './Grids/Grids';
 function Rent(props) {
   const[homes, setHomes] = useState([]);
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    fetch(proxyurl + "https://home-finder-backend-staging.herokuapp.com/listings/1")
       .then((response) => response.json())
       .then((data) => setHomes(data));
   },[]);
