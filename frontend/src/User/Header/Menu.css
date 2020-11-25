@@ -2,6 +2,16 @@
   color:black !important;
 }
 
+.nav-link {
+  font-size:18px;
+  color:black !important;
+  margin-right: 5spx;
+}
+
+a:hover {
+  color: blue !important;
+} 
+
 .menu-container .row{
   height: 80px;
 }
@@ -14,4 +24,10 @@
 
 .menu-container .col{
   margin: auto;
+}
+
+
+.logo {
+  height: 100px;
+  width: 120px;
 }

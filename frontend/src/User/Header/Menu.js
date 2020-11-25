@@ -2,6 +2,7 @@ import React from 'react';
 import {Navbar,Nav,NavDropdown,Dropdown, Form,FormControl,Button,Container,Row,Col} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Menu.css';
+import logo from '../../Home-Finder.png'
 import {FaUser, FaSignInAlt, FaSignOutAlt} from 'react-icons/fa';
 
 function Menu(props) {
@@ -19,7 +20,7 @@ function Menu(props) {
           <Nav.Link href='/sell'>Sell</Nav.Link>
         </Nav.Item>
       </Nav>
-      <Navbar.Brand href='/home'>Home Finder</Navbar.Brand>
+      <Navbar.Brand href='/home'><img className = 'logo' src = {logo} alt ="Home Finder" ></img></Navbar.Brand>
         <Nav className="ml-auto" activeKey="/home">
           {localStorage.getItem('email') ? (
             
