@@ -31,7 +31,7 @@ function GridModal({house_info,home_id}) {
                 <li>Bathrooms: {house_info['bathroom']}</li>
                 <li>Home Status: {house_info['home_status']}</li>
                 <li>Year Built: {house_info['year_built']}</li>
-                <li>Home Size: {house_info['sqft_area']}  sqft</li>
+                <li>Home Area: {house_info['sqft_area']}  sqft</li>
                 <li>Heater: {house_info['heater']}</li>
                 <li>Kitchen: {house_info['kitchen']}</li>
                 <li>Laundry: {house_info['laundry']}</li>
