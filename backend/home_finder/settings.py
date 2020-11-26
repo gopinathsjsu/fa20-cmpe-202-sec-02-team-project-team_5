@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'applications.apps.ApplicationsConfig',
     'algoliasearch_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

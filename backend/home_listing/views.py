@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view
@@ -22,9 +22,9 @@ def listings(request):
         images_serializer.save(listing=new_listing)
         open_house_serializer.save(listing=new_listing)
         new_listing.save()
-        return JsonResponse(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
+        return Response(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
 
-    return JsonResponse(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # get /listings/listing_id/
 # @csrf_exempt
@@ -36,7 +36,7 @@ def listing_detail_view(request, listing_id):
         listing = get_object_or_404(queryset, pk=listing_id)
 
         serializer = ListingSerializer(listing)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
     elif request.method == "PUT":
         return update_listing(request, listing_id)
     else:
@@ -53,9 +53,9 @@ def update_listing(request, listing_id):
     if listing_serializer.is_valid():
         print("put is valid")
         updated_listing = listing_serializer.save()
-        return JsonResponse(ListingSerializer(updated_listing).data, status=status.HTTP_200_OK)
+        return Response(ListingSerializer(updated_listing).data, status=status.HTTP_200_OK)
 
-    return JsonResponse(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def delete_listing(request, listing_id):
@@ -67,7 +67,7 @@ def delete_listing(request, listing_id):
     listing.deleted_why = request.data.get("deleted_why", "user deleted")
     listing.save()
 
-    return JsonResponse({"status": "Successfully deleted" }, status=status.HTTP_200_OK)
+    return Response({"status": "Successfully deleted"}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -82,11 +82,11 @@ def listing_schedule(request, listing_id):
                         schedule_visits_date=request.data.get("schedule_visits_date"),
                         schedule_visits_time=request.data.get("schedule_visits_time")
             ).exists():
-                return JsonResponse({"status": "Schedule already booked"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"status": "Schedule already booked"}, status=status.HTTP_400_BAD_REQUEST)
             schedule_serializer.save(scheduled_by=user, listing_id=listing_id)
 
         except ObjectDoesNotExist as e:
-            JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
+            Response({}, status=status.HTTP_400_BAD_REQUEST)
 
-    return JsonResponse({"status": "Successfully scheduled"}, status=status.HTTP_200_OK)
+    return Response({"status": "Successfully scheduled"}, status=status.HTTP_200_OK)
 
