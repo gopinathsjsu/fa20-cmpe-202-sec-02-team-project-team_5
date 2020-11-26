@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Grids = (props) => {
     let house  = props.hit;
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
     function toggleModal() {
         setIsOpen(!isOpen);
     }
