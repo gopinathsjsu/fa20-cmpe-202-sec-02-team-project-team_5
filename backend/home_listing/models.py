@@ -46,6 +46,32 @@ class HomeStatus(models.Model):
     def __str__(self):
         return self.name
 
+
+class ParkingType(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class FlooringType(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_why = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
 # listing has the details of the listing
 class Listing(models.Model):
     id = models.AutoField(primary_key=True)
@@ -53,7 +79,9 @@ class Listing(models.Model):
     listing_type = models.ForeignKey(ListingType, models.DO_NOTHING)
     home_type = models.ForeignKey(HomeType, models.DO_NOTHING)
     home_status = models.ForeignKey(HomeStatus, models.DO_NOTHING)
-    description = models.TextField()
+    floor_type = models.ForeignKey(FlooringType, models.DO_NOTHING, null=True)
+    parking_space_type = models.ForeignKey(ParkingType, models.DO_NOTHING, null=True)
+    description = models.TextField(null=True, blank=True)
     zip_code = models.CharField(max_length=10)
     street_address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
@@ -63,11 +91,9 @@ class Listing(models.Model):
     sqft_area = models.IntegerField(null=True, blank=True)
     bedrooms = models.IntegerField()
     bathroom = models.IntegerField()
-    flooring = models.CharField(max_length=100, null=True, blank=True)
-    year_built = models.IntegerField()
+    year_built = models.IntegerField(null=True, blank=True)
     kitchen = models.CharField(max_length=100, null=True, blank=True)
     laundry = models.CharField(max_length=100, null=True, blank=True)
-    parking_type = models.CharField(max_length=100, null=True, blank=True)
     air_conditioner = models.BooleanField(default=False)
     heater = models.CharField(max_length=100, null=True, blank=True)
     available_date = models.DateTimeField(null=True, blank=True)
@@ -102,7 +128,6 @@ class HomeSchedule(models.Model):
     listing = models.ForeignKey(Listing, models.DO_NOTHING)
     schedule_visits_date = models.DateField(null=True, blank=True)
     schedule_visits_time = models.TimeField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True) # remove this
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -120,6 +145,7 @@ class OpenHouse(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     deleted_why = models.TextField(null=True, blank=True)
 
+
 # Image has the path to the images for listings
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
@@ -129,6 +155,9 @@ class Image(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
     deleted_why = models.TextField(null=True, blank=True)
+
+
+
 
 
 

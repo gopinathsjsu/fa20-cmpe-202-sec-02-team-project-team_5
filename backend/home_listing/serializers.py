@@ -27,11 +27,11 @@ class ListingSerializer(serializers.Serializer):
     air_conditioner = serializers.BooleanField()
     heater = serializers.CharField()
     price = serializers.IntegerField()
-    flooring = serializers.CharField()
+    floor_type = serializers.CharField()
     sqft_area = serializers.IntegerField()
     kitchen = serializers.CharField()
     laundry = serializers.CharField()
-    parking_type = serializers.CharField()
+    parking_space_type = serializers.CharField()
     listed_by = serializers.SerializerMethodField()
     created_at = serializers.DateTimeField()
     images = serializers.SerializerMethodField()
@@ -65,6 +65,16 @@ class HomeTypeFieldSerializer(serializers.Field):
 class ListingTypeSerializer(serializers.Field):
     def to_internal_value(self, value):
         return ListingType.objects.get(name=value)
+
+
+class FloorTypeSerializer(serializers.Field):
+    def to_internal_value(self, value):
+        return FlooringType.objects.get(name=value)
+
+
+class ParkingSpaceTypeSerializer(serializers.Field):
+    def to_internal_value(self, value):
+        return ParkingType.objects.get(name=value)
 
 
 class CreateImagesSerializer(serializers.Serializer):
@@ -110,12 +120,12 @@ class CreateListingSerializer(serializers.Serializer):
     price = serializers.IntegerField()
     bedrooms = serializers.IntegerField()
     bathroom = serializers.IntegerField()
-    flooring = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    floor_type = FloorTypeSerializer()
     sqft_area = serializers.IntegerField()
     year_built = serializers.IntegerField(allow_null=True)
     kitchen = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     laundry = serializers.CharField(required=False, allow_null=True, allow_blank=True)
-    parking_type = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    parking_space_type = ParkingSpaceTypeSerializer()
     air_conditioner = serializers.BooleanField(required=False, allow_null=True)
     heater = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     available_date = serializers.DateTimeField(required=False, allow_null=True)

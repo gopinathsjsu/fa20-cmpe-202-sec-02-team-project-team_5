@@ -3,12 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view
 from core.authentications import JWTAuthentication
-from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
-
-
-from .models import Listing
-from .serializers import ListingSerializer
 from .serializers import *
 from rest_framework import status
 
@@ -19,7 +14,6 @@ def listings(request):
     images_serializer = CreateImagesSerializer(data=dict(request.data))
     request.data.pop("images")
     open_house_serializer = CreateOpenHouseSerializer(data=dict(request.data))
-    # request.data.pop("open_house")
     listing_serializer = CreateListingSerializer(data=request.data)
 
     if listing_serializer.is_valid() and images_serializer.is_valid() and open_house_serializer.is_valid():
@@ -27,6 +21,7 @@ def listings(request):
         new_listing = listing_serializer.save(listed_by=user)
         images_serializer.save(listing=new_listing)
         open_house_serializer.save(listing=new_listing)
+        new_listing.save()
         return JsonResponse(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
 
     return JsonResponse(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -52,8 +47,6 @@ def update_listing(request, listing_id):
 
     queryset = Listing.objects.filter(listed_by=user)
     listing = get_object_or_404(queryset, pk=listing_id)
-
-    # images_serializer = CreateImagesSerializer(data=dict(request.data))
     request.data.pop("images")
     listing_serializer = CreateListingSerializer(listing, data=request.data)
 
