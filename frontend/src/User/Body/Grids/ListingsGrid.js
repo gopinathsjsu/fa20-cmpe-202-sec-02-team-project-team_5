@@ -17,7 +17,7 @@ const ListingsGrid = ({type}) => {
     }, []);
 
     const homeGrids = Object.entries(hits).map(([k,v]) => {
-        // console.log(hits);
+        console.log(hits);
         if(k === 'hits'){
             const map = Object.entries(v).map(([key, value]) => {
                 // console.log(value);
