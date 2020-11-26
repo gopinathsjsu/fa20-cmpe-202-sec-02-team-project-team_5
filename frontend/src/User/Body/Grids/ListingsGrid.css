@@ -29,3 +29,10 @@
     font-size: 14px;
     margin-bottom: 0.5em;
 }
+
+.ais-Pagination {
+    margin-top: 1em;
+  }
+span {
+    float: left;
+}

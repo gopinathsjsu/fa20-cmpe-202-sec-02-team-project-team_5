@@ -1,11 +1,18 @@
 import React from 'react';
 import { ListGroup, ListGroupItem, Card, Button } from 'react-bootstrap';
 import './Grids.css';
+import PropTypes from 'prop-types';
 
-const Grids = ({house}) => {
+const Grids = (props) => {
+    let house  = props.hit;
+    const [isOpen, setIsOpen] = useState(false);
+    function toggleModal() {
+        setIsOpen(!isOpen);
+    }
+    console.log(house['objectID']);
     return (
-        <div className ='bg-light-gray dib br3 pa3 ma2 bw2 shadow-5'>
-            <Card style={{ width: '25rem' }}>
+        <div className =''>
+            <Card>
                 <Card.Img variant="top" src={house['images'][1]} />
                 <Button href="#" variant="outline-danger" size="sm">Save as Favorite</Button>
                 <Card.Body>
@@ -23,5 +30,9 @@ const Grids = ({house}) => {
         </div>
     );
 }
+
+Grids.propTypes = {
+    hit: PropTypes.object.isRequired,
+  };
 
 export default Grids;

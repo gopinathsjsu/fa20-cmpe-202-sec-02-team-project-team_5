@@ -15,6 +15,7 @@ function App() {
   return (
     <DataContext.Provider value={{ data, setData }}>
       <div className="App">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"></link>
         <Router>
           {localStorage.getItem('userType') === 'admin' ? (
             <Admin/>

@@ -11,10 +11,10 @@ function Home(props) {
   Axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
 
   let handleUserVaildation = (user_id, status) => {
-    console.log('user_id',user_id);
+    console.log('id',user_id);
     console.log('status',status);
     let formData = {
-      user_id : user_id,
+      id : user_id,
       user_status : status
     }
     Axios.put(`${rooturl}/core/admin/update/user`,formData,{validateStatus: false}).then(response => {
@@ -72,8 +72,8 @@ function Home(props) {
               {user.processed ? (
                 <td><Badge variant="secondary">Submitted!</Badge>  </td>
               ) : (
-                <td><Button onClick={e => handleUserVaildation(user.id,1)}variant="success">Approve</Button>{' '}
-                <Button onClick={e => handleUserVaildation(user.id,2)}variant="danger">Reject</Button></td>
+                <td><Button onClick={e => handleUserVaildation(user.id,'approved')}variant="success">Approve</Button>{' '}
+                <Button onClick={e => handleUserVaildation(user.id,'rejected')}variant="danger">Reject</Button></td>
               )}
             </tr>
             }))}

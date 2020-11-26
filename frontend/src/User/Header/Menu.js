@@ -11,13 +11,13 @@ function Menu(props) {
     <Navbar>
       <Nav className="mr-auto">
         <Nav.Item>
-          <Nav.Link href='/buy'>Buy</Nav.Link>
+          <Nav.Link><Link to='/buy'>Buy</Link></Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href='/rent'>Rent</Nav.Link>
+          <Nav.Link><Link to='/rent'>Rent</Link></Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href='/sell'>Sell</Nav.Link>
+          <Nav.Link><Link to='/sell'>Sell</Link></Nav.Link>
         </Nav.Item>
       </Nav>
       <Navbar.Brand href='/home'><img className = 'logo' src = {logo} alt ="Home Finder" ></img></Navbar.Brand>
