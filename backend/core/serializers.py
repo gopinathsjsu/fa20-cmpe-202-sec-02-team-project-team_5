@@ -100,7 +100,7 @@ class UserStatusUpdateSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=False)
     email_id = serializers.CharField(required=False)
     password = serializers.CharField(required=False)
-    deleted_why = serializers.CharField()
+    deleted_why = serializers.CharField(required=False)
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)

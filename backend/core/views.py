@@ -30,7 +30,7 @@ class UserRegistrationView(GenericAPIView):
                 response_data = {'message':'User registration successful','user_details': serializer.data}
                 return JsonResponse(response_data, status=status.HTTP_201_CREATED)
             elif user_info.deleted_at:
-                return JsonResponse({'message':'Can not register, user deactivated'},status=status.HTTP_412_PRECONDITION_FAILED)
+                return JsonResponse({'message':'Cannot register, user deactivated'},status=status.HTTP_412_PRECONDITION_FAILED)
             else:
                 return JsonResponse({'message':'User already exists with provided email id'},status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -60,7 +60,7 @@ class UserLoginView(GenericAPIView):
                     else:
                         return JsonResponse({'message': 'Invalid password'}, status=status.HTTP_412_PRECONDITION_FAILED)
                 else:
-                    return JsonResponse({'message': 'Can not login, User is not approved'}, status=status.HTTP_412_PRECONDITION_FAILED)
+                    return JsonResponse({'message': 'Cannot login, User is not approved'}, status=status.HTTP_412_PRECONDITION_FAILED)
             except Exception:
                 return JsonResponse({'message': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
         else:

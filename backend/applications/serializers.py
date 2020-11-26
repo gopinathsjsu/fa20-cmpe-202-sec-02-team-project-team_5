@@ -3,7 +3,6 @@ from home_listing.models import Listing
 from rest_framework import serializers
 from core.models import User,UserAdditionalInfo
 from core.serializers import UserAdditionalInfoSerializer,FlattenMixin
-from home_listing.serializers import ListingSerializer
 
 class HomeListingFieldSerializer(serializers.Field):
     def to_internal_value(self, value):
@@ -63,11 +62,10 @@ class ApplicationStatusUpdateSerializer(serializers.Serializer):
         return Application.objects.create(**validated_data)
 
 
-class UserApplicationSerializer(FlattenMixin,serializers.ModelSerializer):
+class UserApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ('status','offered_price','created_at')
-        flatten = [ ('home_listing', ListingSerializer) ]
+        fields = ('status','home_listing','offered_price','created_at')
 
 class WithdrawApplicationSerializer(serializers.Serializer):
     id = serializers.IntegerField()
