@@ -77,7 +77,6 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'localhost:3000',
-    'http://localhost:3000',
     'home-frontend-test.herokuapp.com',
     'https://home-frontend-test.herokuapp.com',
     'https://homefinder-frontend.herokuapp.com',
