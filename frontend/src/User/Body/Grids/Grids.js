@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { ListGroup, ListGroupItem, Card, Button } from 'react-bootstrap';
 import Modal from "react-modal";
 import GridModal from './GridModal'
@@ -28,7 +28,8 @@ const Grids = ({house}) => {
                 </Card.Body>
             </Card>
             <Modal isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">
-                <GridModal home_id = {house['objectID']}/>
+                <GridModal house_info = {house} home_id = {house['objectID']}/>
+                <br/>
                 <Button variant="primary" onClick={toggleModal}>Close</Button>
             </Modal>
         </div>
