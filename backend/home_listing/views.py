@@ -27,6 +27,7 @@ def listings(request):
         new_listing = listing_serializer.save(listed_by=user)
         images_serializer.save(listing=new_listing)
         open_house_serializer.save(listing=new_listing)
+        new_listing.save()
         return JsonResponse(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
 
     return JsonResponse(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
