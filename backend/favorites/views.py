@@ -15,7 +15,8 @@ def favorites_listing(request):
         favorite_listing_serializer = CreateFavoriteListingSerializer(data=request.data)
         if not FavoriteListing.objects.filter(
                 user=user,
-                listing_id=request.data.get("listing_id")
+                listing_id=request.data.get("listing_id"),
+                deleted_at__isnull=True
         ).exists():
             if favorite_listing_serializer.is_valid():
                 favorite_listing_serializer.save(user=user)
@@ -39,14 +40,25 @@ def favorites_listing_delete(request, favorite_listing_id):
 def favorites_search(request):
     user = JWTAuthentication.validate_token(request)
 
-    return Response("<H1>This is the user favorites home page</H1>")
+    if request.method == 'POST':
+        favorite_search_serializer = CreateFavoriteSearchSerializer(data=request.data)
+        if favorite_search_serializer.is_valid():
+            favorite_search_serializer.save(user=user)
+
+            return Response({"status": "favorite search created"}, status=status.HTTP_201_CREATED)
+    else:
+        favorite_search = FavoriteSearch.objects.filter(user=user, deleted_at__isnull=True)
+        data = FavoriteSearchSerializer(favorite_search, many=True).data
+
+        return Response(data, status=status.HTTP_200_OK)
 
 
 @api_view(['DELETE'])
-def favorites_search_delete(request):
+def favorites_search_delete(request, favorite_search_id):
     user = JWTAuthentication.validate_token(request)
+    FavoriteSearch.objects.filter(user=user, id=favorite_search_id).update(deleted_at=datetime.now())
 
-    return Response()
+    return Response({"status": "favorite deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
 

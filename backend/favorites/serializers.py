@@ -19,6 +19,9 @@ class CreateFavoriteSearchSerializer(serializers.Serializer):
     query_params = serializers.JSONField()
     name = serializers.CharField()
 
+    def create(self, validated_data):
+        return FavoriteSearch.objects.create(**validated_data)
+
 
 class FavoriteSearchSerializer(serializers.Serializer):
     id = serializers.IntegerField()
