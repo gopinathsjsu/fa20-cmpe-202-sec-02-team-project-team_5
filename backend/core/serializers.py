@@ -45,7 +45,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         slug_field='name')
     class Meta:
         model = User
-        fields = ('role','user_status','user_type','first_name','last_name','email_id')
+        fields = ('role','user_status','user_type','first_name','last_name','email_id','created_at')
         
 class RetriveUsersSerializer(serializers.ModelSerializer):
     user_type = serializers.SlugRelatedField(
@@ -53,7 +53,7 @@ class RetriveUsersSerializer(serializers.ModelSerializer):
     slug_field='name')
     class Meta:
         model = User
-        fields =  ('id','first_name','last_name','email_id','user_type')
+        fields =  ('id','first_name','last_name','email_id','user_type','created_at')
 
 class FlattenMixin(object):
     """Flatens the specified related objects in this representation"""
@@ -84,9 +84,12 @@ class UserLoginSerializer(serializers.ModelSerializer):
     user_type = serializers.SlugRelatedField(
     read_only=True,
     slug_field='name')
+    user_status = serializers.SlugRelatedField(
+    read_only=True,
+    slug_field='name')
     class Meta:
         model = User
-        fields =  ('first_name','last_name','email_id','user_type')
+        fields =  ('first_name','last_name','email_id','user_type','user_status')
 
 class UserStatusUpdateSerializer(serializers.Serializer):
     id = serializers.IntegerField()

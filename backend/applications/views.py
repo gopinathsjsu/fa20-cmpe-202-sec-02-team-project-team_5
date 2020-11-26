@@ -9,7 +9,22 @@ from rest_framework.generics import GenericAPIView,CreateAPIView,ListAPIView
 from home_finder.utility import Util
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.utils import timezone
 
+
+class UserApplicationView(GenericAPIView):
+    """
+    This view allows seller/landlord/realtor to approve or reject an application
+    """
+    def get(self, request):
+        user = JWTAuthentication.validate_token(request)
+        criterion1 = Q(deleted_at__isnull=True)
+        criterion2 = Q(user=user.id)
+        application = Application.objects.filter(criterion1 & criterion2)
+        serializer = UserApplicationSerializer(application,many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK,safe=False)
+
+        
 class SubmitApplicationView(GenericAPIView):
     """
     This view is created to allow user to submit a rental or buying application for specific home listing.
@@ -51,11 +66,51 @@ class ListApplications(GenericAPIView):
             user_info_serializer = ListUserAddDeatilsSerializer(user_info)
             result[i]['user_info'] = user_info_serializer.data
 
-        return JsonResponse(result,status=status.HTTP_201_CREATED,safe=False)
+        return JsonResponse(result,status=status.HTTP_200_OK,safe=False)
+
+class ApplicationStatusUpdateView(GenericAPIView):
+    """
+    This view allows seller/landlord/realtor to approve or reject an application
+    """
+    def put(self, request):
+        owner = JWTAuthentication.validate_token(request)
+        serializer = ApplicationStatusUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            app_status = data.get('status')  
+            app_id = data.get('id') 
+            try:
+                queryset = Application.objects.filter(deleted_at__isnull=True)
+                application = get_object_or_404(queryset, id=app_id)
+                application.status = app_status
+                application.save()
+                return JsonResponse({'message': 'Applciation status update successful'}, status=status.HTTP_201_CREATED)
+            except Exception:
+                return JsonResponse({'message': 'Application not found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-
-
-
+class WithdrawApplicationView(GenericAPIView):
+    """
+    This view allows Admin to remove users
+    """
+    def post(self, request):
+        user = JWTAuthentication.validate_token(request)
+        serializer = WithdrawApplicationSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            app_id = data.get('id')
+            app_status = data.get('status')
+            reason = data.get('deleted_why')
+            try:
+                application = Application.objects.get(id=app_id)
+                application.status= app_status
+                application.deleted_at = timezone.now()
+                application.deleted_why = reason
+                application.save()
+                return JsonResponse({'message': 'Application deleted'}, status=status.HTTP_201_CREATED)
+            except Exception:
+                return JsonResponse({'message': 'Application not found'}, status=status.HTTP_404_NOT_FOUND)        
+        else:
+            return JsonResponse({'message': 'Provide application details'}, status=status.HTTP_400_BAD_REQUEST)

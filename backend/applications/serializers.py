@@ -33,10 +33,11 @@ class CreateUserAdditionalInfoSerializer(serializers.Serializer):
 class ListHomeListingApplications(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ('status','offered_price','created_at','user')
+        fields = ('id','status','offered_price','created_at','user')
 
     def to_representation(self, instance):
             return {
+                'id': instance.id,
                 'status': instance.status,
                 'offered_price': instance.offered_price,
                 'created_at': instance.created_at,
@@ -47,3 +48,35 @@ class ListUserAddDeatilsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAdditionalInfo
         fields = ('sex','date_of_birth','credit_score','employment_type','annual_salary')
+
+class ApplicationStatusUpdateSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    user = serializers.IntegerField(required=False)
+    home_listing = serializers.IntegerField(required=False)
+    status = serializers.CharField()
+    offered_price = serializers.DecimalField(required=False,max_digits=10, decimal_places=2)
+    deleted_at = serializers.DateTimeField(required=False)
+    deleted_why = serializers.CharField(required=False)
+
+    def create(self, validated_data):
+        return Application.objects.create(**validated_data)
+
+
+class UserApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Application
+        fields = ('status','home_listing','offered_price','created_at')
+
+class WithdrawApplicationSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    user = serializers.IntegerField(required=False)
+    home_listing = serializers.IntegerField(required=False)
+    status = serializers.CharField()
+    offered_price = serializers.DecimalField(required=False,max_digits=10, decimal_places=2)
+    created_at = serializers.DateTimeField(required=False)
+    updated_at = serializers.DateTimeField(required=False)
+    deleted_at = serializers.DateTimeField(required=False)
+    deleted_why = serializers.CharField()
+
+    def create(self, validated_data):
+        return Application.objects.create(**validated_data)
