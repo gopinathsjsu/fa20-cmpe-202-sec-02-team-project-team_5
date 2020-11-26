@@ -77,7 +77,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
-    'https://home-frontend-test.herokuapp.com/'
+    'home-frontend-test.herokuapp.com/'
 )
 
 ROOT_URLCONF = 'home_finder.urls'
