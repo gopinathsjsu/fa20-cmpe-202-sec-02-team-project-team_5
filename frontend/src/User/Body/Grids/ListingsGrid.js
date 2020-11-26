@@ -16,7 +16,7 @@ import {
   } from 'react-instantsearch-dom';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 
-const ListingsGrid = ({type}) => {
+const ListingsGrid = ({type,queryString}) => {
     
     const searchClient = algoliasearch(appid,searchapikey);
     console.log('type ' + type);
@@ -46,7 +46,7 @@ const ListingsGrid = ({type}) => {
                 <Card>
                     <Card.Body>
                     <Row>
-                        <Col lg='4' md='6' sm='12'><div class="ais-InstantSearch"><SearchBox inline/></div></Col>
+                        <Col lg='4' md='6' sm='12'><div class="ais-InstantSearch"><SearchBox defaultRefinement={queryString}/></div></Col>
                         <Col lg='4' md='6' sm='12'><span>Bedrooms&nbsp;</span><span><MenuSelect attribute='bedrooms'/></span></Col>
                         <Col lg='4' md='6' sm='12'><span>Bathrooms&nbsp;</span><span><MenuSelect attribute='bathroom'/></span></Col>
                     </Row>
