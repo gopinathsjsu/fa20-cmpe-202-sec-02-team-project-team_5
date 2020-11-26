@@ -32,7 +32,27 @@ Response:
 
 ======================================================
 
-2. Retrive applications submitted per home_listing
+2. Approve/Reject Application
+
+Authorization required in Header
+
+PUT     http://127.0.0.1:8000/applications/status/update
+
+Request:
+{
+    "id": 39,
+    "status": "rejected"
+}
+
+Response:
+{
+    "message": "Applciation status update successful"
+}
+
+
+============================================================
+
+3. Retrive applications submitted per home_listing
 
 Authorization required in Header
 
@@ -41,6 +61,7 @@ GET     http://127.0.0.1:8000/applications/?listing_id=1
 Response:
 [
     {
+        "id": 36,
         "status": "pending",
         "offered_price": "26.00",
         "created_at": "2020-11-25T00:59:39.707Z",
@@ -54,16 +75,137 @@ Response:
         }
     },
     {
+        "id": 38,
         "status": "pending",
-        "offered_price": "26.00",
-        "created_at": "2020-11-23T06:11:04.898Z",
-        "user": "Marry Marry",
+        "offered_price": "5000.00",
+        "created_at": "2020-11-25T20:19:46.772Z",
+        "user": "Tej Yash",
         "user_info": {
             "sex": null,
             "date_of_birth": "2020-03-22",
             "credit_score": 650,
             "employment_type": null,
-            "annual_salary": "3009.00"
+            "annual_salary": "70000.00"
+        }
+    },
+    {
+        "id": 37,
+        "status": "approved",
+        "offered_price": "5000.00",
+        "created_at": "2020-11-25T03:56:10.514Z",
+        "user": "Satya Pratap",
+        "user_info": {
+            "sex": null,
+            "date_of_birth": "2020-03-22",
+            "credit_score": 650,
+            "employment_type": null,
+            "annual_salary": "70000.00"
+        }
+    },
+    {
+        "id": 40,
+        "status": "pending",
+        "offered_price": "4000.00",
+        "created_at": "2020-11-25T23:14:16.616Z",
+        "user": "Neil Redyy",
+        "user_info": {
+            "sex": null,
+            "date_of_birth": "2020-03-22",
+            "credit_score": 650,
+            "employment_type": null,
+            "annual_salary": "70000.00"
         }
     }
 ]
+
+======================================================================================
+
+4. Retrive applications submited by user --> Applications option under user options
+
+Authorization required in Header
+
+GET     http://127.0.0.1:8000/applications/user
+
+Response:
+
+[
+    {
+        "status": "rejected",
+        "offered_price": "5000.00",
+        "created_at": "2020-11-25T23:08:27.200383Z",
+        "id": 2,
+        "city": "San Jose",
+        "state": "California",
+        "country": "United States",
+        "bedrooms": 2,
+        "bathroom": 1,
+        "year_built": 2020,
+        "home_type": "apartments",
+        "home_status": "available",
+        "description": "This house is near by SJSU",
+        "zip_code": "95116",
+        "street_address": "1305 Sunny Court Apt 16",
+        "air_conditioner": false,
+        "heater": null,
+        "price": 5000,
+        "flooring": null,
+        "sqft_area": 1450,
+        "kitchen": null,
+        "laundry": null,
+        "parking_type": null,
+        "listed_by": "Neil Neil",
+        "images": [],
+        "open_house": [],
+        "lease_term": null,
+        "available_date": "2020-11-27T06:00:00Z",
+        "security_deposit": null
+    },
+    {
+        "status": "pending",
+        "offered_price": "4000.00",
+        "created_at": "2020-11-23T04:12:25.171006Z",
+        "id": 1,
+        "city": "San Jose",
+        "state": "CA",
+        "country": "United States",
+        "bedrooms": 2,
+        "bathroom": 2,
+        "year_built": 2009,
+        "home_type": "apartments",
+        "home_status": "available",
+        "description": "This is a beautiful house.",
+        "zip_code": "95126",
+        "street_address": "1326 The Alameda Apt 367",
+        "air_conditioner": false,
+        "heater": null,
+        "price": 3000,
+        "flooring": null,
+        "sqft_area": 1250,
+        "kitchen": null,
+        "laundry": null,
+        "parking_type": null,
+        "listed_by": "Marry Marry",
+        "images": [],
+        "open_house": [],
+        "lease_term": null,
+        "available_date": null,
+        "security_deposit": null
+    }
+]
+
+5.  Delete/Withdraw Application by submited user
+
+Authorization required in Header
+
+POST    http://127.0.0.1:8000/applications/withdraw
+
+Request:
+{
+    "id": 40,
+    "status": "withdraw",
+    "deleted_why": "not intrested"
+}
+Response:
+{
+    "message": "Application deleted"
+}
