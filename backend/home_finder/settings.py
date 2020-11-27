@@ -73,18 +73,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-# CORS_ALLOW_CREDENTIALS = True
-
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_ALLOW_ALL = True
-
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:3000',
-#     'http://home-frontend-test.herokuapp.com',
-#     'https://home-frontend-test.herokuapp.com',
-#     'https://homefinder-frontend.herokuapp.com',
-#     'http://homefinder-frontend.herokuapp.com'
-# ]
 
 ROOT_URLCONF = 'home_finder.urls'
 
