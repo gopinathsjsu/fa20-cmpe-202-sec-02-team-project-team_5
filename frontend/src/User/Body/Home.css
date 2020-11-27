@@ -16,3 +16,13 @@ h2 {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+.search-bar{
+    display:flex;
+    flex-direction:row;
+    padding:2px;
+}
+
+.search-button{
+  color:white; 
+}

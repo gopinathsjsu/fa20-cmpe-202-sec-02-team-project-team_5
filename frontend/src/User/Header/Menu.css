@@ -8,12 +8,18 @@
   margin-right: 5px;
 }
 
+.navigation-links{
+  font-size:18px;
+  color:black !important;
+  margin-right: 5px;
+}
+
 a:hover {
   color: blue !important;
 } 
 
 .menu-container {
-  height:100px;
+  height:30px;
 }
 
 .menu-container .row{
