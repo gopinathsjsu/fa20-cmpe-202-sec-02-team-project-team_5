@@ -17,7 +17,7 @@ import {
 import { Card, Col, Container, Row } from 'react-bootstrap';
 
 const ListingsGrid = ({type,queryString}) => {
-    
+
     const searchClient = algoliasearch(appid,searchapikey);
     console.log('type ' + type);
     //const[hits, setHits] = useState([]);
@@ -59,7 +59,7 @@ const ListingsGrid = ({type,queryString}) => {
                     </Card.Body>
                 </Card>
                 </Container>
-                
+
                 <br/>
                 <Hits hitComponent={Grids} />
                 <Pagination />

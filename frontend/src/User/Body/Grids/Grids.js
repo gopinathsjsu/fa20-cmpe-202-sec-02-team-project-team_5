@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ListGroup, ListGroupItem, Card, Button } from 'react-bootstrap';
+import Modal from "react-modal";
+import GridModal from './GridModal'
 import './Grids.css';
 import PropTypes from 'prop-types';
 
@@ -24,9 +26,14 @@ const Grids = (props) => {
                     <ListGroupItem>{house['home_status']}</ListGroupItem>
                 </ListGroup>
                 <Card.Body>
-                    <Button href="#" variant="primary">View Home</Button>
+                    <Button onClick={toggleModal} variant="primary">View Home</Button>
                 </Card.Body>
             </Card>
+            <Modal isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">
+                <GridModal house_info = {house} home_id = {house['objectID']}/>
+                <br/>
+                <Button variant="primary" onClick={toggleModal}>Close</Button>
+            </Modal>
         </div>
     );
 }
