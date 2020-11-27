@@ -7,6 +7,9 @@ function CreateListings(props) {
   const [createListingsError, showCreateListingsError] = useState("");
   Axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
 
+  const apiEndpoint = rooturl + "/listings/";
+  console.log(apiEndpoint);
+
   const handleCreateListings = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -40,9 +43,8 @@ function CreateListings(props) {
     };
     console.log(formData);
     Axios.defaults.withCredentials = true;
-    const apiEndpoint = rooturl + "/listings";
-    console.log(apiEndpoint);
-    Axios.post('https://home-finder-backend-staging.herokuapp.com/listings/', formData,{ validateStatus: false })
+
+    Axios.post(apiEndpoint, formData,{ validateStatus: false })
     .then((response) => {
       console.log(response);
       if (response.status === 201) {
