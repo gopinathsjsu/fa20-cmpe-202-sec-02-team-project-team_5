@@ -21,35 +21,6 @@ function SignIn(props) {
     setCloseModal(<Redirect to={`/home`} />);
   }
 
-  const handleAdminSigninSubmit = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    // set the with credentials to true
-    // make a post request with the user data
-    const formData = {
-      email_id: form.email.value,
-      password: form.password.value,
-    };
-    //axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
-    axios.post(`${rooturl}/core/user/login`, formData,{ validateStatus: false })
-    .then((response) => {
-      console.log('Status Code : ', response.status);
-      if (response.status === 200) {
-          let decodedUserInfo = JSON.stringify(jwt_decode(response.data.token));
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem("userType", 'admin');
-          localStorage.setItem("email", formData.email);
-          setShow(false);
-          setData({...data,logggedIn: true});
-      }else{
-        let errors = Object.values(response.data || {'error' : ['Something went wrong']});
-        showAdminLoginError(errors.map(error => {
-          return <Alert variant="danger">{error}</Alert>
-        }));
-      }
-    });
-  } 
-
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -60,17 +31,13 @@ function SignIn(props) {
       first_name: form.firstName.value,
       email_id: form.email.value,
       password: form.password.value,
+      user_type: form.user_type.value,
     };
     axios.defaults.withCredentials = true;
     axios.post(`${rooturl}/core/user/register`, formData,{ validateStatus: false })
     .then((response) => {
       if (response.status === 201) {
-          let decodedUserInfo = JSON.stringify(jwt_decode(response.data.token));
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem("userType", 'user');
-          localStorage.setItem("email", formData.email);
-          setShow(false);
-          setData({...data,logggedIn: true});
+        showUserRegisterError(<Alert variant="success">Registration Successful. Please login once your account is verified</Alert>);
       }else{
         let errors = Object.values(response.data || {'error' : ['Something went wrong']});
         showUserRegisterError(errors.map(error => {
@@ -95,7 +62,7 @@ function SignIn(props) {
       if (response.status === 200) {
           let decodedUserInfo = JSON.stringify(jwt_decode(response.data.token));
           localStorage.setItem('token', response.data.token);
-          localStorage.setItem("userType", 'user');
+          localStorage.setItem("userType", response.data.user_details.user_type);
           localStorage.setItem("email", formData.email);
           setShow(false);
           setData({...data,logggedIn: true});
@@ -156,7 +123,6 @@ function SignIn(props) {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" name='email' placeholder="Enter email" required/>
               </Form.Group>
-
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" name='password' placeholder="Password" required/>
@@ -167,28 +133,12 @@ function SignIn(props) {
                   Mix of letters and numbers
                 </Form.Text>
               </Form.Group>
+              <Form.Group>
+              <Form.Check inline type="radio" name="user_type" value="realtor" aria-label="radio 1" label="Realtor" />
+  <Form.Check type="radio" inline name="user_type" value="landlord" aria-label="radio 1" label="Landlord" />
+              </Form.Group>
               <Button variant="primary" type="submit" block>
                 Submit
-              </Button>
-            </Form>
-          </Container>
-        </Tab>
-        <Tab eventKey="adminsiginin" title="Admin Sign In">
-          <Container>
-            <br />
-            <Form onSubmit={handleAdminSigninSubmit}>
-              {adminLoginError}
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name='email' placeholder="Enter email" required/>
-              </Form.Group>
-
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name='password' placeholder="Password" required/>
-              </Form.Group>
-              <Button variant="primary" type="submit" block>
-                Sign In
               </Button>
             </Form>
           </Container>
