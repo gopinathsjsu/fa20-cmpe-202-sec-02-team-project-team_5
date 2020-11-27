@@ -6,11 +6,12 @@ function GridModal({house_info,home_id}) {
     useEffect(() => {
       const proxyurl = "https://cors-anywhere.herokuapp.com/";
       console.log(house_info);
-      fetch(proxyurl + rooturl + "/listings/" + home_id)
+      fetch(rooturl + "/listings/" + home_id)
     // fetch("https://home-finder-backend-staging.herokuapp.com/favorites/")
         .then((response) => response.json())
         .then((data) => setHomes(data));
     },[]);
+    console.log(homes);
     function getDate(){
         var today = new Date();
         document.getElementById("date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
