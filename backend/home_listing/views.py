@@ -8,23 +8,31 @@ from .serializers import *
 from rest_framework import status
 
 
-@api_view(['POST'])
+
+
+@api_view(['POST', 'GET'])
 def listings(request):
     user = JWTAuthentication.validate_token(request)
-    images_serializer = CreateImagesSerializer(data=dict(request.data))
-    request.data.pop("images")
-    open_house_serializer = CreateOpenHouseSerializer(data=dict(request.data))
-    listing_serializer = CreateListingSerializer(data=request.data)
 
-    if listing_serializer.is_valid() and images_serializer.is_valid() and open_house_serializer.is_valid():
+    if request.method == "POST":
+        images_serializer = CreateImagesSerializer(data=dict(request.data))
+        request.data.pop("images")
+        open_house_serializer = CreateOpenHouseSerializer(data=dict(request.data))
+        listing_serializer = CreateListingSerializer(data=request.data)
 
-        new_listing = listing_serializer.save(listed_by=user)
-        images_serializer.save(listing=new_listing)
-        open_house_serializer.save(listing=new_listing)
-        new_listing.save()
-        return Response(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
+        if listing_serializer.is_valid() and images_serializer.is_valid() and open_house_serializer.is_valid():
 
-    return Response(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            new_listing = listing_serializer.save(listed_by=user)
+            images_serializer.save(listing=new_listing)
+            open_house_serializer.save(listing=new_listing)
+            new_listing.save()
+            return Response(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
+
+        return Response(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        # GET /listings
+        user_listings = Listing.objects.filter(listed_by=user, deleted_at__isnull=True)
+        return Response(ListingSerializer(user_listings, many=True).data, status=status.HTTP_200_OK)
 
 # get /listings/listing_id/
 # @csrf_exempt
