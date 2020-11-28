@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { ListGroup, ListGroupItem, Card, Button } from 'react-bootstrap';
 import Modal from "react-modal";
 import GridModal from './GridModal'

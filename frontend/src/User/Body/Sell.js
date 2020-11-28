@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import Grids from './Grids/Grids';
+import React from 'react';
 
 function Sell() {
   // const[homes, setHomes] = useState([]);

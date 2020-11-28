@@ -1,0 +1,15 @@
+.listings-form {
+  padding-top: 50px;
+  padding-bottom: 75px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+h2 {
+  color: black;
+  vertical-align: middle;
+}
+
+.form-label{
+    font-weight: bold;
+}

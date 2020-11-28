@@ -11,6 +11,7 @@ function ViewListings(props) {
       .then((data) => setHomes(data));
   }, []);
   console.log(homes['images'] && homes['images'][0].url);
+  console.log(rooturl);
   return (
     <div className = "grid">
       <Card>
