@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navbar,Nav,Container,Row,Col} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import logo from '../../Home-Finder.png'
 import './Menu.css';
 
 function Menu(props) {
@@ -10,7 +11,7 @@ function Menu(props) {
       <Col>
       </Col>
       <Col xs={6}>
-      <Navbar.Brand><Link to='/home'>Home Finder</Link></Navbar.Brand>
+      <Navbar.Brand href='/home'><img className = 'logo' src = {logo} alt ="Home Finder" ></img></Navbar.Brand>
       </Col>
       <Col>
         <Nav className="justify-content-end" activeKey="/home">

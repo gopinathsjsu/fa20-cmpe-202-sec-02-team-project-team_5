@@ -19,10 +19,10 @@ function Home(props) {
     }
     Axios.put(`${rooturl}/core/admin/update/user`,formData,{validateStatus: false}).then(response => {
       if(response.status === 201){
-        setUsersList(usersList.map(list => {
-          list['processed'] = false;
-          return list;
-        }));
+        // setUsersList(usersList.map(list => {
+        //   list['processed'] = false;
+        //   return list;
+        // }));
         let usersListClone = cloneDeep(usersList)
         usersListClone.find(user => user.id === user_id).processed = true;
         setUsersList(usersListClone);
@@ -70,10 +70,11 @@ function Home(props) {
               <td>{user.first_name}&nbsp;{user.last_name}</td>
               <td>{user.email_id}</td>
               {user.processed ? (
-                <td><Badge variant="secondary">Submitted!</Badge>  </td>
+                <td aligin='center'><Badge style={{'float': 'none'}}variant="secondary">Submitted!</Badge></td>
               ) : (
                 <td><Button onClick={e => handleUserVaildation(user.id,'approved')}variant="success">Approve</Button>{' '}
-                <Button onClick={e => handleUserVaildation(user.id,'rejected')}variant="danger">Reject</Button></td>
+                <Button onClick={e => handleUserVaildation(user.id,'rejected')}variant="warning">Reject</Button>{' '}
+                <Button onClick={e => handleUserVaildation(user.id,'deactivated')}variant="danger">Remove</Button></td>
               )}
             </tr>
             }))}

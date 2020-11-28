@@ -12,10 +12,8 @@ function SignIn(props) {
   const [show, setShow] = React.useState(true);
   const [userLoginError, showUserLoginError] = React.useState('');
   const [userRegisterError, showUserRegisterError] = React.useState('');
-  const [adminLoginError, showAdminLoginError] = React.useState('');
   const {data,setData} = useDataContext();
   const [closeModal,setCloseModal] = React.useState(null);
-  axios.defaults.withCredentials = true;
 
   const handleClose = (e) => {
     setCloseModal(<Redirect to={`/home`} />);
@@ -33,10 +31,10 @@ function SignIn(props) {
       password: form.password.value,
       user_type: form.user_type.value,
     };
-    axios.defaults.withCredentials = true;
     axios.post(`${rooturl}/core/user/register`, formData,{ validateStatus: false })
     .then((response) => {
       if (response.status === 201) {
+        form.reset();
         showUserRegisterError(<Alert variant="success">Registration Successful. Please login once your account is verified</Alert>);
       }else{
         let errors = Object.values(response.data || {'error' : ['Something went wrong']});
@@ -135,7 +133,8 @@ function SignIn(props) {
               </Form.Group>
               <Form.Group>
               <Form.Check inline type="radio" name="user_type" value="realtor" aria-label="radio 1" label="Realtor" />
-  <Form.Check type="radio" inline name="user_type" value="landlord" aria-label="radio 1" label="Landlord" />
+              <Form.Check type="radio" inline name="user_type" value="landlord" aria-label="radio 1" label="Landlord" />
+              <Form.Check type="radio" inline name="user_type" value="seller" aria-label="radio 1" label="Seller" />
               </Form.Group>
               <Button variant="primary" type="submit" block>
                 Submit
