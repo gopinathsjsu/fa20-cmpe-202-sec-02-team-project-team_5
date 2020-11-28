@@ -51,9 +51,12 @@ class RetriveUsersSerializer(serializers.ModelSerializer):
     user_type = serializers.SlugRelatedField(
     read_only=True,
     slug_field='name')
+    user_status = serializers.SlugRelatedField(
+    read_only=True,
+    slug_field='name')
     class Meta:
         model = User
-        fields =  ('id','first_name','last_name','email_id','user_type','created_at')
+        fields =  ('id','first_name','last_name','email_id','user_type','user_status','created_at')
 
 class FlattenMixin(object):
     """Flatens the specified related objects in this representation"""
