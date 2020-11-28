@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { Form, Alert, Button } from "react-bootstrap";
+import Modal from "react-modal";
 import Axios from "axios";
 import { rooturl } from "../../config/config";
 import "./CreateListings.css";
@@ -7,9 +8,12 @@ import "./CreateListings.css";
 function CreateListings(props) {
   const [createListingsError, showCreateListingsError] = useState("");
   const [inputFields, setInputFields] = useState([{ open_house_date: "", open_house_start_time: "", open_house_end_time: "" }]);
-  Axios.defaults.headers.common["authorization"] = localStorage.getItem(
-    "token"
-  );
+  const [isOpen, setIsOpen] = React.useState(false);
+  Axios.defaults.headers.common["authorization"] = localStorage.getItem("token");
+
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
 
   const handleAddFields = () => {
     const values = [...inputFields];
@@ -52,7 +56,6 @@ function CreateListings(props) {
     event.preventDefault();
     const form = event.currentTarget;
 
-
     var formattedDate = new Date(form.available_date.value).toISOString();
     const formData = {
       home_status: form.home_status.value,
@@ -60,10 +63,10 @@ function CreateListings(props) {
       parking_space_type: form.parking_space_type.value,
       lease_term: form.lease_term.value,
       security_deposit: form.security_deposit.value,
-      heater: "forced",
-      kitchen: "granite",
-      laundry: "in-unit",
-      air_conditioner: "True",
+      heater: form.heating.value,
+      kitchen: form.kitchen.value,
+      laundry: form.laundry.value,
+      air_conditioner: form.air_conditioner.value,
       floor_type: form.flooring.value,
       images: [
         "https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg",
@@ -85,7 +88,7 @@ function CreateListings(props) {
       available_date: formattedDate,
     };
     console.log(formData);
-    console.log(inputFields);
+    console.log(form.lease_term.value);
     Axios.defaults.withCredentials = true;
 
     Axios.post(apiEndpoint, formData, { validateStatus: false }).then(
@@ -97,6 +100,7 @@ function CreateListings(props) {
               Your listing has been posted successfully
             </Alert>
           );
+          toggleModal();
         } else {
           let errors = Object.values(
             response.data || { error: ["Something went wrong"] }
@@ -110,6 +114,18 @@ function CreateListings(props) {
       }
     );
   };
+
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
+  
 
   return (
     <div className="listings-form">
@@ -250,15 +266,60 @@ function CreateListings(props) {
             <option value="tile">Tile</option>
           </Form.Control>
         </Form.Group>
+        <Form.Group controlId="KitchenType">
+          <Form.Label>Kitchen</Form.Label>
+          <Form.Control as="select" name="kitchen">
+            <option value="granite">Granite</option>
+            <option value="quartz">Quartz</option>
+            <option value="open-kitchen">Open Kitchen</option>
+            <option value="closed-kichen">Closed Kitchen</option>
+          </Form.Control>
+        </Form.Group>
         <Form.Group controlId="ParkingType">
           <Form.Label>Parking Space Type</Form.Label>
           <Form.Control as="select" name="parking_space_type">
-            <option value="carport">Carport</option>
             <option value="garage-attached">Attached Garage</option>
             <option value="garage-detached">Detached Garage</option>
             <option value="open">Open</option>
             <option value="closed">Closed</option>
             <option value="on-street">Street</option>
+            <option value="carport">Carport</option>
+            <option value="none">None</option>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Air Conditioning</Form.Label>
+          <br />
+          <Form.Check
+            inline
+            type="radio"
+            name="air_conditioner"
+            value="true"
+            aria-label="radio 1"
+            label="Cental AC"
+          />
+          <Form.Check
+            type="radio"
+            inline
+            name="air_conditioner"
+            value="false"
+            aria-label="radio 1"
+            label="No AC"
+          />
+        </Form.Group>
+        <Form.Group controlId="HeatingType">
+          <Form.Label>Heating</Form.Label>
+          <Form.Control as="select" name="heating">
+            <option value="gas">Gas</option>
+            <option value="centralized">Centralized</option>
+            <option value="none">None</option>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="LaundryType">
+          <Form.Label>Laundry</Form.Label>
+          <Form.Control as="select" name="laundry">
+            <option value="washer-dryer">Washer and Dryer</option>
+            <option value="washer-only">Washer Only</option>
             <option value="none">None</option>
           </Form.Control>
         </Form.Group>
@@ -269,7 +330,7 @@ function CreateListings(props) {
         <Form.Group controlId="formBasicArea">
           <Form.Label>Lease Term (If Applicable)</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             name="lease_term"
             placeholder="Lease Term"
           />
@@ -277,7 +338,7 @@ function CreateListings(props) {
         <Form.Group controlId="formBasicArea">
           <Form.Label>Security Deposit (If Applicable)</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             name="security_deposit"
             placeholder="Security Deposit"
           />
@@ -302,6 +363,15 @@ function CreateListings(props) {
         ))}
         <Button variant="primary" type="submit" block> Submit </Button>
       </Form>
+      <Modal style={customStyles} isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">
+        <div className="modal-listing">
+          <Alert>{createListingsError}</Alert>
+          <br/>
+          <Button className="listing-button" variant="primary" href='/view-listings'>View Listings</Button>
+          <br/><br/>
+          <Button className="listing-button" variant="primary" href='/create-listings'>Close</Button>
+        </div>
+      </Modal>
     </div>
   );
 }
