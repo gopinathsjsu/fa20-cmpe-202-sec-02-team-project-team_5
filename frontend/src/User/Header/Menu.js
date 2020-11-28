@@ -1,9 +1,9 @@
 import React from 'react';
-import {Navbar,Nav,NavDropdown,Dropdown, Form,FormControl,Button,Container,Row,Col} from 'react-bootstrap';
+import {Navbar,Nav,NavDropdown,Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Menu.css';
 import logo from '../../Home-Finder.png'
-import {FaUser, FaSignInAlt, FaSignOutAlt} from 'react-icons/fa';
+import {FaUser, FaSignOutAlt} from 'react-icons/fa';
 
 function Menu(props) {
   return (
@@ -15,9 +15,6 @@ function Menu(props) {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link><Link className="navigation-links" to='/rent'>Rent</Link></Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link><Link className="navigation-links" to='/sell'>Sell</Link></Nav.Link>
         </Nav.Item>
       </Nav>
       <Navbar.Brand href='/home'><img className = 'logo' src = {logo} alt ="Home Finder"/></Navbar.Brand>

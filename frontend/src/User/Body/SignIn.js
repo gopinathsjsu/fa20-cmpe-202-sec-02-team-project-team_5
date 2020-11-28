@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Container, Row, Col, Button, Tabs, Tab, Form, Alert} from 'react-bootstrap';
+import {Modal, Container, Button, Tabs, Tab, Form, Alert} from 'react-bootstrap';
 import RedirectToHome from './RedirectToHome';
 import { Redirect } from 'react-router-dom';
 import { useDataContext } from './../../App';

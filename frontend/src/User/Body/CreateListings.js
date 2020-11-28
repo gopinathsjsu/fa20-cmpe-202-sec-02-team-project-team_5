@@ -296,8 +296,8 @@ function CreateListings(props) {
               <Form.Label>Open House End Time</Form.Label>
               <Form.Control type="time" name="open_house_end_time" onChange={(event) => handleInputChange(index, event)}/>
             </Form.Group>
-              <button className="btn btn-link" type="button" onClick={() => handleRemoveFields(index)} > Add </button>
-              <button className="btn btn-link" type="button" onClick={() => handleAddFields()}> Remove </button>
+              <button className="btn btn-link" type="button" onClick={() => handleAddFields()}> Add </button>
+              <button className="btn btn-link" type="button" onClick={() => handleRemoveFields(index)} > Remove </button>
           </Fragment>
         ))}
         <Button variant="primary" type="submit" block> Submit </Button>

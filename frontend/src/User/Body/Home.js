@@ -14,8 +14,8 @@ function Home(props) {
     <div className = 'home'>
       {/* <RedirectToSignin/> */}
       <div className = 'header'>
-        <h2>Reimagine home!</h2>
-        <h2>We’ll help you find a place you’ll love.</h2>
+        <h2 className = "description">Reimagine home!</h2>
+        <h2 className = "description">We’ll help you find a place you’ll love.</h2>
         {redirect}
         <Form className = "search-bar" onSubmit={e => handleSubmit(e)}>
           <input className='pa3 w-90 ba center' type='search' required name='search' placeholder='Enter an address, city or ZIP code'/>
