@@ -74,9 +74,8 @@ class PendingUserView(GenericAPIView):
         admin = JWTAuthentication.validate_token(request)
         if JWTAuthentication.isAdmin(admin.id):
             try:
-                criterion1 = Q(deleted_at__isnull=True)
-                criterion2 = Q(user_status__name='pending')
-                pending_users = User.objects.filter(criterion1 & criterion2)
+                criterion1 = ~Q(role__name ='admin')
+                pending_users = User.objects.filter(criterion1)
                 if pending_users:
                     serializer = RetriveUsersSerializer(pending_users,many=True)
                     response_data = {'message':'Users retrival succesful','users_list': serializer.data}

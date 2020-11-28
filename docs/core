@@ -63,7 +63,7 @@ Response:
 
 ==============================================================
 
-3.  Retrieve users with pending user_status
+3.  Retrieve all users for admin
 
 GET     http://127.0.0.1:8000/core/admin/users
 
@@ -75,18 +75,40 @@ Response:
     "message": "Users retrival succesful",
     "users_list": [
         {
-            "id": 59,
+            "id": 62,
             "first_name": "Jal",
             "last_name": "Deep",
-            "email_id": "Deep.rt@gmail.com",
-            "user_type": "default"
+            "email_id": "rr.rt@gmail.com",
+            "user_type": "default",
+            "user_status": "pending",
+            "created_at": "2020-11-22T20:42:14.682566Z"
         },
         {
-            "id": 61,
+            "id": 74,
+            "first_name": "Neil",
+            "last_name": "Redyy",
+            "email_id": "Redyy.Neil@gmail.com",
+            "user_type": "seller",
+            "user_status": "approved",
+            "created_at": "2020-11-25T22:56:42.515826Z"
+        },
+        {
+            "id": 76,
+            "first_name": "Luis",
+            "last_name": "King",
+            "email_id": "King.Luis@gmail.com",
+            "user_type": "default",
+            "user_status": "rejected",
+            "created_at": "2020-11-26T00:24:48.253106Z"
+        },
+        {
+            "id": 63,
             "first_name": "Jal",
             "last_name": "Deep",
-            "email_id": "SER.rt@gmail.com",
-            "user_type": "default"
+            "email_id": "UT.rt@gmail.com",
+            "user_type": "default",
+            "user_status": "deactivated",
+            "created_at": "2020-11-22T21:08:44.900406Z"
         }
     ]
 }
