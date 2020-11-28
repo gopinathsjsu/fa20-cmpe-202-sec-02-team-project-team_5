@@ -39,7 +39,9 @@ function Home(props) {
       console.log(response);
       if(response.status === 200){
         if(response.data){
-          setUsersList(response.data.users_list.map(list => {
+          setUsersList(response.data.users_list.filter(list => {
+            return list.user_status !== "deactivated";
+          }).map(list => {
             list['processed'] = false;
             return list;
           }));
@@ -72,9 +74,12 @@ function Home(props) {
               {user.processed ? (
                 <td aligin='center'><Badge style={{'float': 'none'}}variant="secondary">Submitted!</Badge></td>
               ) : (
-                <td><Button onClick={e => handleUserVaildation(user.id,'approved')}variant="success">Approve</Button>{' '}
-                <Button onClick={e => handleUserVaildation(user.id,'rejected')}variant="warning">Reject</Button>{' '}
-                <Button onClick={e => handleUserVaildation(user.id,'deactivated')}variant="danger">Remove</Button></td>
+                <td>
+                {user.user_status === 'pending' ? (<>
+                  <Button onClick={e => handleUserVaildation(user.id,'approved')}variant="success">Approve</Button>{' '}
+                  <Button onClick={e => handleUserVaildation(user.id,'rejected')}variant="warning">Reject</Button>{' '}</>
+                ) :(<Button onClick={e => handleUserVaildation(user.id,'deactivated')}variant="danger">Remove</Button>)}
+                </td>
               )}
             </tr>
             }))}

@@ -17,14 +17,14 @@ function Menu(props) {
           <Nav.Link><Link className="navigation-links" to='/rent'>Rent</Link></Nav.Link>
         </Nav.Item>
       </Nav>
-      <Navbar.Brand href='/home'><img className = 'logo' src = {logo} alt ="Home Finder"/></Navbar.Brand>
+      <Navbar.Brand><Link className="navigation-links" to='/home'><img className = 'logo' src = {logo} alt ="Home Finder"/></Link></Navbar.Brand>
 
         <Nav className="ml-auto" activeKey="/home">
         {localStorage.getItem('email') ? (
           <Nav.Item> 
             <NavDropdown title="Manage Listings" id="basic-nav-dropdown">
-              <NavDropdown.Item href='/view-listings'> View Listings</NavDropdown.Item>
-              <NavDropdown.Item href='/create-listings'> Create Listings</NavDropdown.Item>
+              <NavDropdown.Item><Link className="navigation-links" to='/view-listings'> View Listings</Link></NavDropdown.Item>
+              <NavDropdown.Item><Link className="navigation-links" to='/create-listings'> Create Listings</Link></NavDropdown.Item>
             </NavDropdown>
           </Nav.Item>
           ) : (
@@ -34,11 +34,11 @@ function Menu(props) {
           {localStorage.getItem('email') ? (
               <Nav.Item> 
                 <NavDropdown title={<FaUser/>} id="basic-nav-dropdown">
-                  <NavDropdown.Item href='/favourite-searches'>Favorite Searches</NavDropdown.Item>
-                  <NavDropdown.Item href='/favourite-homes'>Favorite Homes</NavDropdown.Item>
-                  <NavDropdown.Item href='/applications'> Applications(Buy/Sell)</NavDropdown.Item>
+                  <NavDropdown.Item><Link className="navigation-links" to='/favourite-searches'>Favorite Searches</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="navigation-links" to='/favourite-homes'>Favorite Homes</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="navigation-links" to='/applications'> Applications(Buy/Sell)</Link></NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href='/sign-out'>Sign out &nbsp;<FaSignOutAlt/></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="navigation-links" to='/sign-out'>Sign out &nbsp;</Link><FaSignOutAlt/></NavDropdown.Item>
                 </NavDropdown>
               </Nav.Item>
           ) : (

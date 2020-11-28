@@ -1,51 +1,40 @@
 import React from 'react';
 import { ListGroup, ListGroupItem, Card, Button, Alert } from 'react-bootstrap';
 import Modal from "react-modal";
-import GridModal from './GridModal'
-import './Grids.css';
+import GridModal from './../Grids/GridModal'
+import './../Grids/Grids.css';
 import PropTypes from 'prop-types';
 import { rooturl } from '../../../config/config';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-const Grids = (props) => {
-    let house  = props.hit;
+const FavouriteGrid = (props) => {
+    let house  = props.listing;
     const [isOpen, setIsOpen] = React.useState(false);
-    let addAsFavorite = () => {
+    const [removeFavorite,setRemoveFavourite] = React.useState(false);
+    let removeFavourite = () => {
         let formData = {
-            'listing_id': parseInt(house['objectID']),
+            'listing_id': parseInt(house['id']),
         }
         Axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-        Axios.post(`${rooturl}/favorites/listing/`, formData,{ validateStatus: false })
+        Axios.delete(`${rooturl}/favorites/listing/${props.id}/`, formData,{ validateStatus: false })
         .then((response) => {
             if (response.status === 200 || response.status === 204) {
-                setFavourite(<Alert variant="success">Marked as favourite!</Alert>)
+              props.setRefreshList(!props.refreshList);
             }
         });
     };
-    let removeFromFavorite = () => {
-        let formData = {
-            'listing_id': parseInt(house['objectID']),
-        }
-        Axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
-        Axios.delete(`${rooturl}/favorites/listing/${house['objectID']}/`, formData,{ validateStatus: false })
-        .then((response) => {
-            if (response.status === 200 || response.status === 204) {
-                setFavourite(<Redirect to="/favourite-homes"></Redirect>)
-            }
-        });
-    };
-    const [favorite,setFavourite] = React.useState(props.removeFromFavourite ? <Button onClick={removeFromFavorite} variant="outline-danger" size="sm">Remove from Favorite</Button> : <Button onClick={addAsFavorite} variant="outline-danger" size="sm">Save as Favorite</Button>);
     function toggleModal() {
         setIsOpen(!isOpen);
     }
+    if(removeFavorite){
+      return null;
+    }
     return (
-        <div className =''>
+        <div className ='bg-light-gray dib br3 pa3 ma2 bw2 shadow-5'>
             <Card>
-                <Card.Img variant="top" src={house['images'][1]} />
-                {localStorage.getItem('email') ? (
-                    favorite
-                ) : ('')}
+                <Card.Img variant="top" src={house['images'][1]['url']} />
+                <Button onClick={removeFavourite} variant="outline-danger" size="sm">Remove from Favorite</Button>
                 <Card.Body>
                     <Card.Title style={{height: '2rem'}}>{house['street_address'] + ', ' + house['city'] + ', ' + house['state'] + ' - ' + house['zip_code']}</Card.Title>
                 </Card.Body>
@@ -67,8 +56,8 @@ const Grids = (props) => {
     );
 }
 
-Grids.propTypes = {
+FavouriteGrid.propTypes = {
     hit: PropTypes.object.isRequired,
   };
 
-export default Grids;
+export default FavouriteGrid;

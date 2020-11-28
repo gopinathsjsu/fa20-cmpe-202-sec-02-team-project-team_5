@@ -1,7 +1,8 @@
 import React from "react";
 import Grids from "./Grids";
 import algoliasearch from "algoliasearch/lite";
-import { appid, searchapikey } from "../../../config/config";
+import algoliasearchHelper from 'algoliasearch-helper'
+import { appid, rooturl, searchapikey } from "../../../config/config";
 import "./ListingsGrid.css";
 import {
   InstantSearch,
@@ -12,18 +13,42 @@ import {
   Configure,
   RangeInput,
 } from "react-instantsearch-dom";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import Axios from "axios";
 
-const ListingsGrid = ({ type, queryString }) => {
+const ListingsGrid = (props) => {
+  let {type, filterParams} = props;
   const searchClient = algoliasearch(appid, searchapikey);
+  let [filterState,setFilterState] = React.useState({});
+  let setSearchStateChange = (searchState) =>{
+    setFilterState(JSON.parse(JSON.stringify(searchState)));
+  }
+  let [saveSearchMsg,setSaveSearchMsg] = React.useState('');
+  let handleSaveSearch = (e) => {
+    e.preventDefault();
+    console.log(filterState);
+    let formData = {
+      query_params: filterState,
+      name: e.target.name.value,
+    }
+    Axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
+    Axios.post(`${rooturl}/favorites/search/`,formData,{ validateStatus: false })
+    .then((response) => {
+      if (response.status === 201) {
+        e.target.reset();
+        setSaveSearchMsg(<Alert variant='success'>Search Saved!</Alert>);
+      }
+    });
+  }
+  const [isOpen, setIsOpen] = React.useState(false);
+  let toggleModal = () => {setIsOpen(!isOpen)};
   return (
     <div className="">
-      <InstantSearch indexName="Listing" searchClient={searchClient}>
-        {/* <div>{homeGrids}</div> */}
+      <InstantSearch indexName="Listing" searchClient={searchClient}
+      onSearchStateChange={setSearchStateChange}>
         <Configure
           hitsPerPage={9}
           filters={`listing_type:${type}`}
-          query={"san francisco"}
         />
         <Container>
           <Card>
@@ -31,19 +56,19 @@ const ListingsGrid = ({ type, queryString }) => {
               <Row>
                 <Col lg="4" md="6" sm="12">
                   <div className="ais-InstantSearch">
-                    <SearchBox defaultRefinement={queryString} />
+                    <SearchBox defaultRefinement={filterParams.query} />
                   </div>
                 </Col>
                 <Col lg="4" md="6" sm="12">
                   <span>Bedrooms&nbsp;</span>
                   <span>
-                    <MenuSelect attribute="bedrooms" />
+                    <MenuSelect attribute="bedrooms" defaultRefinement={filterParams.menu &&filterParams.menu.bedrooms}/>
                   </span>
                 </Col>
                 <Col lg="4" md="6" sm="12">
                   <span>Bathrooms&nbsp;</span>
                   <span>
-                    <MenuSelect attribute="bathroom" />
+                    <MenuSelect attribute="bathroom" defaultRefinement={filterParams.menu &&filterParams.menu.bathroom}/>
                   </span>
                 </Col>
               </Row>
@@ -52,26 +77,47 @@ const ListingsGrid = ({ type, queryString }) => {
                 <Col lg="4" md="6" sm="12">
                   <span>Home Type&nbsp;</span>
                   <span>
-                    <MenuSelect attribute="home_type" />
+                    <MenuSelect attribute="home_type" defaultRefinement={filterParams.menu && filterParams.menu.home_type}/>
                   </span>
                 </Col>
                 <Col lg="4" md="6" sm="12">
                   <span>Price&nbsp;</span>
                   <span>
-                    <RangeInput attribute={"price"} />
+                    <RangeInput attribute={"price"} defaultRefinement={{ min: filterParams.range && filterParams.range.price && parseInt(filterParams.range.price.min), max: filterParams.range && filterParams.range.price && parseInt(filterParams.range.price.max) }}/>
                   </span>
                 </Col>
                 <Col lg="4" md="6" sm="12">
                   <span>Area&nbsp;</span>
                   <span>
-                    <RangeInput attribute={"sqft_area"} />
+                    <RangeInput attribute={"sqft_area"} defaultRefinement={{ min: filterParams.range && filterParams.range.sqft_area && filterParams.range.sqft_area.min, max: filterParams.range && filterParams.range.sqft_area && filterParams.range.sqft_area.max }}
+                    min={filterParams.range && filterParams.range.sqft_area && filterParams.range.sqft_area.min}
+                    max={filterParams.range && filterParams.range.sqft_area && filterParams.range.sqft_area.max}
+                    />
                   </span>
                 </Col>
               </Row>
+              <br/>
+              <Row><Col>
+                  <Modal show={isOpen} onHide={toggleModal} aria-labelledby="contained-modal-title-vcenter">
+                    <Modal.Header closeButton>
+                      <h4>Enter your filter name</h4>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form onSubmit={ e => handleSaveSearch(e)}>
+                        {saveSearchMsg}
+                        <Form.Group>
+                          <Form.Control inline type="text" name='name' placeholder="Please enter the filter name" required/>
+                        </Form.Group>
+                        <Button variant="primary" type='submit'>Save Search</Button>{' '}
+                        <Button style={{"float" : "right"}} variant="primary" onClick={toggleModal}>Close</Button>
+                      </Form>
+                    </Modal.Body>
+                  </Modal>
+                  <Button onClick={toggleModal} variant="primary">Save Search</Button>
+              </Col></Row>
             </Card.Body>
           </Card>
         </Container>
-
         <br />
         <Hits hitComponent={Grids} />
         <Pagination />

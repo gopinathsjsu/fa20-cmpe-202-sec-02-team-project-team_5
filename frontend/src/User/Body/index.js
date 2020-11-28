@@ -8,6 +8,8 @@ import SignIn from './SignIn';
 import SignOut from './SignOut';
 import CreateListings from './CreateListings';
 import ViewListings from './ViewListings';
+import ListFavourites from './favourites/ListFavourites';
+import ListFavouriteSearches from './favourites/ListFavouriteSearches';
 
 function Body(props) {
   return (
@@ -21,6 +23,8 @@ function Body(props) {
       <Route exact path="/sign-out" component={SignOut} />
       <Route exact path="/create-listings" component={CreateListings} />
       <Route exact path="/view-listings" component={ViewListings} />
+      <Route exact path="/favourite-homes" component={ListFavourites} />
+      <Route exact path="/favourite-searches" component={ListFavouriteSearches} />
     </Switch>
   );
 }
