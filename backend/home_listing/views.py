@@ -6,6 +6,7 @@ from core.authentications import JWTAuthentication
 from datetime import datetime
 from .serializers import *
 from rest_framework import status
+from django.db import transaction
 
 
 
@@ -21,11 +22,12 @@ def listings(request):
         listing_serializer = CreateListingSerializer(data=request.data)
 
         if listing_serializer.is_valid() and images_serializer.is_valid() and open_house_serializer.is_valid():
+            with transaction.atomic():
+                new_listing = listing_serializer.save(listed_by=user)
+                images_serializer.save(listing=new_listing)
+                open_house_serializer.save(listing=new_listing)
+                new_listing.save()
 
-            new_listing = listing_serializer.save(listed_by=user)
-            images_serializer.save(listing=new_listing)
-            open_house_serializer.save(listing=new_listing)
-            new_listing.save()
             return Response(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
 
         return Response(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -150,7 +150,8 @@ class OpenHouse(models.Model):
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
     listing = models.ForeignKey(Listing, models.DO_NOTHING)
-    url = models.URLField()
+    url = models.URLField(null=True, blank=True)
+    photo_file = models.FileField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
