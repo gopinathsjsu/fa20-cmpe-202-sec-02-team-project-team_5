@@ -12,7 +12,7 @@ import {
   Configure,
   RangeInput,
 } from "react-instantsearch-dom";
-import { Alert, Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Collapse, Container, Form, Modal, Row } from "react-bootstrap";
 import Axios from "axios";
 
 const ListingsGrid = (props) => {
@@ -41,6 +41,8 @@ const ListingsGrid = (props) => {
   }
   const [isOpen, setIsOpen] = React.useState(false);
   let toggleModal = () => {setIsOpen(!isOpen)};
+  const [showFilter, setShowFilter] = React.useState(false);
+  let toggleShowFilter = () => {setShowFilter(!showFilter)};
   return (
     <div className="">
       <InstantSearch indexName="Listing" searchClient={searchClient}
@@ -73,7 +75,7 @@ const ListingsGrid = (props) => {
               </Row>
               <br />
               <Row>
-                <Col lg="4" md="6" sm="12">
+              <Col lg="4" md="6" sm="12">
                   <span>Home Type&nbsp;</span>
                   <span>
                     <MenuSelect attribute="home_type" defaultRefinement={filterParams.menu && filterParams.menu.home_type}/>
@@ -94,6 +96,55 @@ const ListingsGrid = (props) => {
                     />
                   </span>
                 </Col>
+                {/* <Col lg="4" md="6" sm="12">
+                  <Button onClick={toggleShowFilter} variant="primary" aria-controls="example-collapse-text"
+        aria-expanded={showFilter}>More filters</Button>
+                </Col> */}
+              </Row>
+              <Row>
+                <Col>
+                  <Collapse in={showFilter}>
+                    <div id="example-collapse-text">
+                      <br/>
+                      <Row >
+                        <Col>
+                          <Row>
+                            <Col>home_status</Col>
+                            <Col><MenuSelect attribute="home_status" defaultRefinement={filterParams.menu && filterParams.menu.home_status}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>zip_code</Col>
+                            <Col><MenuSelect attribute="zip_code" defaultRefinement={filterParams.menu && filterParams.menu.zip_code}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>city</Col>
+                            <Col><MenuSelect attribute="city" defaultRefinement={filterParams.menu && filterParams.menu.city}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>state</Col>
+                            <Col><MenuSelect attribute="state" defaultRefinement={filterParams.menu && filterParams.menu.state}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>country</Col>
+                            <Col><MenuSelect attribute="country" defaultRefinement={filterParams.menu && filterParams.menu.country}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>year_built</Col>
+                            <Col><MenuSelect attribute="year_built" defaultRefinement={filterParams.menu && filterParams.menu.year_built}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>kitchen</Col>
+                            <Col><MenuSelect attribute="kitchen" defaultRefinement={filterParams.menu && filterParams.menu.kitchen}/></Col>
+                          </Row>
+                          <Row>
+                            <Col>laundry</Col>
+                            <Col><MenuSelect attribute="laundry" defaultRefinement={filterParams.menu && filterParams.menu.laundry}/></Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                    </div>
+                  </Collapse>
+                </Col>
               </Row>
               <br/>
               <Row><Col>
@@ -112,6 +163,8 @@ const ListingsGrid = (props) => {
                       </Form>
                     </Modal.Body>
                   </Modal>
+                  <Button onClick={toggleShowFilter} variant="primary" aria-controls="example-collapse-text"
+        aria-expanded={showFilter}>More filters</Button>{' '}
                   <Button onClick={toggleModal} variant="primary">Save Search</Button>
               </Col></Row>
             </Card.Body>

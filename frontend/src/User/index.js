@@ -6,7 +6,7 @@ function User(props) {
   return (
     <div>
       <Header />
-      <br></br><br></br><br></br>
+      <br/>
       <Body />
     </div>
   );

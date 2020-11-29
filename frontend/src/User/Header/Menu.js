@@ -36,7 +36,7 @@ function Menu(props) {
                 <NavDropdown title={<FaUser/>} id="basic-nav-dropdown">
                   <NavDropdown.Item><Link className="navigation-links" to='/favourite-searches'>Favorite Searches</Link></NavDropdown.Item>
                   <NavDropdown.Item ><Link className="navigation-links" to='/favourite-homes'>Favorite Homes</Link></NavDropdown.Item>
-                  <NavDropdown.Item ><Link className="navigation-links" to='/applications'> Applications(Buy/Sell)</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="navigation-links" to='/my-applications'> Applications(Buy/Sell)</Link></NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item ><Link className="navigation-links" to='/sign-out'>Sign out &nbsp;</Link><FaSignOutAlt/></NavDropdown.Item>
                 </NavDropdown>

@@ -30,9 +30,9 @@ const FavouriteGrid = (props) => {
       return null;
     }
     return (
-        <div className ='bg-light-gray dib br3 pa3 ma2 bw2 shadow-5'>
-            <Card>
-                <Card.Img variant="top" src={house['images'][1]['url']} />
+        <div key = {house.id} className ='bg-light-gray dib br3 pa3 ma2 bw2 shadow-5'>
+            <Card style={{ width: '25rem' }}>
+                <Card.Img variant="top" src={house['images'] && house['images'][1] && house['images'][1]['url']} />
                 <Button onClick={removeFavourite} variant="outline-danger" size="sm">Remove from Favorite</Button>
                 <Card.Body>
                     <Card.Title style={{height: '2rem'}}>{house['street_address'] + ', ' + house['city'] + ', ' + house['state'] + ' - ' + house['zip_code']}</Card.Title>

@@ -36,3 +36,10 @@
 span {
     float: left;
 }
+#example-collapse-text .ais-MenuSelect{
+    float: left;
+}
+
+#example-collapse-text .col{
+    text-align: right;
+}

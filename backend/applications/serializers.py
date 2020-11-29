@@ -18,7 +18,7 @@ class CreateApplicationSerializer(serializers.Serializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ('home_listing','status','offered_price','user','created_at')
+        fields = ('id','home_listing','status','offered_price','user','created_at')
 
 class CreateUserAdditionalInfoSerializer(serializers.Serializer):
     sex = serializers.CharField(required=False,allow_null=True,allow_blank=True)

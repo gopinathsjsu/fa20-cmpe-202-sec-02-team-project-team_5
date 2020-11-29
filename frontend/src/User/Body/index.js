@@ -10,6 +10,8 @@ import CreateListings from './CreateListings';
 import ViewListings from './ViewListings';
 import ListFavourites from './favourites/ListFavourites';
 import ListFavouriteSearches from './favourites/ListFavouriteSearches';
+import NewApplication from './applications/NewApplication';
+import MyApplications from './applications/MyApplications';
 
 function Body(props) {
   return (
@@ -25,6 +27,8 @@ function Body(props) {
       <Route exact path="/view-listings" component={ViewListings} />
       <Route exact path="/favourite-homes" component={ListFavourites} />
       <Route exact path="/favourite-searches" component={ListFavouriteSearches} />
+      <Route exact path="/new-application/:id" component={NewApplication} />
+      <Route exact path="/my-applications" component={MyApplications} />
     </Switch>
   );
 }

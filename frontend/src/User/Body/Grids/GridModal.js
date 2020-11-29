@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import {rooturl} from '../../../config/config'
 import './GridModal.css'
 
@@ -50,7 +51,7 @@ function GridModal({home_id}) {
                 <br/>
                 <h3>Submit an application</h3>
                 <div>
-                    <Button variant="primary" href="applications">Application</Button>
+                    <Link to={`/new-application/${home_id}`}><Button variant="primary" >Application</Button></Link>
                 </div>
             </div>
         </div>
