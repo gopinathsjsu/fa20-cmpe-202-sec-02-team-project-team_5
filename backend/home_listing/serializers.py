@@ -91,20 +91,12 @@ class CreateImagesSerializer(serializers.Serializer):
         print("create images validated data: ", validated_data)
 
         image_objs = []
-        for image_url in validated_data["images"]:
+        for image_url in validated_data.get("images", []):
             image_objs.append(
                 Image(url=image_url, listing=validated_data["listing"])
             )
 
-        Image.objects.bulk_create(image_objs)
-
-        s3_image_objs = []
-        for image_file in validated_data["s3_image_file_data"]:
-            s3_image_objs.append(
-                Image(photo_file=image_file, listing=validated_data["listing"])
-            )
-
-        Image.objects.bulk_create(s3_image_objs)
+        return Image.objects.bulk_create(image_objs)
 
 
 class CreateOpenHouseSerializer(serializers.Serializer):
