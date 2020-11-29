@@ -100,12 +100,12 @@ class CreateImagesSerializer(serializers.Serializer):
 
 
 class CreateOpenHouseSerializer(serializers.Serializer):
-    open_house = serializers.ListField(child=serializers.DictField())
+    open_house = serializers.ListField(child=serializers.DictField(), required=False)
 
     def create(self, validated_data):
         print("create open house validated data: ", validated_data)
         open_house_objs = []
-        for open_house in validated_data["open_house"]:
+        for open_house in validated_data.get("open_house", []):
             open_house_objs.append(
                 OpenHouse(open_house_date=open_house["open_house_date"], open_house_start_time=open_house["open_house_start_time"],
                           open_house_end_time=open_house["open_house_end_time"], listing=validated_data["listing"])
