@@ -162,9 +162,7 @@ function CreateListings(props) {
             <option value="multi-family">Multi-Family</option>
             <option value="townhomes">Town Homes</option>
             <option value="single-family-home">Single Family Homes</option>
-            <option value="single-family-detached">
-              Single Family Detached Homes
-            </option>
+            <option value="single-family-detached">Single Family Detached Homes</option>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="HouseType">

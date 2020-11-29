@@ -1,12 +1,11 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Card, Button, Alert } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Card, Button} from 'react-bootstrap';
 import Modal from "react-modal";
 import GridModal from './../Grids/GridModal'
 import './../Grids/Grids.css';
 import PropTypes from 'prop-types';
 import { rooturl } from '../../../config/config';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
 
 const FavouriteGrid = (props) => {
     let house  = props.listing;

@@ -1,7 +1,6 @@
 import React from "react";
 import Grids from "./Grids";
 import algoliasearch from "algoliasearch/lite";
-import algoliasearchHelper from 'algoliasearch-helper'
 import { appid, rooturl, searchapikey } from "../../../config/config";
 import "./ListingsGrid.css";
 import {
