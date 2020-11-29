@@ -61,7 +61,7 @@ const Grids = (props) => {
             <Modal isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">
                 <GridModal house_info = {house} home_id = {house['objectID']}/>
                 <br/>
-                <Button variant="primary" onClick={toggleModal}>Close</Button>
+                <Button variant="danger" onClick={toggleModal}>Close</Button>
             </Modal>
         </div>
     );

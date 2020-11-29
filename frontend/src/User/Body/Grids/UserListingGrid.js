@@ -1,12 +1,18 @@
 import React from 'react';
 import { ListGroup, ListGroupItem, Card, Button } from 'react-bootstrap';
 import './UserListingGrid.css';
+import Modal from "react-modal";
 import { rooturl } from '../../../config/config';
 import Axios from "axios";
+import CreateListings from '../CreateListings';
 
 const UserListingGrid = (props) => {
     const house = props.house;
+    const [isOpen, setIsOpen] = React.useState(false);
     Axios.defaults.headers.common["authorization"] = localStorage.getItem("token");
+    function toggleModal() {
+        setIsOpen(!isOpen);
+    }
     const deleteHome = (index) => {
         const listing_id = house[index].id;
         console.log("Deleting a listing!!!!!");
@@ -31,12 +37,23 @@ const UserListingGrid = (props) => {
                 <ListGroupItem>{house[i]['home_status']}</ListGroupItem>
             </ListGroup>
             <Card.Body>
-                <Button href="#" variant="primary">Edit Listing</Button>
+                <Button href="#" variant="primary" onClick={toggleModal}>Edit Listing</Button>
                 <br/>
                 <br/>
                 <Button href="#" variant="danger" onClick= {() => deleteHome(i)}>Delete Home</Button>
             </Card.Body>
         </Card>
+        <Modal isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">
+            <h3>Edit the listing</h3>
+            <br/>
+            <div>
+                <CreateListings/>
+            </div>
+            <Button variant="primary" onClick={toggleModal}>Submit</Button>
+            <br/>
+            <br/>
+            <Button variant="primary" onClick={toggleModal}>Close</Button>
+        </Modal>
     </div>
     );
     });

@@ -57,12 +57,20 @@ function CreateListings(props) {
     const form = event.currentTarget;
 
     var formattedDate = new Date(form.available_date.value).toISOString();
+    var lease = null;
+    var deposit = null;
+    if(form.lease_term.value !== ""){
+      lease = form.lease_term.value;
+    }
+    if(form.security_deposit.value !== ""){
+      deposit = form.lease_term.value;
+    }
     const formData = {
       home_status: form.home_status.value,
       country: "United States",
       parking_space_type: form.parking_space_type.value,
-      lease_term: form.lease_term.value,
-      security_deposit: form.security_deposit.value,
+      lease_term: lease,
+      security_deposit: deposit,
       heater: form.heating.value,
       kitchen: form.kitchen.value,
       laundry: form.laundry.value,
