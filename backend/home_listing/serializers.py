@@ -4,7 +4,13 @@ from core.models import User
 
 
 class ImageSerializer(serializers.Serializer):
-    url = serializers.URLField()
+    url = serializers.SerializerMethodField()
+
+    def get_url(self, obj):
+        if obj.photo_file:
+            return obj.photo_file.url.split('?')[0]
+        return obj.url
+
 
 class OpenHouseSerializer(serializers.Serializer):
     open_house_date = serializers.CharField()
@@ -78,7 +84,8 @@ class ParkingSpaceTypeSerializer(serializers.Field):
 
 
 class CreateImagesSerializer(serializers.Serializer):
-    images = serializers.ListField(child=serializers.URLField())
+    images = serializers.ListField(child=serializers.URLField(), required=False)
+    s3_image_file_data = serializers.ListField(child=serializers.FileField(), required=False)
 
     def create(self, validated_data):
         print("create images validated data: ", validated_data)
@@ -89,7 +96,15 @@ class CreateImagesSerializer(serializers.Serializer):
                 Image(url=image_url, listing=validated_data["listing"])
             )
 
-        return Image.objects.bulk_create(image_objs)
+        Image.objects.bulk_create(image_objs)
+
+        s3_image_objs = []
+        for image_file in validated_data["s3_image_file_data"]:
+            s3_image_objs.append(
+                Image(photo_file=image_file, listing=validated_data["listing"])
+            )
+
+        Image.objects.bulk_create(s3_image_objs)
 
 
 class CreateOpenHouseSerializer(serializers.Serializer):

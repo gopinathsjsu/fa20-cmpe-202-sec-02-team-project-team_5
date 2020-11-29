@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'applications.apps.ApplicationsConfig',
     'algoliasearch_django',
     'django_extensions',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -191,3 +192,11 @@ EMAIL_HOST_USER = os.getenv('SMTP_EMAIL')
 EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASSWPRD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+# AWS image settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'home-finder-images'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
