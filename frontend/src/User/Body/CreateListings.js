@@ -58,7 +58,7 @@ function CreateListings(props) {
     event.preventDefault();
     const form = event.currentTarget;
 
-    var formattedDate = new Date(form.available_date.value).toISOString();
+    // var formattedDate = new Date(form.available_date.value).toISOString();
     var lease = null;
     var deposit = null;
     if (form.lease_term.value !== "") {
@@ -95,7 +95,8 @@ function CreateListings(props) {
       bathroom: form.bathroom.value,
       sqft_area: form.sqft_area.value,
       year_built: form.year_built.value,
-      available_date: formattedDate,
+      available_date: form.available_date.value,
+      s3_image_file_data: [form.image.files[0]]
     };
     console.log(formData);
     console.log(form.lease_term.value);
@@ -183,6 +184,10 @@ function CreateListings(props) {
             <option value="rented">Rented</option>
             <option value="sold">Sold</option>
           </Form.Control>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Image Upload</Form.Label>
+          <Form.File name ="image" id="custom-file" label="Upload Images" multiple custom />
         </Form.Group>
         <Form.Group controlId="formBasicAddress">
           <Form.Label>Property Address</Form.Label>
@@ -318,8 +323,8 @@ function CreateListings(props) {
         <Form.Group controlId="HeatingType">
           <Form.Label>Heating</Form.Label>
           <Form.Control as="select" name="heating">
-            <option value="gas">Gas</option>
             <option value="centralized">Centralized</option>
+            <option value="gas">Gas</option>
             <option value="none">None</option>
           </Form.Control>
         </Form.Group>
@@ -354,7 +359,7 @@ function CreateListings(props) {
         {inputFields.map((inputField, index) => (
           <Fragment key={`${inputField}~${index}`}>
             <Form.Group controlId="formBasicDate">
-              <Form.Label>Open House Date</Form.Label>
+              <Form.Label>Open House Date(If Applicable)</Form.Label>
               <Form.Control
                 type="date"
                 name="open_house_date"
@@ -362,7 +367,7 @@ function CreateListings(props) {
               />
             </Form.Group>
             <Form.Group controlId="formBasicTime">
-              <Form.Label>Open House Start Time</Form.Label>
+              <Form.Label>Open House Start Time(If Applicable)</Form.Label>
               <Form.Control
                 type="time"
                 name="open_house_start_time"
@@ -370,7 +375,7 @@ function CreateListings(props) {
               />
             </Form.Group>
             <Form.Group controlId="formBasicTime">
-              <Form.Label>Open House End Time</Form.Label>
+              <Form.Label>Open House End Time(If Applicable)</Form.Label>
               <Form.Control
                 type="time"
                 name="open_house_end_time"
