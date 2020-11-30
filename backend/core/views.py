@@ -61,8 +61,8 @@ class UserLoginView(GenericAPIView):
                         return JsonResponse({'message': 'Invalid password'}, status=status.HTTP_412_PRECONDITION_FAILED)
                 else:
                     return JsonResponse({'message': 'Cannot login, User is not approved'}, status=status.HTTP_412_PRECONDITION_FAILED)
-            except Exception:
-                return JsonResponse({'message': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
+            except Exception as ex:
+                return JsonResponse({'message': str(ex)}, status=status.HTTP_404_NOT_FOUND)
         else:
             return JsonResponse({'message': 'Provide login details'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -82,8 +82,8 @@ class PendingUserView(GenericAPIView):
                     return JsonResponse(response_data,status=status.HTTP_200_OK,safe=False)
                 else:                    
                     return JsonResponse({'message': 'No user found with pending status'}, status=status.HTTP_404_NOT_FOUND)
-            except Exception:
-                return JsonResponse({'message': 'Unable to process the request'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            except Exception as ex:
+                return JsonResponse({'message': str(ex)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return JsonResponse({'message': 'Admin authentication failed'}, status=status.HTTP_412_PRECONDITION_FAILED)
 
@@ -113,12 +113,12 @@ class UpdateUserStatusView(GenericAPIView):
                             'Sorry, as provide information does not qaulify our standards, your registration can not be approved.'\
                              + '\n'+'Please contact support for more information.', 'from@gmail.com', [user_info.email_id])
                     return JsonResponse({'message': 'Update successful'}, status=status.HTTP_201_CREATED)
-                except Exception:
-                    return JsonResponse({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+                except Exception as ex:
+                    return JsonResponse({'message': str(ex)}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return JsonResponse({'message': 'Admin authentication failed'}, status=status.HTTP_412_PRECONDITION_FAILED)
         else:
-            return JsonResponse({'message': 'Provide user details'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserAccountInfo(GenericAPIView):
     """
@@ -157,8 +157,8 @@ class RemoveUserView(GenericAPIView):
                     user.is_active = False
                     user.save()
                     return JsonResponse({'message': 'User deleted'}, status=status.HTTP_201_CREATED)
-                except Exception:
-                    return JsonResponse({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+                except Exception as ex:
+                    return JsonResponse({'message': str(ex)}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return JsonResponse({'message': 'Admin authentication failed'}, status=status.HTTP_412_PRECONDITION_FAILED)
         else:

@@ -85,8 +85,8 @@ class ApplicationStatusUpdateView(GenericAPIView):
                 application.status = app_status
                 application.save()
                 return JsonResponse({'message': 'Applciation status update successful'}, status=status.HTTP_201_CREATED)
-            except Exception:
-                return JsonResponse({'message': 'Application not found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            except Exception as ex:
+                return JsonResponse({'message': str(ex)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -110,7 +110,7 @@ class WithdrawApplicationView(GenericAPIView):
                 application.deleted_why = reason
                 application.save()
                 return JsonResponse({'message': 'Application deleted'}, status=status.HTTP_201_CREATED)
-            except Exception:
-                return JsonResponse({'message': 'Application not found'}, status=status.HTTP_404_NOT_FOUND)        
+            except Exception as ex:
+                return JsonResponse({'message': str(ex)}, status=status.HTTP_404_NOT_FOUND)        
         else:
             return JsonResponse({'message': 'Provide application details'}, status=status.HTTP_400_BAD_REQUEST)
