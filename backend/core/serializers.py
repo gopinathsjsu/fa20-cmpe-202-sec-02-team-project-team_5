@@ -27,7 +27,7 @@ class UserSerializer(serializers.Serializer):
     user_type = UserTypeFieldSerializer(required=False)
     first_name = serializers.CharField()
     last_name = serializers.CharField()
-    email_id = serializers.CharField()
+    email_id = serializers.EmailField()
     password = serializers.CharField()
 
     def create(self, validated_data):
