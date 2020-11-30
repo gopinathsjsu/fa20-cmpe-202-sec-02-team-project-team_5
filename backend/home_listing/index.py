@@ -9,17 +9,17 @@ class ListingIndex(AlgoliaIndex):
     fields = ('listed_by', 'listing_type', 'home_type', 'home_status', 'description',
               'zip_code', 'street_address', 'city', 'state', 'country', 'price', 'sqft_area', 'bedrooms',
                 'bathroom', 'year_built', 'kitchen', 'laundry', 'air_conditioner', 'heater',
-                'lease_term', 'security_deposit', 'images', 'is_active', 'created_at', 'updated_at', 'deleted_at',
+                'available_date', 'lease_term', 'security_deposit', 'images', 'is_active', 'created_at', 'updated_at', 'deleted_at',
                 'deleted_why', 'open_houses', 'parking_space_type', 'floor_type')
 
     settings = {'searchableAttributes': ['listed_by', 'listing_type', 'home_type', 'home_status', 'description',
               'zip_code', 'street_address', 'city', 'state', 'country', 'price', 'sqft_area', 'bedrooms',
                 'bathroom', 'year_built', 'kitchen', 'laundry', 'air_conditioner', 'heater',
                 'lease_term', 'security_deposit', 'images', 'is_active', 'created_at', 'open_houses',
-                'updated_at', 'deleted_at', 'deleted_why', 'parking_space_type', 'floor_type'],
+                'available_date', 'updated_at', 'deleted_at', 'deleted_why', 'parking_space_type', 'floor_type'],
 
                 'attributesForFaceting': ['listed_by', 'listing_type', 'home_type', 'home_status',
                 'zip_code', 'city', 'state', 'price', 'sqft_area', 'bedrooms', 'bathroom', 'air_conditioner', 'heater',
-                'parking_space_type', 'floor_type']
+                'available_date', 'parking_space_type', 'floor_type']
                 }
 
