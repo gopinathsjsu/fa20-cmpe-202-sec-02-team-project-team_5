@@ -187,7 +187,7 @@ function CreateListings(props) {
         </Form.Group>
         <Form.Group>
           <Form.Label>Image Upload</Form.Label>
-          <Form.File name ="image" id="custom-file" label="Upload Images" custom />
+          <Form.File name ="image" id="custom-file" label="Upload Images" multiple custom />
         </Form.Group>
         <Form.Group controlId="formBasicAddress">
           <Form.Label>Property Address</Form.Label>

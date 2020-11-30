@@ -8,7 +8,9 @@ import "./GridModal.css";
 function GridModal({ home_id }) {
   const [homes, setHomes] = useState([]);
   const [scheduleError, showScheduleError] = useState("");
-  Axios.defaults.headers.common["authorization"] = localStorage.getItem("token");
+  Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+    "token"
+  );
   const scheduleApiEndpoint = rooturl + "/listings/" + home_id + "/schedule/";
   console.log("API Endpoint: " + scheduleApiEndpoint);
   const handleCreateSchedule = (event) => {
@@ -19,7 +21,6 @@ function GridModal({ home_id }) {
       schedule_visits_time: form.schedule_visits_time.value,
     };
     console.log(formData);
-    console.log(form.image.files[0]);
     Axios.post(scheduleApiEndpoint, formData, { validateStatus: false }).then(
       (response) => {
         console.log(response);
@@ -53,7 +54,7 @@ function GridModal({ home_id }) {
       }
     );
   }, []);
-  
+
   return (
     <div className="grid-modal">
       <div className="images">
@@ -62,23 +63,34 @@ function GridModal({ home_id }) {
         <img src={homes["images"] && homes["images"][1].url} alt="house" />
       </div>
       <div className="home-details">
-        <h4>Price: ${homes["price"]}</h4>
-        <br />
-        <h4>
-          Address:{" "}
-          {homes["street_address"] +
-            ", " +
-            homes["city"] +
-            ", " +
-            homes["state"] +
-            " - " +
-            homes["zip_code"]}
-        </h4>
-        <br />
-        <h3>Facts and features</h3>
+        <h4>Price: </h4>
+        <p>
+          <strong>${homes["price"]}</strong>
+        </p>
+        <h4>Address: </h4>
+        <p>
+          {" "}
+          <strong>
+            {homes["street_address"] +
+              ", " +
+              homes["city"] +
+              ", " +
+              homes["state"] +
+              " - " +
+              homes["zip_code"]}
+          </strong>
+        </p>
+        <h4>Facts and features</h4>
         <div>
           <ul>
             <li>Status: {homes["home_status"]}</li>
+            {homes["home_status"] === "available" ? (
+              <div>
+                <li>Available Date: {homes["available_date"]}</li>
+              </div>
+            ) : (
+              <div />
+            )}
             <li>Type: {homes["home_type"]}</li>
             <li>Bedrooms: {homes["bedrooms"]}</li>
             <li>Bathrooms: {homes["bathroom"]}</li>
@@ -99,29 +111,30 @@ function GridModal({ home_id }) {
             )}
           </ul>
         </div>
-        <h3>Schedule a visit</h3>
+      </div>
+      <div className="listings-forms">
+        <h4>Schedule a visit</h4>
         <div className="schedule-form">
           <Form onSubmit={handleCreateSchedule}>
             {scheduleError}
             <Form.Group controlId="formBasicDate">
-              <Form.Control type="date" name="schedule_visits_date"  />
+              <Form.Control type="date" name="schedule_visits_date" />
             </Form.Group>
             <Form.Group controlId="formBasicTime">
-              <Form.Control type="time" name="schedule_visits_time"  />
-            </Form.Group>
-            <Form.Group>
-                <Form.File name ="image" id="custom-file" label="Upload Images" custom />
+              <Form.Control type="time" name="schedule_visits_time" />
             </Form.Group>
             <Button variant="primary" type="submit" block>
               Schedule Visit
             </Button>
           </Form>
         </div>
-        <br />
-        <h3>Submit an application</h3>
+        <br /> <br />
+        <h4>Submit an application</h4>
         <div>
           <Link to={`/new-application/${home_id}`}>
-            <Button variant="primary">Application</Button>
+            <Button variant="success" block>
+              Application
+            </Button>
           </Link>
         </div>
       </div>
