@@ -7,9 +7,13 @@ import "./CreateListings.css";
 
 function CreateListings(props) {
   const [createListingsError, showCreateListingsError] = useState("");
-  const [inputFields, setInputFields] = useState([{ open_house_date: "", open_house_start_time: "", open_house_end_time: "" }]);
+  const [inputFields, setInputFields] = useState([
+    { open_house_date: "", open_house_start_time: "", open_house_end_time: "" },
+  ]);
   const [isOpen, setIsOpen] = React.useState(false);
-  Axios.defaults.headers.common["authorization"] = localStorage.getItem("token");
+  Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+    "token"
+  );
 
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -27,7 +31,7 @@ function CreateListings(props) {
 
   const handleRemoveFields = (index) => {
     console.log("index: " + index);
-    if(index !== 0){
+    if (index !== 0) {
       const values = [...inputFields];
       values.splice(index, 1);
       setInputFields(values);
@@ -37,18 +41,16 @@ function CreateListings(props) {
   const handleInputChange = (index, event) => {
     const values = [...inputFields];
     console.log(event.target.name);
-    if (event.target.name === "open_house_date") { 
+    if (event.target.name === "open_house_date") {
       values[index].open_house_date = event.target.value;
-    }
-    else if(event.target.name === "open_house_start_time"){
+    } else if (event.target.name === "open_house_start_time") {
       values[index].open_house_start_time = event.target.value;
-    }
-    else{
+    } else {
       values[index].open_house_end_time = event.target.value;
     }
     setInputFields(values);
     console.log(values);
-  }
+  };
 
   const apiEndpoint = rooturl + "/listings/";
 
@@ -59,10 +61,10 @@ function CreateListings(props) {
     var formattedDate = new Date(form.available_date.value).toISOString();
     var lease = null;
     var deposit = null;
-    if(form.lease_term.value !== ""){
+    if (form.lease_term.value !== "") {
       lease = form.lease_term.value;
     }
-    if(form.security_deposit.value !== ""){
+    if (form.security_deposit.value !== "") {
       deposit = form.lease_term.value;
     }
     const formData = {
@@ -97,7 +99,6 @@ function CreateListings(props) {
     };
     console.log(formData);
     console.log(form.lease_term.value);
-    Axios.defaults.withCredentials = true;
 
     Axios.post(apiEndpoint, formData, { validateStatus: false }).then(
       (response) => {
@@ -124,16 +125,15 @@ function CreateListings(props) {
   };
 
   const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
   };
-  
 
   return (
     <div className="listings-form">
@@ -170,7 +170,9 @@ function CreateListings(props) {
             <option value="multi-family">Multi-Family</option>
             <option value="townhomes">Town Homes</option>
             <option value="single-family-home">Single Family Homes</option>
-            <option value="single-family-detached">Single Family Detached Homes</option>
+            <option value="single-family-detached">
+              Single Family Detached Homes
+            </option>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="HouseType">
@@ -353,29 +355,78 @@ function CreateListings(props) {
           <Fragment key={`${inputField}~${index}`}>
             <Form.Group controlId="formBasicDate">
               <Form.Label>Open House Date</Form.Label>
-              <Form.Control type="date" name="open_house_date" onChange={(event) => handleInputChange(index, event)}/>
+              <Form.Control
+                type="date"
+                name="open_house_date"
+                onChange={(event) => handleInputChange(index, event)}
+              />
             </Form.Group>
             <Form.Group controlId="formBasicTime">
               <Form.Label>Open House Start Time</Form.Label>
-              <Form.Control type="time" name="open_house_start_time" onChange={(event) => handleInputChange(index, event)}/>
+              <Form.Control
+                type="time"
+                name="open_house_start_time"
+                onChange={(event) => handleInputChange(index, event)}
+              />
             </Form.Group>
             <Form.Group controlId="formBasicTime">
               <Form.Label>Open House End Time</Form.Label>
-              <Form.Control type="time" name="open_house_end_time" onChange={(event) => handleInputChange(index, event)}/>
+              <Form.Control
+                type="time"
+                name="open_house_end_time"
+                onChange={(event) => handleInputChange(index, event)}
+              />
             </Form.Group>
-              <button className="btn btn-link" type="button" onClick={() => handleAddFields()}> Add </button>
-              <button className="btn btn-link" type="button" onClick={() => handleRemoveFields(index)} > Remove </button>
+            <button
+              className="btn btn-link"
+              type="button"
+              onClick={() => handleAddFields()}
+            >
+              {" "}
+              Add{" "}
+            </button>
+            <button
+              className="btn btn-link"
+              type="button"
+              onClick={() => handleRemoveFields(index)}
+            >
+              {" "}
+              Remove{" "}
+            </button>
           </Fragment>
         ))}
-        <Button variant="primary" type="submit" block> Submit </Button>
+        <Button variant="primary" type="submit" block>
+          {" "}
+          Submit{" "}
+        </Button>
       </Form>
-      <Modal style={customStyles} isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">
+      <Modal
+        style={customStyles}
+        isOpen={isOpen}
+        overlayClassName="myoverlay"
+        onRequestClose={toggleModal}
+        ariaHideApp={false}
+        contentLabel="My dialog"
+      >
         <div className="modal-listing">
           <Alert>{createListingsError}</Alert>
-          <br/>
-          <Button className="listing-button" variant="primary" href='/view-listings'>View Listings</Button>
-          <br/><br/>
-          <Button className="listing-button" variant="primary" href='/create-listings'>Close</Button>
+          <br />
+          <Button
+            className="listing-button"
+            variant="primary"
+            href="/view-listings"
+          >
+            View Listings
+          </Button>
+          <br />
+          <br />
+          <Button
+            className="listing-button"
+            variant="primary"
+            href="/create-listings"
+          >
+            Close
+          </Button>
         </div>
       </Modal>
     </div>
