@@ -19,6 +19,7 @@ function GridModal({ home_id }) {
       schedule_visits_time: form.schedule_visits_time.value,
     };
     console.log(formData);
+    console.log(form.image.files[0]);
     Axios.post(scheduleApiEndpoint, formData, { validateStatus: false }).then(
       (response) => {
         console.log(response);
@@ -52,6 +53,7 @@ function GridModal({ home_id }) {
       }
     );
   }, []);
+  
   return (
     <div className="grid-modal">
       <div className="images">
@@ -102,10 +104,13 @@ function GridModal({ home_id }) {
           <Form onSubmit={handleCreateSchedule}>
             {scheduleError}
             <Form.Group controlId="formBasicDate">
-              <Form.Control type="date" name="schedule_visits_date" required />
+              <Form.Control type="date" name="schedule_visits_date"  />
             </Form.Group>
             <Form.Group controlId="formBasicTime">
-              <Form.Control type="time" name="schedule_visits_time" required />
+              <Form.Control type="time" name="schedule_visits_time"  />
+            </Form.Group>
+            <Form.Group>
+                <Form.File name ="image" id="custom-file" label="Upload Images" custom />
             </Form.Group>
             <Button variant="primary" type="submit" block>
               Schedule Visit
