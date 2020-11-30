@@ -162,4 +162,4 @@ class RemoveUserView(GenericAPIView):
             else:
                 return JsonResponse({'message': 'Admin authentication failed'}, status=status.HTTP_412_PRECONDITION_FAILED)
         else:
-            return JsonResponse({'message': 'Provide user details'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
