@@ -43,7 +43,7 @@ class ListingSerializer(serializers.Serializer):
     images = serializers.SerializerMethodField()
     open_house = serializers.SerializerMethodField()
     lease_term = serializers.IntegerField()
-    available_date = serializers.DateTimeField()
+    available_date = serializers.DateField()
     security_deposit = serializers.IntegerField()
 
     def get_listed_by(self, obj):
@@ -135,7 +135,7 @@ class CreateListingSerializer(serializers.Serializer):
     parking_space_type = ParkingSpaceTypeSerializer()
     air_conditioner = serializers.BooleanField(required=False, allow_null=True)
     heater = serializers.CharField(required=False, allow_null=True, allow_blank=True)
-    available_date = serializers.DateTimeField(required=False, allow_null=True)
+    available_date = serializers.DateField(required=False, allow_null=True)
     lease_term = serializers.IntegerField(required=False, allow_null=True)
     security_deposit = serializers.IntegerField(required=False, allow_null=True)
 
