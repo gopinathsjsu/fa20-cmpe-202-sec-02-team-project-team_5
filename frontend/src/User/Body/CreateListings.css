@@ -1,15 +1,22 @@
-.listings-form {
-  padding-top: 50px;
-  padding-bottom: 75px;
-  display: inline-block;
-  vertical-align: middle;
+.create-listings {
+  padding-top: 25px;
+  display: flex;
+  padding-left: 10%;
+  padding-bottom: 50px;
 }
 
-h2 {
-  color: black;
-  vertical-align: middle;
+.create-listings-form {
+  padding-left: 50px;
+}
+
+.open-house {
+  padding-right: 50px;
 }
 
 .form-label{
     font-weight: bold;
+}
+
+p {
+  font-size: 18px;
 }

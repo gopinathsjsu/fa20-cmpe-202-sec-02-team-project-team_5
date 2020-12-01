@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Form, Alert, Button } from "react-bootstrap";
 import Modal from "react-modal";
 import Axios from "axios";
@@ -6,8 +6,10 @@ import { rooturl } from "../../config/config";
 import "./CreateListings.css";
 import ListingsForm from "./ListingsForm";
 
-function CreateListings() {
+function EditListings(props) {
+  const [homes, setHomes] = useState([]);
   const [createListingsError, showCreateListingsError] = useState("");
+  const listing_id = props.match.params.id;
   const [inputFields, setInputFields] = useState([
     { open_house_date: "", open_house_start_time: "", open_house_end_time: "" },
   ]);
@@ -15,6 +17,23 @@ function CreateListings() {
   Axios.defaults.headers.common["authorization"] = localStorage.getItem(
     "token"
   );
+  const listingApiEndpoint = rooturl + "/listings/" + listing_id;
+  useEffect(() => {
+    Axios.get(listingApiEndpoint, { validateStatus: false }).then(
+      (response) => {
+        if (response.status === 200) {
+          if (response.data) {
+            setHomes(response.data);
+          }
+        }
+      }
+    );
+  }, []);
+
+  console.log("+++++++++++++++++");
+  console.log(homes);
+  console.log("+++++++++++++++++");
+
 
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -137,12 +156,12 @@ function CreateListings() {
 
   return (
     <div>
-      <h2>Create a listing</h2>
+      <h2>Edit listing</h2>
       <div className="create-listings">
         <div className="create-listings-form">
-          <ListingsForm handleCreateListings={handleCreateListings} />
+          <ListingsForm handleCreateListings={handleCreateListings} homes={homes} />
         </div>
-        <div className="open-house">
+        {/* <div className="open-house">
           <p>
             <strong>Open House Details</strong>
           </p>
@@ -190,7 +209,7 @@ function CreateListings() {
               </button>
             </Fragment>
           ))}
-        </div>
+        </div> */}
         <Modal
           style={customStyles}
           isOpen={isOpen}
@@ -225,4 +244,4 @@ function CreateListings() {
   );
 }
 
-export default CreateListings;
+export default EditListings;
