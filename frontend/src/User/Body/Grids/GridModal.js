@@ -112,7 +112,7 @@ function GridModal({ home_id }) {
           </ul>
         </div>
       </div>
-      <div className="listings-forms">
+        {localStorage.getItem('token') ? <><div className="listings-forms">
         <h4>Schedule a visit</h4>
         <div className="schedule-form">
           <Form onSubmit={handleCreateSchedule}>
@@ -127,17 +127,12 @@ function GridModal({ home_id }) {
               Schedule Visit
             </Button>
           </Form>
-        </div>
-        <br /> <br />
-        <h4>Submit an application</h4>
-        <div>
-          <Link to={`/new-application/${home_id}`}>
-            <Button variant="success" block>
-              Application
-            </Button>
-          </Link>
-        </div>
-      </div>
+          <br /><br />
+        </div><h4>Submit an application</h4>
+        <div><Link to={`/new-application/${home_id}`}>
+          <Button variant="success" block>
+            Application
+          </Button></Link></div></div></> : ''}
     </div>
   );
 }

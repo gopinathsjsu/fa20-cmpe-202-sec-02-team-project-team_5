@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { rooturl } from '../../../config/config';
 import Axios from "axios";
 import CreateListings from '../CreateListings';
+import { Link } from 'react-router-dom';
 
 const UserListingGrid = (props) => {
     const house = props.house;
@@ -41,6 +42,9 @@ const UserListingGrid = (props) => {
                 <br/>
                 <br/>
                 <Button href="#" variant="danger" onClick= {() => deleteHome(i)}>Delete Home</Button>
+                <br/>
+                <br/>
+                <Link to={`/lisiting/${house[i]['id']}/applications`}><Button variant="info">Applications</Button></Link>
             </Card.Body>
         </Card>
         <Modal isOpen={isOpen} overlayClassName="myoverlay" onRequestClose={toggleModal} ariaHideApp={false} contentLabel="My dialog">

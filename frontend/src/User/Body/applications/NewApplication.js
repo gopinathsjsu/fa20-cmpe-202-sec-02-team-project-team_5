@@ -23,6 +23,7 @@ function NewApplication(props) {
           "annual_salary": parseInt(form.annual_salary.value),
       }
   };
+    Axios.defaults.headers.common["authorization"] = localStorage.getItem("token");
     Axios.post(`${rooturl}/applications/submit`, formData,{ validateStatus: false })
     .then((response) => {
       if (response.status === 201) {

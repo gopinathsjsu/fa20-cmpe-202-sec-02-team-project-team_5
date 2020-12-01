@@ -4,7 +4,7 @@ import { Alert, Button, Container, Modal, Table } from 'react-bootstrap';
 import Axios from 'axios';
 import { rooturl } from '../../../config/config';
 
-function MyApplication(props) {
+function ListingApplication(props) {
   let application = props.application;
   const [isOpen, setIsOpen] = React.useState(false);
   function toggleModal() {
@@ -27,11 +27,11 @@ function MyApplication(props) {
       }
     });
   }
-  const [withdrawButton,setWithdrawButton] = React.useState(application.status === 'pending' ? (<Button onClick={handleWithDraw} variant="danger">Withdraw</Button>) : (''));
+  const [withdrawButton,setWithdrawButton] = React.useState(application.status !== 'withdraw' ? (<Button onClick={handleWithDraw} variant="danger">Withdraw</Button>) : (''));
   return (
     <>
     <tr>
-      <td><Button onClick={toggleModal} variant="primary">View Home</Button>
+      <td><Button onClick={toggleModal} variant="primary">View Details</Button>
       </td>
       <td>{application.status}</td>
       <td>{withdrawButton}</td>
@@ -45,4 +45,4 @@ function MyApplication(props) {
   );
 }
 
-export default MyApplication;
+export default ListingApplication;
