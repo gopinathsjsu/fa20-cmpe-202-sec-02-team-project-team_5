@@ -8,6 +8,7 @@ import SignIn from './SignIn';
 import SignOut from './SignOut';
 import CreateListings from './CreateListings';
 import ViewListings from './ViewListings';
+import EditListings from './EditListings';
 import ListFavourites from './favourites/ListFavourites';
 import ListFavouriteSearches from './favourites/ListFavouriteSearches';
 import NewApplication from './applications/NewApplication';
@@ -25,6 +26,7 @@ function Body(props) {
       <Route exact path="/sign-out" component={SignOut} />
       <Route exact path="/create-listings" component={CreateListings} />
       <Route exact path="/view-listings" component={ViewListings} />
+      <Route exact path="/edit-listings/:id" component={EditListings} />
       <Route exact path="/favourite-homes" component={ListFavourites} />
       <Route exact path="/favourite-searches" component={ListFavouriteSearches} />
       <Route exact path="/new-application/:id" component={NewApplication} />
