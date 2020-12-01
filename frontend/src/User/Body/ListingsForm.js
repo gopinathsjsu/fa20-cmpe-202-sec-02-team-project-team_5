@@ -3,41 +3,26 @@ import { Form, Button } from "react-bootstrap";
 import "./ListingsForm.css";
 
 function ListingsForm({ handleCreateListings, homes }) {
-  if(homes !== undefined){
-    console.log("coming from Listing from");
-    console.log(homes);
-  }
-  else {
-    console.log("Homes are undefined");
-  }
   return (
     <div>
       <Form className="listings-form" onSubmit={handleCreateListings}>
         <div className="listings-form-1">
-          <Form.Group className="form-1 listing">
+          <Form.Group controlId="ListingType">
             <Form.Label>Listing Type</Form.Label>
-            <br />
-            <Form.Check
-              inline
-              type="radio"
+            <Form.Control 
+              as="select"
               name="listing_type"
-              value="sale"
-              aria-label="radio 1"
-              label="Sale"
-            />
-            <Form.Check
-              type="radio"
-              inline
-              name="listing_type"
-              value="rent"
-              aria-label="radio 1"
-              label="Rent"
-            />
+              defaultValue= {(homes === undefined) ? console.log("test"): "" + homes['listing_type']}>
+              <option value="sale">Sale</option>
+              <option value="rent">Rent</option>
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="HouseType" className="form-1">
             <Form.Label>House Type</Form.Label>
-            <Form.Control as="select" name="house_type">
-              <option selected="selected">{(homes === undefined) ? "": homes['home_type']}</option>
+            <Form.Control 
+              as="select"
+              name="house_type"
+              defaultValue = {(homes === undefined) ? "": homes['home_type']}>
               <option value="houses">Houses</option>
               <option value="apartments">Apartments</option>
               <option value="condos">Condos</option>
@@ -51,7 +36,10 @@ function ListingsForm({ handleCreateListings, homes }) {
           </Form.Group>
           <Form.Group controlId="HouseStatus" className="form-1">
             <Form.Label>House Status</Form.Label>
-            <Form.Control as="select" name="home_status">
+            <Form.Control 
+              as="select"
+              name="home_status"
+              defaultValue = {(homes === undefined) ? "": homes['home_status']}>
               <option value="available">Available</option>
               <option value="pending">Pending</option>
               <option value="rented">Rented</option>
@@ -156,7 +144,10 @@ function ListingsForm({ handleCreateListings, homes }) {
           </Form.Group>
           <Form.Group controlId="FlooringType">
             <Form.Label>Flooring Type</Form.Label>
-            <Form.Control as="select" name="flooring">
+            <Form.Control 
+              as="select" 
+              name="flooring"
+              defaultValue = {(homes === undefined) ? "": homes['floor_type']}>
               <option value="carpet">Carpet</option>
               <option value="hardwood">Hardwood</option>
               <option value="laminate">Laminate</option>
@@ -166,7 +157,10 @@ function ListingsForm({ handleCreateListings, homes }) {
           </Form.Group>
           <Form.Group controlId="KitchenType">
             <Form.Label>Kitchen</Form.Label>
-            <Form.Control as="select" name="kitchen">
+            <Form.Control 
+              as="select" 
+              name="kitchen"
+              defaultValue = {(homes === undefined) ? "": homes['kitchen']}>
               <option value="granite">Granite</option>
               <option value="quartz">Quartz</option>
               <option value="open-kitchen">Open Kitchen</option>
@@ -175,7 +169,10 @@ function ListingsForm({ handleCreateListings, homes }) {
           </Form.Group>
           <Form.Group controlId="ParkingType">
             <Form.Label>Parking Space Type</Form.Label>
-            <Form.Control as="select" name="parking_space_type">
+            <Form.Control 
+              as="select" 
+              name="parking_space_type"
+              defaultValue = {(homes === undefined) ? "": homes['parking_space_type']}>
               <option value="garage-attached">Attached Garage</option>
               <option value="garage-detached">Detached Garage</option>
               <option value="open">Open</option>
@@ -185,29 +182,22 @@ function ListingsForm({ handleCreateListings, homes }) {
               <option value="none">None</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group>
+          <Form.Group controlId="HeatingType">
             <Form.Label>Air Conditioning</Form.Label>
-            <br />
-            <Form.Check
-              inline
-              type="radio"
+            <Form.Control 
+              as="select"
               name="air_conditioner"
-              value="true"
-              aria-label="radio 1"
-              label="Cental AC"
-            />
-            <Form.Check
-              type="radio"
-              inline
-              name="air_conditioner"
-              value="false"
-              aria-label="radio 1"
-              label="No AC"
-            />
+              defaultValue = {(homes === undefined) ? "": homes['air_conditioner']}>
+              <option value="true">Central AC</option>
+              <option value="false">No AC</option>
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="HeatingType">
             <Form.Label>Heating</Form.Label>
-            <Form.Control as="select" name="heating">
+            <Form.Control 
+              as="select"
+              name="heating"
+              defaultValue = {(homes === undefined) ? "": homes['heater']}>
               <option value="centralized">Centralized</option>
               <option value="gas">Gas</option>
               <option value="none">None</option>
@@ -215,7 +205,10 @@ function ListingsForm({ handleCreateListings, homes }) {
           </Form.Group>
           <Form.Group controlId="LaundryType">
             <Form.Label>Laundry</Form.Label>
-            <Form.Control as="select" name="laundry">
+            <Form.Control 
+              as="select" 
+              name="laundry"
+              defaultValue = {(homes === undefined) ? "": homes['laundry']}>
               <option value="washer-dryer">Washer and Dryer</option>
               <option value="washer-only">Washer Only</option>
               <option value="none">None</option>
@@ -223,7 +216,11 @@ function ListingsForm({ handleCreateListings, homes }) {
           </Form.Group>
           <Form.Group controlId="formBasicDate">
             <Form.Label>Available Date</Form.Label>
-            <Form.Control type="date" name="available_date" required />
+            <Form.Control 
+              type="date"
+              name="available_date"
+              defaultValue = {(homes === undefined) ? "": homes['available_date']}
+              required />
           </Form.Group>
           <Form.Group controlId="formBasicArea">
             <Form.Label>Lease Term (If Applicable)</Form.Label>

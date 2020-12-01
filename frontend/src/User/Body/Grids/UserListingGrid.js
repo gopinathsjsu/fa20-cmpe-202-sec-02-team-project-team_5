@@ -57,9 +57,7 @@ const UserListingGrid = (props) => {
             <ListGroupItem>{house[i]["home_status"]}</ListGroupItem>
           </ListGroup>
           <Card.Body>
-            <Button variant="info" href="#">
-              View Applications
-            </Button>
+          <Link to={`/lisiting/${house[i]['id']}/applications`}><Button variant="info">Applications</Button></Link>
             <br />
             <br />
             <Button variant="danger" onClick={() => deleteHome(i)}>

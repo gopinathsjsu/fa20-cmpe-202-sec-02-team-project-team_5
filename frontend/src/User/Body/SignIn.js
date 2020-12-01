@@ -84,7 +84,7 @@ function SignIn(props) {
       </Modal.Header>
       <Modal.Body className="show-grid">
       <Tabs defaultActiveKey="signin">
-        <Tab eventKey="signin" title="User Sign In">
+        <Tab eventKey="signin" title="Sign In">
           <Container>
             <br />
             <Form onSubmit={handleUserSigninSubmit}>
@@ -104,7 +104,7 @@ function SignIn(props) {
             </Form>
           </Container>
         </Tab>
-        <Tab eventKey="register" title="User Register">
+        <Tab eventKey="register" title="Register">
           <Container>
             <br />
             <Form onSubmit={handleRegisterSubmit}>
