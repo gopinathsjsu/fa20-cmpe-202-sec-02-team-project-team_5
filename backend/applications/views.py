@@ -21,8 +21,11 @@ class UserApplicationView(GenericAPIView):
         criterion1 = Q(deleted_at__isnull=True)
         criterion2 = Q(user=user.id)
         application = Application.objects.filter(criterion1 & criterion2)
-        serializer = UserApplicationSerializer(application,many=True)
-        return JsonResponse(serializer.data, status=status.HTTP_200_OK,safe=False)
+        if not application:
+            return JsonResponse({'message':'User has not submitted any applications'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            serializer = UserApplicationSerializer(application,many=True)
+            return JsonResponse(serializer.data, status=status.HTTP_200_OK,safe=False)
 
         
 class SubmitApplicationView(GenericAPIView):
@@ -58,15 +61,17 @@ class ListApplications(GenericAPIView):
         listing_id = int(request.GET.get('listing_id', None))
         criterion2 = Q(home_listing=listing_id)
         querylist = Application.objects.filter(criterion1 & criterion2)
+        if not querylist:
+            return JsonResponse({'message':'Home listing has no applications'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            serializer = ListHomeListingApplications(querylist,many=True)
+            result = serializer.data
+            for i, app in enumerate(querylist):
+                user_info =  UserAdditionalInfo.objects.get(user=app.user)
+                user_info_serializer = ListUserAddDeatilsSerializer(user_info)
+                result[i]['user_info'] = user_info_serializer.data
 
-        serializer = ListHomeListingApplications(querylist,many=True)
-        result = serializer.data
-        for i, app in enumerate(querylist):
-            user_info =  UserAdditionalInfo.objects.get(user=app.user)
-            user_info_serializer = ListUserAddDeatilsSerializer(user_info)
-            result[i]['user_info'] = user_info_serializer.data
-
-        return JsonResponse(result,status=status.HTTP_200_OK,safe=False)
+            return JsonResponse(result,status=status.HTTP_200_OK,safe=False)
 
 class ApplicationStatusUpdateView(GenericAPIView):
     """
