@@ -39,17 +39,22 @@ class SubmitApplicationView(GenericAPIView):
         additional_info_serializer = CreateUserAdditionalInfoSerializer(data=request.data['user_details'])
         application_serializer = CreateApplicationSerializer(data=request.data['application_details'])
         
-        if additional_info_serializer.is_valid() and application_serializer.is_valid():
-            application = application_serializer.save(user=user)
-            user_application = ApplicationSerializer(application[0])
-            user_additional_info = additional_info_serializer.save(user=user)
-            user_info = UserAdditionalInfoSerializer(user_additional_info[0])
-            to_email = Listing.objects.get(id=home_listing_id).listed_by.email_id
-            Util.send_email('Recieved New Application', 'Please navigate to your listings to review applications'\
-            , 'from@gmail.com', [to_email])
-            return JsonResponse({'message':'Application submitted successfully'}, status=status.HTTP_201_CREATED)
+        if additional_info_serializer.is_valid():
+            if application_serializer.is_valid():
+                application = application_serializer.save(user=user)
+                user_application = ApplicationSerializer(application[0])
+                user_additional_info = additional_info_serializer.save(user=user)
+                user_info = UserAdditionalInfoSerializer(user_additional_info[0])
+                to_email = Listing.objects.get(id=home_listing_id).listed_by.email_id
+                name = Listing.objects.get(id=home_listing_id).listed_by.first_name
+                body = "Hi {},\n Congratukations, there is application update received to one of your posted listings." \
+                "\n Please navigate to your listings to review application".format(name)
+                Util.send_email('Recieved New Application', body, 'from@gmail.com', [to_email])
+                return JsonResponse({'message':'Application submitted successfully'}, status=status.HTTP_201_CREATED)
+            else:
+                return JsonResponse(application_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         else:
-            return JsonResponse({'message':'Application submission unsuccessful'},status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(additional_info_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class ListApplications(GenericAPIView):
     """
