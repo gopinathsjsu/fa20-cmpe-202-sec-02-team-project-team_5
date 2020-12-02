@@ -34,6 +34,7 @@ function Menu(props) {
           {localStorage.getItem('email') ? (
               <Nav.Item> 
                 <NavDropdown title={<FaUser/>} id="basic-nav-dropdown">
+                  <NavDropdown.Item><Link className="navigation-links" to='/my-profile'>My Profile</Link></NavDropdown.Item>
                   <NavDropdown.Item><Link className="navigation-links" to='/favourite-searches'>Favorite Searches</Link></NavDropdown.Item>
                   <NavDropdown.Item ><Link className="navigation-links" to='/favourite-homes'>Favorite Homes</Link></NavDropdown.Item>
                   <NavDropdown.Item ><Link className="navigation-links" to='/my-applications'> Applications(Buy/Sell)</Link></NavDropdown.Item>
