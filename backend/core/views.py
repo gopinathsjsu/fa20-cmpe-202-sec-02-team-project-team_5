@@ -105,13 +105,16 @@ class UpdateUserStatusView(GenericAPIView):
                     user_info.user_status_id = user_status
                     user_info.save()
                     user_info = User.objects.get(id=data['id'])
+                    name = user_info.first_name
                     if user_info.user_status.name == "approved":
-                        Util.send_email('Home Finder account update', 'Congratulations, we have approved your registration.'\
-                            + '\n'+'Please login with email id and password.', 'from@gmail.com', [user_info.email_id])
+                        body = "Hi {},\n Congratulations, we have approved your registration.\
+                            '\n To Login, please use email id and password provided at the time of registration.".format(name)
+                        Util.send_email('Home Finder account update', body, 'from@gmail.com', [user_info.email_id])
                     else:
-                        Util.send_email('Home Finder account update',
-                            'Sorry, as provide information does not qaulify our standards, your registration can not be approved.'\
-                             + '\n'+'Please contact support for more information.', 'from@gmail.com', [user_info.email_id])
+                        body = "Hi {},\n Sorry, as provide information does not qaulify our standards,\
+                             your registration can not be approved.\
+                            '\n Please contact support for more information".format(name)
+                        Util.send_email('Home Finder account update',body, 'from@gmail.com', [user_info.email_id])
                     return JsonResponse({'message': 'Update successful'}, status=status.HTTP_201_CREATED)
                 except Exception as ex:
                     return JsonResponse({'message': str(ex)}, status=status.HTTP_404_NOT_FOUND)
