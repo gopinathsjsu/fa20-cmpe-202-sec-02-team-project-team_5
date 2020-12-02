@@ -13,7 +13,7 @@ class CreateApplicationSerializer(serializers.Serializer):
     offered_price = serializers.DecimalField(required=False,allow_null=True,max_digits=10, decimal_places=2)
 
     def create(self, validated_data):
-        return Application.objects.update_or_create(user=validated_data['user'], defaults = validated_data)
+        return Application.objects.update_or_create(home_listing=validated_data['home_listing'], defaults = validated_data)
 
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
