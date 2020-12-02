@@ -26,6 +26,7 @@ class ListingSerializer(serializers.Serializer):
     bathroom = serializers.IntegerField()
     year_built = serializers.IntegerField()
     home_type = serializers.CharField()
+    listing_type = serializers.CharField()
     home_status = serializers.CharField()
     description = serializers.CharField()
     zip_code = serializers.CharField()
