@@ -95,10 +95,10 @@ function CreateListings() {
       sqft_area: form.sqft_area.value,
       year_built: form.year_built.value,
       available_date: form.available_date.value,
-      // s3_image_file_data: [form.image.files[0]]
+      s3_image_file_data: [form.image.files[0]]
     };
     console.log(formData);
-    console.log(form.lease_term.value);
+    console.log(form.image.files[0]);
 
     Axios.post(apiEndpoint, formData, { validateStatus: false }).then(
       (response) => {
