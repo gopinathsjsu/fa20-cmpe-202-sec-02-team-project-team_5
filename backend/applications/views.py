@@ -123,4 +123,4 @@ class WithdrawApplicationView(GenericAPIView):
             except Exception as ex:
                 return JsonResponse({'message': str(ex)}, status=status.HTTP_404_NOT_FOUND)        
         else:
-            return JsonResponse({'message': 'Provide application details'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
