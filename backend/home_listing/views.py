@@ -7,6 +7,7 @@ from datetime import datetime
 from .serializers import *
 from rest_framework import status
 from django.db import transaction
+from home_finder.utility import Util
 
 
 
@@ -94,6 +95,18 @@ def listing_schedule(request, listing_id):
             ).exists():
                 return Response({"status": "Schedule already booked"}, status=status.HTTP_400_BAD_REQUEST)
             schedule_serializer.save(scheduled_by=user, listing_id=listing_id)
+            scheduled_listing = Listing.objects.get(id=listing_id)
+
+            Util.send_email('Home Finder Schedule booking info', 'Congratulations, your schedule is confirmed' + '\n'+ '\n'+
+                            'Scheduled Date: {schedule_date}'.format(schedule_date=request.data.get("schedule_visits_date")) + '\n' +
+                            'Scheduled Time: {schedule_time}'.format(schedule_time=request.data.get("schedule_visits_time")) + '\n' + '\n' +
+                            'Scheduled listing address: ' + '\n' +
+                            '{street_addr}'.format(street_addr=scheduled_listing.street_address) + '\n' +
+                            '{city}'.format(city=scheduled_listing.city) + '\n' +
+                            '{state}'.format(state=scheduled_listing.state) + '\n' +
+                            '{zip_code}'.format(zip_code=scheduled_listing.zip_code) + '\n' +
+                            'Cost of the listing: {price}'.format(price=scheduled_listing.price) + '\n' +
+                            'Please contact the property owner if you need further details.', 'from@gmail.com', [user.email_id])
 
         except ObjectDoesNotExist as e:
             Response({}, status=status.HTTP_400_BAD_REQUEST)
