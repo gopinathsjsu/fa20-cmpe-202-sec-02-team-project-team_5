@@ -42,6 +42,9 @@ The design and implemenation includes both frontend and backend applications to 
 ## Sprint Journal
 ## XP Core Values
 ## Scrum Dashboard
+
+<img width="1500" src="https://user-images.githubusercontent.com/56493886/101140019-3a6e4000-35c7-11eb-9a3c-f8e0326883dd.PNG">
+
 ## Individual Contribution
 ## Task Sheet 
 ## Burndown Chart
