@@ -71,13 +71,13 @@ const ListingsGrid = (props) => {
         <Container>
           <Card>
             <Card.Body>
-              <Row>
-                <Col lg="4" md="6" sm="12">
-                  <div className="ais-InstantSearch">
-                    <SearchBox defaultRefinement={filterParams.query} />
-                  </div>
-                </Col>
-                <Col lg="4" md="6" sm="12">
+              <div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
+                  <span >
+                    <SearchBox defaultRefinement={filterParams.query}/>
+                  </span>
+                </div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
                   <span>Bedrooms&nbsp;</span>
                   <span>
                     <MenuSelect
@@ -87,8 +87,8 @@ const ListingsGrid = (props) => {
                       }
                     />
                   </span>
-                </Col>
-                <Col lg="4" md="6" sm="12">
+                </div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
                   <span>Bathrooms&nbsp;</span>
                   <span>
                     <MenuSelect
@@ -98,11 +98,8 @@ const ListingsGrid = (props) => {
                       }
                     />
                   </span>
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Col lg="4" md="6" sm="12">
+                </div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
                   <span>Home Type&nbsp;</span>
                   <span>
                     <MenuSelect
@@ -112,8 +109,8 @@ const ListingsGrid = (props) => {
                       }
                     />
                   </span>
-                </Col>
-                <Col lg="4" md="6" sm="12">
+                </div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
                   <span>Price&nbsp;</span>
                   <span>
                     <RangeInput
@@ -130,8 +127,8 @@ const ListingsGrid = (props) => {
                       }}
                     />
                   </span>
-                </Col>
-                <Col lg="4" md="6" sm="12">
+                </div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
                   <span>Area&nbsp;</span>
                   <span>
                     <RangeInput
@@ -158,105 +155,91 @@ const ListingsGrid = (props) => {
                       }
                     />
                   </span>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Collapse in={showFilter}>
-                    <div id="example-collapse-text">
-                      <br />
-                      <Row>
-                        <Col>
-                          <Row>
-                            <Col>Home Status</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="home_status"
-                                defaultRefinement={
-                                  filterParams.menu &&
-                                  filterParams.menu.home_status
-                                }
-                              />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>Zip Code</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="zip_code"
-                                defaultRefinement={
-                                  filterParams.menu &&
-                                  filterParams.menu.zip_code
-                                }
-                              />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>City</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="city"
-                                defaultRefinement={
-                                  filterParams.menu && filterParams.menu.city
-                                }
-                              />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>State</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="state"
-                                defaultRefinement={
-                                  filterParams.menu && filterParams.menu.state
-                                }
-                              />
-                            </Col>
-                          </Row>
-                          {/* <Row>
-                            <Col>Country</Col>
-                            <Col><MenuSelect attribute="country" defaultRefinement={filterParams.menu && filterParams.menu.country}/></Col>
-                          </Row> */}
-                          <Row>
-                            <Col>Year Built</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="year_built"
-                                defaultRefinement={
-                                  filterParams.menu &&
-                                  filterParams.menu.year_built
-                                }
-                              />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>Kitchen</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="kitchen"
-                                defaultRefinement={
-                                  filterParams.menu && filterParams.menu.kitchen
-                                }
-                              />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>Laundry</Col>
-                            <Col>
-                              <MenuSelect
-                                attribute="laundry"
-                                defaultRefinement={
-                                  filterParams.menu && filterParams.menu.laundry
-                                }
-                              />
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Row>
+                </div>
+                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
+                  <span>Flooring&nbsp;</span>
+                  <span>
+                    <MenuSelect
+                      attribute="floor_type"
+                      defaultRefinement={
+                        filterParams.menu && filterParams.menu.floor_type
+                      }
+                    />
+                  </span>
+                </div>
+              </div>
+              <div>
+                <Collapse in={showFilter}>
+                  <div id="example-collapse-text">
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>Home Status&nbsp;</span>
+                      <MenuSelect
+                        attribute="home_status"
+                        defaultRefinement={
+                          filterParams.menu &&
+                          filterParams.menu.home_status
+                        }
+                      />
                     </div>
-                  </Collapse>
-                </Col>
-              </Row>
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>Parking&nbsp;</span>
+                      <MenuSelect
+                        attribute="parking_space_type"
+                        defaultRefinement={
+                          filterParams.menu &&
+                          filterParams.menu.parking_space_type
+                        }
+                      />
+                    </div>
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>City&nbsp;</span>
+                      <MenuSelect
+                        attribute="city"
+                        defaultRefinement={
+                          filterParams.menu && filterParams.menu.city
+                        }
+                      />
+                    </div>
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>State&nbsp;</span>
+                      <MenuSelect
+                        attribute="state"
+                        defaultRefinement={
+                          filterParams.menu && filterParams.menu.state
+                        }
+                      />
+                    </div>
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>Year Built&nbsp;</span>
+                      <MenuSelect
+                        attribute="year_built"
+                        defaultRefinement={
+                          filterParams.menu &&
+                          filterParams.menu.year_built
+                        }
+                      />
+                    </div>
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>Kitchen&nbsp;</span>
+                      <MenuSelect
+                        attribute="kitchen"
+                        defaultRefinement={
+                          filterParams.menu && filterParams.menu.kitchen
+                        }
+                      />
+                    </div>
+                    <div className="dib br3 pa3 ma3 bw2">
+                      <span>Laundry&nbsp;</span>
+                      <MenuSelect
+                        attribute="laundry"
+                        defaultRefinement={
+                          filterParams.menu && filterParams.menu.laundry
+                        }
+                      />
+                    </div>
+                  </div>
+                </Collapse>
+              </div>
               <br />
               <Row>
                 <Col>

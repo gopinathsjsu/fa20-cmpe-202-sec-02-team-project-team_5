@@ -45,14 +45,14 @@ function NewApplication(props) {
       <Container>
         <Form onSubmit={e => handleSubmit(e)}>
           {submitMsg}
-          <Row>
+          {props.match.params.type === 'sale' && <Row>
             <Col sm='2'>
               <Form.Label>Offer Price</Form.Label>
             </Col>
             <Col>
               <Form.Control type='number' required name='offered_price'></Form.Control>
             </Col>
-          </Row>
+          </Row>}
           <Row>
             <Col sm='2'>
               <Form.Label>Sex</Form.Label>

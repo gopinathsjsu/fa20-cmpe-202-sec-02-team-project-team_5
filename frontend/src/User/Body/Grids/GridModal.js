@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Button, Alert, Form } from "react-bootstrap";
+import { Button, Alert, Form, Spinner } from "react-bootstrap";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import { rooturl } from "../../../config/config";
 import "./GridModal.css";
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
-function GridModal({ home_id }) {
+function GridModal({ home_id,hideForm }) {
   const [homes, setHomes] = useState([]);
   const [scheduleError, showScheduleError] = useState("");
+  const [loading,setLoading] = React.useState(true);
   Axios.defaults.headers.common["authorization"] = localStorage.getItem(
     "token"
   );
@@ -49,6 +52,7 @@ function GridModal({ home_id }) {
         if (response.status === 200) {
           if (response.data) {
             setHomes(response.data);
+            setLoading(false);
           }
         }
       }
@@ -56,11 +60,18 @@ function GridModal({ home_id }) {
   }, []);
 
   return (
+    loading ? <Spinner animation='border'/> :
     <div className="grid-modal">
       <div className="images">
-        <img src={homes["images"] && homes["images"][0].url} alt="house" />
+        <ImageGallery items={homes["images"].map(img => {
+          return { 
+            original: img.url,
+            thumbnail: img.url
+          }})
+        } showFullscreenButton={false} showPlayButton={false}/>
+        {/* <img src={homes["images"] && homes["images"][0].url} alt="house" />
         <br />
-        <img src={homes["images"] && homes["images"][1].url} alt="house" />
+        <img src={homes["images"] && homes["images"][1].url} alt="house" /> */}
       </div>
       <div className="home-details">
         <h4>Price: </h4>
@@ -112,7 +123,7 @@ function GridModal({ home_id }) {
           </ul>
         </div>
       </div>
-        {localStorage.getItem('token') ? <><div className="listings-forms">
+        {localStorage.getItem('token') && !hideForm ? <><div className="listings-forms">
         <h4>Schedule a visit</h4>
         <div className="schedule-form">
           <Form onSubmit={handleCreateSchedule}>
@@ -129,7 +140,7 @@ function GridModal({ home_id }) {
           </Form>
           <br /><br />
         </div><h4>Submit an application</h4>
-        <div><Link to={`/new-application/${home_id}`}>
+        <div><Link to={`/new-application/${home_id}/${homes.listing_type}`}>
           <Button variant="success" block>
             Application
           </Button></Link></div></div></> : ''}

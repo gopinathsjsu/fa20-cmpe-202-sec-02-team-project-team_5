@@ -20,7 +20,7 @@ function Menu(props) {
       <Navbar.Brand><Link className="navigation-links" to='/home'><img className = 'logo' src = {logo} alt ="Home Finder"/></Link></Navbar.Brand>
 
         <Nav className="ml-auto" activeKey="/home">
-        {localStorage.getItem('email') ? (
+        {localStorage.getItem('email') && localStorage.getItem('userType') !== 'default' ? (
           <Nav.Item> 
             <NavDropdown title="Manage Listings" id="basic-nav-dropdown">
               <NavDropdown.Item><Link className="navigation-links" to='/view-listings'> View Listings</Link></NavDropdown.Item>

@@ -31,7 +31,7 @@ function Body(props) {
       <Route exact path="/edit-listings/:id" component={EditListings} />
       <Route exact path="/favourite-homes" component={ListFavourites} />
       <Route exact path="/favourite-searches" component={ListFavouriteSearches} />
-      <Route exact path="/new-application/:id" component={NewApplication} />
+      <Route exact path="/new-application/:id/:type" component={NewApplication} />
       <Route exact path="/my-applications" component={MyApplications} />
       <Route exact path="/lisiting/:id/applications" component={ListingApplications} />
       <Route exact path="/my-profile" component={MyProfile} />

@@ -37,8 +37,8 @@ function ListingApplications(props) {
             return <><Card>
               <Card.Body>
                 <Row>
-                  <Col><b>Offer Price : </b>{application.offered_price}</Col>
-                  <Col><b>Sex :</b> {application.user_info.sex}</Col>
+                  <Col><b>Name : </b>{application.user}</Col>
+                  <Col><b>Gender :</b> {application.user_info.sex}</Col>
                   <Col><b>Date of Birth :</b> {application.user_info.date_of_birth}</Col>
                 </Row>
                 <br/>
@@ -47,6 +47,10 @@ function ListingApplications(props) {
                   <Col><b>Employment Type :</b> {application.user_info.employment_type}</Col>
                   <Col><b>Annual Salary :</b> {application.user_info.annual_salary}</Col>
                 </Row>
+                {application.offered_price.length && <><br/>
+                <Row>
+                  <Col><b>Offer Price : </b>{application.offered_price}</Col>
+                </Row></>}
                 <br/>
                 <Row>
                   <Col style={{"text-align":"center"}}>

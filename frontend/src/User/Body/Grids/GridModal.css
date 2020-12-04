@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     padding-right: 50px;
+    width: 50%;
 }
 
 .grid-modal{
@@ -14,4 +15,8 @@
 
 .modal-header {
     text-align: center;
+}
+
+.image-gallery-thumbnail-image {
+    max-height: 65px;
 }

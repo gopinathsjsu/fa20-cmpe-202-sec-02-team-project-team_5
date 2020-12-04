@@ -18,7 +18,7 @@ function Home(props) {
         <h2 className = "description">We’ll help you find a place you’ll love.</h2>
         {redirect}
         <Form className = "search-bar" onSubmit={e => handleSubmit(e)}>
-          <input className='pa3 w-90 ba center' type='search' required name='search' placeholder='Enter an address, city or ZIP code'/>
+          <input className='pa3 w-90 ba center' type='search' autoComplete='off' required name='search' placeholder='Enter an address, city or ZIP code'/>
           <Button className="search-button" variant='primary' type='submit'>Search</Button>
         </Form>
       </div>

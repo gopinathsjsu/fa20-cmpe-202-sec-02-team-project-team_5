@@ -1,9 +1,20 @@
 import React from 'react';
 import GridModal from '../Grids/GridModal';
-import { Alert, Button, Container, Modal, Table } from 'react-bootstrap';
+import { Alert, Button, Container, Table } from 'react-bootstrap';
+import Modal from "react-modal";
 import Axios from 'axios';
 import { rooturl } from '../../../config/config';
-
+import "./MyApplications.css";
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 function MyApplication(props) {
   let application = props.application;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -36,8 +47,14 @@ function MyApplication(props) {
       <td>{application.status}</td>
       <td>{withdrawButton}</td>
     </tr>
-    <Modal show={isOpen} onHide={toggleModal} size="lg">
-      <GridModal home_id = {application.home_listing}/>
+    <Modal
+        style={customStyles}
+        isOpen={isOpen}
+        overlayClassName="myoverlay"
+        onRequestClose={toggleModal}
+        ariaHideApp={false}
+        contentLabel="My dialog">
+      <GridModal home_id = {application.home_listing} hideForm={true}/>
       <br/>
       <Button variant="danger" onClick={toggleModal}>Close</Button>
     </Modal>
