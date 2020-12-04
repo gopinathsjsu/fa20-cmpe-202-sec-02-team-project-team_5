@@ -45,40 +45,40 @@ function EditListings(props) {
     if (form.security_deposit.value !== "") {
       deposit = form.lease_term.value;
     }
-    const formData = {
-      home_status: form.home_status.value,
-      country: "United States",
-      parking_space_type: form.parking_space_type.value,
-      lease_term: lease,
-      security_deposit: deposit,
-      heater: form.heating.value,
-      kitchen: form.kitchen.value,
-      laundry: form.laundry.value,
-      air_conditioner: form.air_conditioner.value,
-      floor_type: form.flooring.value,
-      images: [
-        "https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg",
-        "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg",
-      ],
-      home_type: form.house_type.value,
-      zip_code: form.zip_code.value,
-      listing_type: form.listing_type.value,
-      street_address: form.street_address.value,
-      city: form.city.value,
-      state: form.state.value,
-      description: form.description.value,
-      price: form.price.value,
-      bedrooms: form.bedrooms.value,
-      bathroom: form.bathroom.value,
-      sqft_area: form.sqft_area.value,
-      year_built: form.year_built.value,
-      available_date: form.available_date.value,
-      // s3_image_file_data: [form.image.files[0]]
-    };
+    const formData = new FormData();
+    formData.append('home_status',form.home_status.value);
+    formData.append('country',"United States");
+    formData.append('parking_space_type',form.parking_space_type.value);
+    formData.append('lease_term',lease);
+    formData.append('security_deposit',deposit);
+    formData.append('heater',form.heating.value);
+    formData.append('kitchen',form.kitchen.value);
+    formData.append('laundry',form.laundry.value);
+    formData.append('air_conditioner',form.air_conditioner.value);
+    formData.append('floor_type',form.flooring.value);
+    formData.append('images', "https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg");
+    formData.append('images', "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg");
+    formData.append('home_type',form.house_type.value);
+    formData.append('zip_code',form.zip_code.value);
+    formData.append('listing_type',form.listing_type.value);
+    formData.append('street_address',form.street_address.value);
+    formData.append('city',form.city.value);
+    formData.append('state',form.state.value);
+    formData.append('description',form.description.value);
+    formData.append('price',form.price.value);
+    formData.append('bedrooms',form.bedrooms.value);
+    formData.append('bathroom',form.bathroom.value);
+    formData.append('sqft_area',form.sqft_area.value);
+    formData.append('year_built',form.year_built.value);
+    formData.append('available_date',form.available_date.value);
+    formData.append('s3_image_file_data', form.image.files[0]);
     console.log(formData);
-    console.log(form.lease_term.value);
 
-    Axios.put(apiEndpoint, formData, { validateStatus: false }).then(
+    Axios.put(apiEndpoint, formData, { validateStatus: false, 
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    }).then(
       (response) => {
         console.log(response);
         if (response.status === 200) {

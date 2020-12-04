@@ -81,7 +81,7 @@ function CreateListings() {
       ["https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg",
       "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg",
     ]);
-    formData.append('open_house',inputFields);
+    formData.append('open_house',JSON.stringify(inputFields));
     formData.append('home_type',form.house_type.value);
     formData.append('zip_code',form.zip_code.value);
     formData.append('listing_type',form.listing_type.value);
@@ -95,12 +95,12 @@ function CreateListings() {
     formData.append('sqft_area',form.sqft_area.value);
     formData.append('year_built',form.year_built.value);
     formData.append('available_date',form.available_date.value);
-    formData.append('s3_image_file_data',form.elements.image.files[0]);
-    debugger;
+    formData.append('s3_image_file_data',form.elements.image.files);
     Axios.post(apiEndpoint, formData, { validateStatus: false,
       headers: {
       'Content-Type': 'multipart/form-data',
-    }}).then(
+      }
+    }).then(
       (response) => {
         console.log(response);
         if (response.status === 201) {
