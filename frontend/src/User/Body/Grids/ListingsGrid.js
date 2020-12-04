@@ -1,7 +1,7 @@
 import React from "react";
 import Grids from "./Grids";
 import algoliasearch from "algoliasearch/lite";
-import { appid, rooturl, searchapikey } from "../../../config/config";
+import { appid, rooturl, searchapikey, algoliaindex } from "../../../config/config";
 import "./ListingsGrid.css";
 import {
   InstantSearch,
@@ -63,7 +63,7 @@ const ListingsGrid = (props) => {
   return (
     <div className="">
       <InstantSearch
-        indexName="Listing"
+        indexName = {algoliaindex}
         searchClient={searchClient}
         onSearchStateChange={setSearchStateChange}
       >
