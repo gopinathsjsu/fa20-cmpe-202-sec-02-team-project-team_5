@@ -15,7 +15,7 @@ The design and implemenation includes both frontend and backend applications to 
 
 * Lucid Charts - For Archeitecture design, DB design
 
-* React, HTML, CSS, Javascript - Frontend development
+* ReactJS, React Bootstrap, HTML, CSS - Frontend development
 
 * DjangoRESTFul Framework, Python - For backend development
 
