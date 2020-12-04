@@ -1,51 +1,36 @@
-# CMPE 202 - Fall 2020 - Team 5
+# CMPE 202 Team Project Fall 2020
 
-## HomeFinder - Web application
+    As part of the final team project we have designed and developed a web application called "HomeFinder" which is a replica of Zillow.
+    It provides a platform to buy, sell and rent different types of houses.
+    The design and implemenation includes both frontend and backend applications to support HomeFinder features states in team project requirements.
 
-### About
+## Team Members
 
-Develop a web application that lets users buy, sell or rent homes
+    - Aditya Shah
+    - Deepthi Jallepalli
+    - Prashanth Narasimha
+    - Prerana Shekar
 
-### Requirements
+## Technology Stack
 
-1. Register/Login: Available for all roles
-2. Approve/Remove users: The administrator can approve, reject or remove any users if the
-need arises.
-3. Search: All types of roles can search for Sale or rental listings - based on zip code or street
-address, and/or other attributes – price range, sqft., #bedrooms, #bathrooms, carpet vs
-wooden flooring, home type (apartment/townhome/attached Single Family Home or Detached
-Single), open/closed parking, other amenities, Year built etc.
-4. Save as Favorites: Users are able to save Favorite searches and Favorite Homes
-5. Sell: (Realtor or Seller)
-Upload details of home to be listed
-You could list multiple homes if you are a realtor(acting on behalf of multiple sellers)
-Update status or other details of listing(s)
-Schedule open houses
-Review buyers’ applications and approve/reject
-Remove listing
-6. Buy: (Buyer or Realtor)
-Submit an application with an offer for the home –an email sent to the Seller/seller’s realtor
-7. Rent out (Realtor or Landlord): Add new listing, Upload details of home, Update lease terms,
-Availability date, Security deposit, schedule visits, Review renter’s applications and
-approve/reject, update listing details, remove listing
-8. Rent (Renter): Submit an application for the lease, including credit score, employment
-information - an email sent to the Landlord/landlord’s realtor
-9. Browser requirement: The application must be accessible from Google chrome browser on a
-laptop or mobile device. Mobile App is not expected.
-10. The system should provide secure multi-user access, assuring correct concurrent behavior.
-The system should maintain suitable authorization information and validate access. User
-authentication should be implemented (by checking user id and password).
-11. The system must have an easy-to-use user interface (UI) with screens designed for each part
-of the system’s functionality and suitable for different roles (Admin, User, Realtor)
-12. The system should use a persistent data store (Relational or non-relational or both)
+    * Lucid Charts - For Archeitecture design, DB design
 
-### Built With
+    * React, HTML, CSS, Javascript - Frontend development
 
-Backend - Django, PostgreSQL, Algolia
-Frontend - React JS, Bootstrap
+    * DjangoRESTFul Framweowk, Python - For backend development
 
-### System Design
+    * PostgresSQL - Primary DB
 
-### Roadmap
+    * Algolia - Secondary DB to improvise search performance
 
-### Acknowledgements
+    * Postman - REST API client to test the developed APIs
+
+    * Heroku - Deploy frontend and backend applications
+
+    * Project Management Tools 
+    
+      - GitHub - Source code and Project Management 
+
+      - Google Sheet - Task tracking and sprint burndown 
+
+      - Zoom - Team collaboration (Organizing daily scrum and other meetings)
