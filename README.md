@@ -17,7 +17,7 @@ The design and implemenation includes both frontend and backend applications to 
 
 * React, HTML, CSS, Javascript - Frontend development
 
-* DjangoRESTFul Framweowk, Python - For backend development
+* DjangoRESTFul Framework, Python - For backend development
 
 * PostgresSQL - Primary DB
 
@@ -25,7 +25,7 @@ The design and implemenation includes both frontend and backend applications to 
 
 * Postman - REST API client to test the developed APIs
 
-* Heroku - Deploy frontend and backend applications
+* Heroku - Deploy frontend and backend applications, PostgresSQL DB
 
 * Project Management Tools 
 
@@ -35,7 +35,7 @@ The design and implemenation includes both frontend and backend applications to 
 
   - Zoom - Team collaboration (Organizing daily scrum and other meetings)
   
-  - Slack channel (CMPE-202-Zillow-Clone) - To discuss anything and to share any information related to specific story or issues
+  - Slack channel (CMPE-202-Zillow-Clone) - To discuss and share any information related to specific story or issues
 
 ## Architecture Diagram
 ## Database Design
