@@ -12,8 +12,8 @@ function NewApplication(props) {
     // make a post request with the user data
     const formData = {
       "application_details": {
-          "home_listing": props.match.params.id,
-          "offered_price": parseInt(form.offered_price.value),
+          "home_listing": parseInt(props.match.params.id),
+          "offered_price": form.offered_price ? parseInt(form.offered_price.value) : 0,
       },
       "user_details":{
           "sex": form.sex.value,
