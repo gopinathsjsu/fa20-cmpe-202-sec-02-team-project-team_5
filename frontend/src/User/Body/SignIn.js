@@ -29,7 +29,7 @@ function SignIn(props) {
       first_name: form.firstName.value,
       email_id: form.email.value,
       password: form.password.value,
-      user_type: form.user_type.value,
+      user_type: form.user_type.value.length ? form.user_type.value : 'default',
     };
     axios.post(`${rooturl}/core/user/register`, formData,{ validateStatus: false })
     .then((response) => {
