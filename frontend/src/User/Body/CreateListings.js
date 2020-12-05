@@ -9,7 +9,7 @@ import ListingsForm from "./ListingsForm";
 function CreateListings() {
   const [createListingsError, showCreateListingsError] = useState("");
   const [inputFields, setInputFields] = useState([
-    { open_house_date: "", open_house_start_time: "", open_house_end_time: "" },
+    { open_house_date: null, open_house_start_time: null, open_house_end_time: null },
   ]);
   const [isOpen, setIsOpen] = React.useState(false);
   Axios.defaults.headers.common["authorization"] = localStorage.getItem(
@@ -96,6 +96,8 @@ function CreateListings() {
     formData.append('year_built',form.year_built.value);
     formData.append('available_date',form.available_date.value);
     formData.append('s3_image_file_data',form.elements.image.files);
+    console.log("==============================");
+    console.log(formData);
     Axios.post(apiEndpoint, formData, { validateStatus: false,
       headers: {
       'Content-Type': 'multipart/form-data',
