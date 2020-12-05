@@ -118,18 +118,9 @@ function GridModal({ home_id, hideForm }) {
             <li>Kitchen: {homes["kitchen"]}</li>
             <li>Laundry: {homes["laundry"]}</li>
             <li>Parking Type: {homes["parking_space_type"]}</li>
-            {/* {homes["open_house"] !== "null" ? (
-              <div>
-                <li>Open House: {homes["open_house"].map.open_house_date}</li>
-              </div>
-            ) : (
-              <div />
-            )} */}
-
             {homes["open_house"].map((open_house) => {
               return (
                 <div>
-                  {" "}
                   <strong>Open House Schedule</strong>
                   <li>Date : {open_house.open_house_date}</li>
                   <li> Start Time : {open_house.open_house_start_time}</li>
