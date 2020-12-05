@@ -67,7 +67,6 @@ function CreateListings() {
       deposit = form.lease_term.value;
     }
     const formData = new FormData();
-    console.log("available_date ", form.available_date.value);
     formData.set("home_status", form.home_status.value);
     formData.set("country", "United States");
     formData.set("parking_space_type", form.parking_space_type.value);
