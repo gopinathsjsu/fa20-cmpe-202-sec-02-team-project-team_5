@@ -1,6 +1,5 @@
 .home{
-  /* background-image: url('https://www.zillowstatic.com/s3/homepage/static/_Desktop_overlay_2.jpg'); */
-  background-image: url('https://www.designbuildersmd.com/hs-fs/hubfs/nile-zuri-screened-porch-potomac/zuri_porch_lit_at_night_full_resolution-1.jpg?width=1200&name=zuri_porch_lit_at_night_full_resolution-1.jpg');
+  background-image: url('https://www.zillowstatic.com/s3/homepage/static/_Desktop_overlay_2.jpg');
   background-size: cover;
   height: 890px;
   position: relative;

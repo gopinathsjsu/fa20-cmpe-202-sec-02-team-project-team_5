@@ -4,13 +4,13 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import { rooturl } from "../../../config/config";
 import "./GridModal.css";
-import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
-function GridModal({ home_id,hideForm }) {
+function GridModal({ home_id, hideForm }) {
   const [homes, setHomes] = useState([]);
   const [scheduleError, showScheduleError] = useState("");
-  const [loading,setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
   Axios.defaults.headers.common["authorization"] = localStorage.getItem(
     "token"
   );
@@ -59,16 +59,21 @@ function GridModal({ home_id,hideForm }) {
     );
   }, []);
 
-  return (
-    loading ? <Spinner animation='border'/> :
+  return loading ? (
+    <Spinner animation="border" />
+  ) : (
     <div className="grid-modal">
       <div className="images">
-        <ImageGallery items={homes["images"].map(img => {
-          return { 
-            original: img.url,
-            thumbnail: img.url
-          }})
-        } showFullscreenButton={false} showPlayButton={false}/>
+        <ImageGallery
+          items={homes["images"].map((img) => {
+            return {
+              original: img.url,
+              thumbnail: img.url,
+            };
+          })}
+          showFullscreenButton={false}
+          showPlayButton={false}
+        />
         {/* <img src={homes["images"] && homes["images"][0].url} alt="house" />
         <br />
         <img src={homes["images"] && homes["images"][1].url} alt="house" /> */}
@@ -121,14 +126,17 @@ function GridModal({ home_id,hideForm }) {
               <div />
             )} */}
 
-            {homes['open_house'].map(open_house => {
+            {homes["open_house"].map((open_house) => {
               return (
-              <div> <strong>Open House Schedule</strong>
-              <li>Date : {open_house.open_house_date}</li>
-              <li> Start Time : {open_house.open_house_start_time}</li>
-              <li> End Time : {open_house.open_house_end_time}</li>
-              </div>)})
-            }
+                <div>
+                  {" "}
+                  <strong>Open House Schedule</strong>
+                  <li>Date : {open_house.open_house_date}</li>
+                  <li> Start Time : {open_house.open_house_start_time}</li>
+                  <li> End Time : {open_house.open_house_end_time}</li>
+                </div>
+              );
+            })}
             {homes["home_type"] === "apartments" ? (
               <div>
                 <li>Lease Term: {homes["lease_term"]}</li>
@@ -140,27 +148,42 @@ function GridModal({ home_id,hideForm }) {
           </ul>
         </div>
       </div>
-        {localStorage.getItem('token') && !hideForm ? <><div className="listings-forms">
-        <h4>Schedule a visit</h4>
-        <div className="schedule-form">
-          <Form onSubmit={handleCreateSchedule}>
-            {scheduleError}
-            <Form.Group controlId="formBasicDate">
-              <Form.Control type="date" name="schedule_visits_date" />
-            </Form.Group>
-            <Form.Group controlId="formBasicTime">
-              <Form.Control type="time" name="schedule_visits_time" />
-            </Form.Group>
-            <Button variant="primary" type="submit" block>
-              Schedule Visit
-            </Button>
-          </Form>
-          <br /><br />
-        </div><h4>Submit an application</h4>
-        <div><Link to={`/new-application/${home_id}/${homes.listing_type}`}>
-          <Button variant="success" block>
-            Application
-          </Button></Link></div></div></> : ''}
+      {localStorage.getItem("token") && !hideForm ? (
+        <>
+          <div className="listings-forms">
+            <h4>Schedule a visit</h4>
+            <div className="schedule-form">
+              <Form onSubmit={handleCreateSchedule}>
+                {scheduleError}
+                <Form.Group controlId="formBasicDate">
+                  <Form.Control type="date" name="schedule_visits_date" />
+                </Form.Group>
+                <Form.Group controlId="formBasicTime">
+                  <Form.Control type="time" name="schedule_visits_time" />
+                </Form.Group>
+                <Button variant="primary" type="submit" block>
+                  Schedule Visit
+                </Button>
+              </Form>
+              <br />
+              <br />
+            </div>
+            <h4>Submit an application</h4>
+            <div>
+              <Link to={`/new-application/${home_id}/${homes.listing_type}`}>
+                <Button variant="success" block>
+                  Application
+                </Button>
+              </Link>
+            </div>
+            <br/><br/>
+            <h4>Listing Agent</h4>
+            <div>{homes["listed_by"]}</div>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
