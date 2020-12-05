@@ -92,6 +92,7 @@ class CreateImagesSerializer(serializers.Serializer):
         print("create images validated data: ", validated_data)
 
         image_objs = []
+        plain_images = s3_images = None
         for image_url in validated_data.get("images", []):
             image_objs.append(
                 Image(url=image_url, listing=validated_data["listing"])
