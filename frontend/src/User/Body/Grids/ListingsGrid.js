@@ -284,9 +284,7 @@ const ListingsGrid = (props) => {
                   >
                     More filters
                   </Button>{" "}
-                  <Button onClick={toggleModal} variant="primary">
-                    Save Search
-                  </Button>
+                  {localStorage.getItem('token') && <Button onClick={toggleModal} variant="primary">Save Search</Button>}
                 </Col>
               </Row>
             </Card.Body>
