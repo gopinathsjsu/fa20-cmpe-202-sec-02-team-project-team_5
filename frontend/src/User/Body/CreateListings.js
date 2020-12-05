@@ -67,61 +67,64 @@ function CreateListings() {
       deposit = form.lease_term.value;
     }
     const formData = new FormData();
-    formData.append('home_status',form.home_status.value);
-    formData.append('country',"United States");
-    formData.append('parking_space_type',form.parking_space_type.value);
-    formData.append('lease_term',lease);
-    formData.append('security_deposit',deposit);
-    formData.append('heater',form.heating.value);
-    formData.append('kitchen',form.kitchen.value);
-    formData.append('laundry',form.laundry.value);
-    formData.append('air_conditioner',form.air_conditioner.value);
-    formData.append('floor_type',form.flooring.value);
-    formData.append('images',
-      ["https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg",
-      "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg",
-    ]);
-    formData.append('open_house',JSON.stringify(inputFields));
-    formData.append('home_type',form.house_type.value);
-    formData.append('zip_code',form.zip_code.value);
-    formData.append('listing_type',form.listing_type.value);
-    formData.append('street_address',form.street_address.value);
-    formData.append('city',form.city.value);
-    formData.append('state',form.state.value);
-    formData.append('description',form.description.value);
-    formData.append('price',form.price.value);
-    formData.append('bedrooms',form.bedrooms.value);
-    formData.append('bathroom',form.bathroom.value);
-    formData.append('sqft_area',form.sqft_area.value);
-    formData.append('year_built',form.year_built.value);
-    formData.append('available_date',form.available_date.value);
-    formData.append('s3_image_file_data',form.elements.image.files);
-    Axios.post(apiEndpoint, formData, { validateStatus: false,
+    console.log("available_date ", form.available_date.value);
+    formData.set("home_status", form.home_status.value);
+    formData.set("country", "United States");
+    formData.set("parking_space_type", form.parking_space_type.value);
+    formData.append("lease_term", lease);
+    formData.append("security_deposit", deposit);
+    formData.append("heater", form.heating.value);
+    formData.append("kitchen", form.kitchen.value);
+    formData.append("laundry", form.laundry.value);
+    formData.append("air_conditioner", form.air_conditioner.value);
+    formData.append("floor_type", form.flooring.value);
+    // formData.append("images", [
+    //   "https://photos.zillowstatic.com/fp/06a267a26fc021cac6c4204e5b5cabd4-cc_ft_768.jpg",
+    //   "https://photos.zillowstatic.com/fp/f8d95bd5320fe0e7afd6959cef180660-cc_ft_768.jpg",
+    // ]);
+    formData.append("open_house", JSON.stringify(inputFields));
+    formData.append("home_type", form.house_type.value);
+    formData.append("zip_code", form.zip_code.value);
+    formData.append("listing_type", form.listing_type.value);
+    formData.append("street_address", form.street_address.value);
+    formData.append("city", form.city.value);
+    formData.append("state", form.state.value);
+    formData.append("description", form.description.value);
+    formData.append("price", form.price.value);
+    formData.append("bedrooms", form.bedrooms.value);
+    formData.append("bathroom", form.bathroom.value);
+    formData.append("sqft_area", form.sqft_area.value);
+    formData.append("year_built", form.year_built.value);
+    formData.set("available_date", form.available_date.value);
+
+    for (var file of form.elements.image.files) {
+      formData.append("s3_image_file_data", file);
+    }
+    Axios.post(apiEndpoint, formData, {
+      validateStatus: false,
       headers: {
-      'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        showCreateListingsError(
+          <Alert variant="success">
+            Your listing has been posted successfully
+          </Alert>
+        );
+        toggleModal();
+      } else {
+        let errors = Object.values(
+          response.data || { error: ["Something went wrong"] }
+        );
+        showCreateListingsError(
+          errors.map((error) => {
+            return <Alert variant="danger">{error}</Alert>;
+          })
+        );
       }
-    }).then(
-      (response) => {
-        console.log(response);
-        if (response.status === 201) {
-          showCreateListingsError(
-            <Alert variant="success">
-              Your listing has been posted successfully
-            </Alert>
-          );
-          toggleModal();
-        } else {
-          let errors = Object.values(
-            response.data || { error: ["Something went wrong"] }
-          );
-          showCreateListingsError(
-            errors.map((error) => {
-              return <Alert variant="danger">{error}</Alert>;
-            })
-          );
-        }
-      }
-    );
+    });
   };
 
   const customStyles = {
