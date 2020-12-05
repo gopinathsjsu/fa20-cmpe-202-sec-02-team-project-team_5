@@ -156,21 +156,21 @@ const ListingsGrid = (props) => {
                     />
                   </span>
                 </div>
-                <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
-                  <span>Flooring&nbsp;</span>
-                  <span>
-                    <MenuSelect
-                      attribute="floor_type"
-                      defaultRefinement={
-                        filterParams.menu && filterParams.menu.floor_type
-                      }
-                    />
-                  </span>
-                </div>
               </div>
               <div>
                 <Collapse in={showFilter}>
                   <div id="example-collapse-text">
+                    <div className="dib br3 pa3 ma3 bw2" lg="4" md="6" sm="12">
+                      <span>Flooring&nbsp;</span>
+                      <span>
+                        <MenuSelect
+                          attribute="floor_type"
+                          defaultRefinement={
+                            filterParams.menu && filterParams.menu.floor_type
+                          }
+                        />
+                      </span>
+                    </div>
                     <div className="dib br3 pa3 ma3 bw2">
                       <span>Home Status&nbsp;</span>
                       <MenuSelect
