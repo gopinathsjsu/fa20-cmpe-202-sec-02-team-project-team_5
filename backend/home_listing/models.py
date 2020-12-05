@@ -107,7 +107,10 @@ class Listing(models.Model):
     deleted_why = models.TextField(null=True, blank=True)
 
     def images(self):
-        return [image.url for image in self.image_set.all()]
+        return [image.url or image.photo_file.url.split('?')[0] for image in self.image_set.all()]
+
+    def listed_by_serialized(self):
+        return self.listed_by.first_name + " " + self.listed_by.last_name
 
     def open_houses(self):
         result = []
@@ -157,6 +160,9 @@ class Image(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
     deleted_why = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.photo_file.name
 
 
 

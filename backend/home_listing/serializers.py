@@ -92,16 +92,29 @@ class CreateImagesSerializer(serializers.Serializer):
         print("create images validated data: ", validated_data)
 
         image_objs = []
+        plain_images = s3_images = None
         for image_url in validated_data.get("images", []):
             image_objs.append(
                 Image(url=image_url, listing=validated_data["listing"])
             )
 
-        return Image.objects.bulk_create(image_objs)
+        if image_objs:
+            plain_images = Image.objects.bulk_create(image_objs)
+
+        image_objs = []
+        for file in validated_data.get("s3_image_file_data", []):
+            image_objs.append(
+                Image(photo_file=file, listing=validated_data["listing"])
+            )
+
+        if image_objs:
+            s3_images = Image.objects.bulk_create(image_objs)
+
+        return plain_images or s3_images
 
 
 class CreateOpenHouseSerializer(serializers.Serializer):
-    open_house = serializers.ListField(child=serializers.DictField(), required=False)
+    open_house = serializers.ListField(child=serializers.DictField(), required=False, default=[])
 
     def create(self, validated_data):
         print("create open house validated data: ", validated_data)
@@ -115,7 +128,6 @@ class CreateOpenHouseSerializer(serializers.Serializer):
         return OpenHouse.objects.bulk_create(open_house_objs)
 
 class CreateListingSerializer(serializers.Serializer):
-
     listing_type = ListingTypeSerializer()
     home_type = HomeTypeFieldSerializer()
     home_status = HomeStatusFieldSerializer()
@@ -137,15 +149,14 @@ class CreateListingSerializer(serializers.Serializer):
     air_conditioner = serializers.BooleanField(required=False, allow_null=True)
     heater = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     available_date = serializers.DateField(required=False, allow_null=True)
-    lease_term = serializers.IntegerField(required=False, allow_null=True)
-    security_deposit = serializers.IntegerField(required=False, allow_null=True)
+    lease_term = serializers.IntegerField(required=False, default=None, allow_null=True)
+    security_deposit = serializers.IntegerField(required=False, default=None, allow_null=True)
 
 
     def create(self, validated_data):
         return Listing.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        print("validated_data", validated_data)
         Listing.objects.filter(id=instance.id).update(**validated_data)
 
         instance.refresh_from_db()
