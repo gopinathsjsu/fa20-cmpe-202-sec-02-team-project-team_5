@@ -29,7 +29,7 @@ const UserListingGrid = (props) => {
         className="bg-light-gray dib br3 pa3 ma3 bw2 shadow-5"
       >
         <Card style={{ width: "25rem" }}>
-          <Card.Img variant="top" src={house[i]["images"][1].url} />
+          <Card.Img variant="top" src={house[i]["images"][0].url} />
           <Link to={`/edit-listings/${house[i].id}`}>
             <Button variant="warning" block>Edit Listing</Button>
           </Link>

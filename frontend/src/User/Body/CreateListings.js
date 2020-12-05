@@ -64,7 +64,7 @@ function CreateListings() {
       lease = form.lease_term.value;
     }
     if (form.security_deposit.value !== "") {
-      deposit = form.lease_term.value;
+      deposit = form.security_deposit.value;
     }
     const formData = new FormData();
     formData.set("home_status", form.home_status.value);
