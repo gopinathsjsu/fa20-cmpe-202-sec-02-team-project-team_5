@@ -149,14 +149,26 @@ class CreateListingSerializer(serializers.Serializer):
     air_conditioner = serializers.BooleanField(required=False, allow_null=True)
     heater = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     available_date = serializers.DateField(required=False, allow_null=True)
-    lease_term = serializers.IntegerField(required=False, default=None, allow_null=True)
-    security_deposit = serializers.IntegerField(required=False, default=None, allow_null=True)
-
+    lease_term = serializers.CharField(required=False, default=None, allow_null=True)
+    security_deposit = serializers.CharField(required=False, default=None, allow_null=True)
 
     def create(self, validated_data):
+        if validated_data["lease_term"] == "null":
+            validated_data["lease_term"] = None
+
+        if validated_data["security_deposit"] == "null":
+            validated_data["security_deposit"] = None
+
         return Listing.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
+        if validated_data["lease_term"] == "null":
+            validated_data["lease_term"] = None
+
+        if validated_data["security_deposit"] == "null":
+            validated_data["security_deposit"] = None
+
+
         Listing.objects.filter(id=instance.id).update(**validated_data)
 
         instance.refresh_from_db()

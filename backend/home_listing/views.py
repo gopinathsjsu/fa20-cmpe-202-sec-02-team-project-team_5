@@ -8,8 +8,24 @@ from .serializers import *
 from rest_framework import status
 from django.db import transaction
 from home_finder.utility import Util
+import json
 
 
+
+def create_open_house_schedules(request_data, listing):
+    open_house_objs = []
+    open_houses = json.loads(request_data.get("open_house", '[]'))
+    print("open_houses: ", open_houses)
+    for open_house in open_houses:
+        print("open_house: ", open_house)
+        if open_house["open_house_date"] and open_house["open_house_start_time"] and open_house["open_house_end_time"]:
+            open_house_objs.append(
+                OpenHouse(open_house_date=open_house["open_house_date"],
+                          open_house_start_time=open_house["open_house_start_time"],
+                          open_house_end_time=open_house["open_house_end_time"], listing=listing)
+            )
+
+    return OpenHouse.objects.bulk_create(open_house_objs)
 
 
 @api_view(['POST', 'GET'])
@@ -19,19 +35,21 @@ def listings(request):
     if request.method == "POST":
 
         images_serializer = CreateImagesSerializer(data=dict(request.data))
-        open_house_serializer = CreateOpenHouseSerializer(data=dict(request.data))
         listing_serializer = CreateListingSerializer(data=request.data)
 
-        if listing_serializer.is_valid() and images_serializer.is_valid() and open_house_serializer.is_valid():
+        if listing_serializer.is_valid() and images_serializer.is_valid():
             with transaction.atomic():
                 new_listing = listing_serializer.save(listed_by=user)
                 images_serializer.save(listing=new_listing)
-                open_house_serializer.save(listing=new_listing)
+                create_open_house_schedules(request.data, new_listing)
                 new_listing.save()
 
             return Response(ListingSerializer(new_listing).data, status=status.HTTP_201_CREATED)
 
-        return Response(listing_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({
+            "listing_errors": listing_serializer.errors,
+            "image_errors": images_serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
     else:
         # GET /listings
         user_listings = Listing.objects.filter(listed_by=user, deleted_at__isnull=True)
