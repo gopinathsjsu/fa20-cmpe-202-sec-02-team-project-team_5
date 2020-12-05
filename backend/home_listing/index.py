@@ -6,7 +6,7 @@ from .models import Listing, Image
 #
 @register(Listing)
 class ListingIndex(AlgoliaIndex):
-    fields = ('listed_by', 'listing_type', 'home_type', 'home_status', 'description',
+    fields = ('listed_by', 'listed_by_serialized', 'listing_type', 'home_type', 'home_status', 'description',
               'zip_code', 'street_address', 'city', 'state', 'country', 'price', 'sqft_area', 'bedrooms',
                 'bathroom', 'year_built', 'kitchen', 'laundry', 'air_conditioner', 'heater',
                 'available_date', 'lease_term', 'security_deposit', 'images', 'is_active', 'created_at', 'updated_at', 'deleted_at',
