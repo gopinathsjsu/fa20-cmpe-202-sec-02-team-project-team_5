@@ -17,8 +17,8 @@ def listings(request):
     user = JWTAuthentication.validate_token(request)
 
     if request.method == "POST":
+
         images_serializer = CreateImagesSerializer(data=dict(request.data))
-        request.data.pop("images")
         open_house_serializer = CreateOpenHouseSerializer(data=dict(request.data))
         listing_serializer = CreateListingSerializer(data=request.data)
 

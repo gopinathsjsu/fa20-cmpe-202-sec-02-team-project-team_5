@@ -158,6 +158,9 @@ class Image(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     deleted_why = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.photo_file.name
+
 
 
 
