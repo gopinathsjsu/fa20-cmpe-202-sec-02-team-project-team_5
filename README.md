@@ -141,6 +141,7 @@ Throughout the project (sprints) we followed below stated XP core values:
 </p>
 
 ## Task Sheet 
+https://docs.google.com/spreadsheets/d/1J9DqinS0vujYUJ4aQXAl2qfH844epgCX/edit#gid=637001387
 <p align="center">
 	<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270923-c9e43200-3732-11eb-8d1b-abf450d668bb.PNG">
 </p>
