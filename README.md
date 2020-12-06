@@ -47,36 +47,60 @@ The design and implemenation includes both frontend and backend applications to 
 <img width="650" src="https://user-images.githubusercontent.com/55044852/101270257-327be080-372c-11eb-80ef-a319790e3c44.png">
 
 ## Design Decisions
+  * **Architecture-level:**
+    * CQRS architecture : Choosing a search engine host “Algolia” to improve search performance for home listings by creating search indexes. It also provides dashboard analysis of hits and their performance.
+    * Separate deployment environments for frontend and backend applications.
+
+
+  * **Application Design-level**:
+    * Leveraging Django’s Model and Views design patterns to design APIs. We have utilized the Structural Model and Normalized Model design pattern that allows us to define all the classes(database tables) in a single models.py file and follow the concept Object Relational Mapping. Class-based views pattern takes a request and returns a response. These allowed us to structure our APIs and reuse code by harnessing inheritance. These design patterns helped us in reducing the code maitainibity and eased designing new APIs in every upcoming sprint.
+    * Separating configuration and highly quered tables. Associating configurations like User types, home listing types, user status, images as foriegn keys ids, helped in reducing query retrieval time. Tracking creation, updation and deletion time for each record and performing soft delete whenever required.
+    * Storing images on AWS S3 cloud
+    
+  * **Business-level:**
+    Below are listed are decisions or assumptions considered to maintain logically simplified features provided by HomeFinder application:
+	  * Users can search and browse through listings without any registration or even when the user registration is in pending status
+    * Types of user status: Approved, Pending, Rejected, Deactivated
+    * By default all registered user are assigned pending status
+    * Users need to login to use all other services except searching and browsing.
+    * Only approved users can login
+    * A removed user can not register or login
+    * Once a buyer application is approved, the property is marked as Sold
+    * Email notifications are sent on approval or rejection of registration, receiving applications for posted listings, scheduling houses and visits
+    * My Listings feature is only available for Realtor, Seller and Landlord
+    * Buy tab lists only homes of sale type and Sell tab lists homes that can be rent-out
+    * Mobile application support is out of scope
+    * Seller or Realtor or Landlord can create and manage multiple listings
+
 ## Sprint Journal
 
-<img width="650" src="docs/Deepthi_sprint_journal.PNG">
+<img width="1050" src="https://user-images.githubusercontent.com/56493886/101270939-fe57ee00-3732-11eb-827b-bddd514dd5a7.PNG">
 <img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
-
 
 ## XP Core Values
 
 Throughout the project (sprints) we followed below stated XP core values:
 
-- Communication
+- **Communication**
   * Communication was one of the key strengths of our team. We had weekly calls scheduled for every Monday evening to discuss the functionality, make necessary design decisions and assumptions.  
   * During the call we made sure to understand the progress, dependency on each other and any blockers.
   * We maintained Github projects Kanban Board to maintain the list of ToDo, InProgress, Completed tasks. This also helped us to understand the progress of various tasks throughout the sprint.
   * We had a clear work breakdown, which helped us clearly understand who was working on a specific feature and whom to contact when there was a need or dependency. This also completely eliminated doing any redundant work.
   * We also maintained a slack channel to communicate on a daily basis. Any clarifications regarding frontend and backend communication, rest api endpoints, request-response parameter details and much more was shared with each other on the channel regularly.
 
-- Feedback
+- **Feedback**
 
   * Feedback also played a very important role during the project development and testing phase. 
   * During the development phase we always pushed our changes to a branch and created pull requests. Once the code was approved by another team member, we pushed the changes to the master branch. We made sure the code changes on the master branch was always stable and did not break the other team member’s code.
   * During the testing phase, we gave feedback to each other by testing the features developed by team members. This helped in identifying the bugs.
   * The constant feedback helped to identify the unknowns and scenarios or features missed during the initial phase of the project. That helped us to make better assumptions and collective decisions.
 
-- Respect
+- **Respect**
   * Throughout the project, all the team members were respectful of each other’s time, availability and the deliverables deadline.
   * The team was respectful of each other's suggestion in choosing the tools and technologies. Based on the individual's skills and comfort level, the team was accommodative to agree upon the framework utilized and programming languages. Nevertheless, all the team members were enthusiastic to learn and incorporate new software skills.
   * The suggestions about the CQRS architecture, usage of the Algolia database was well accepted and successfully implemented.
 
-- Simplicity 
+- **Simplicity**
 
   * At every step of our project we always evaluated the primary goals to be accomplished inorder to stay focused on what was required in the MVP.
   * We always had a segregation of “must haves” and “if possible”. 
@@ -100,11 +124,11 @@ Throughout the project (sprints) we followed below stated XP core values:
 
 ## Task Sheet 
 
-<img width="1500" src="docs/Sprint_task_sheet.PNG">
+<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270923-c9e43200-3732-11eb-8d1b-abf450d668bb.PNG">
 
 ## Burndown Chart
 
-<img width="1500" src="docs/Burndownchart.PNG">
+<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270922-c94b9b80-3732-11eb-80d4-b189207a5583.PNG">
 
 ## Heroku Screenshots
 
