@@ -96,6 +96,8 @@ Throughout the project (sprints) we followed below stated XP core values:
 
 - Backend Application design, implementation and deployments  - Deepthi Jallepalli and Prerana Shekar
 
+<img width="650" src="https://user-images.githubusercontent.com/55044852/101270624-8e943400-372f-11eb-9ed9-5a42c5435779.png">
+
 ## Task Sheet 
 
 <img width="1500" src="docs/Sprint_task_sheet.PNG">
@@ -103,6 +105,12 @@ Throughout the project (sprints) we followed below stated XP core values:
 ## Burndown Chart
 
 <img width="1500" src="docs/Burndownchart.PNG">
+
+## Heroku Screenshots
+
+## Algoli Screenshots
+
+## AWS S3 Image Upload
 
 ## Delivered APIs and Sample Postman requests and responses
 ## Acknowldgement
