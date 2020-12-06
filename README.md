@@ -109,8 +109,16 @@ Throughout the project (sprints) we followed below stated XP core values:
 ## Heroku Screenshots
 
 ## Algoli Screenshots
+<p align="center">
+  <img width="650" src="https://user-images.githubusercontent.com/55044852/101270776-44ac4d80-3731-11eb-8df8-78c8cf049107.png">
+  <img width="650" src="https://user-images.githubusercontent.com/55044852/101270779-47a73e00-3731-11eb-9d60-1d577ca02b54.png">
+</p>
 
 ## AWS S3 Image Upload
+<p align="center">
+  <img width="650" src="https://user-images.githubusercontent.com/55044852/101270714-9d2f1b00-3730-11eb-8b0b-5016dcc2d518.png">
+  <img width="650" src="https://user-images.githubusercontent.com/55044852/101270713-9bfdee00-3730-11eb-8bb2-709e725d0fac.png">
+</p>
 
 ## Delivered APIs and Sample Postman requests and responses
 ## Acknowldgement
