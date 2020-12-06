@@ -48,6 +48,8 @@ The design and implemenation includes both frontend and backend applications to 
 
 ## Design Decisions
 ## Sprint Journal
+<img width="1200" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
+
 ## XP Core Values
 
 Throughout the project (sprints) we followed below stated XP core values:
