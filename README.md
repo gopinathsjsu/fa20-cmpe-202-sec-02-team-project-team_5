@@ -94,6 +94,7 @@ https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/ma
 <p align="center">
 	<img width="1050" src="https://user-images.githubusercontent.com/56493886/101271089-b8038e80-3734-11eb-8e34-0ba9b1171ac2.PNG">
 	<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
+  <img width="594" src="https://user-images.githubusercontent.com/9063088/101273065-2b160080-3747-11eb-8758-3a0fbe8a80bc.png">
 </p>
 
 ## XP Core Values
@@ -169,6 +170,8 @@ https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/ma
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271103-cc478b80-3734-11eb-807f-694450311910.png">
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271106-d4073000-3734-11eb-8003-1ef179d37e0a.png">
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271109-d9fd1100-3734-11eb-913a-5281a2a88f01.png">
+  <img width="1319" src="https://user-images.githubusercontent.com/9063088/101273085-61538000-3747-11eb-8e5f-3c37e51c8c60.png">
+  <img width="1236" src="https://user-images.githubusercontent.com/9063088/101273103-7f20e500-3747-11eb-93d2-b34084963ac7.png">
 </p>
 
 ## Algoli Screenshots
