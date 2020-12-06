@@ -94,7 +94,7 @@ https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/ma
 <p align="center">
 	<img width="1050" src="https://user-images.githubusercontent.com/56493886/101271089-b8038e80-3734-11eb-8e34-0ba9b1171ac2.PNG">
 	<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
-  <img width="594" src="https://user-images.githubusercontent.com/9063088/101273065-2b160080-3747-11eb-8758-3a0fbe8a80bc.png">
+  	<img width="1050" src="https://user-images.githubusercontent.com/9063088/101273065-2b160080-3747-11eb-8758-3a0fbe8a80bc.png">
 </p>
 
 ## XP Core Values
@@ -129,6 +129,9 @@ Throughout the project (sprints) we followed below stated XP core values:
   * Similarly, the frontend code was always available on another Heroku app, which enabled all the team members to test each other’s code without replicating all the changes in the local. This reduced the efforts involved in constantly taking an update of the changes in local.
 
 ## Scrum Dashboard
+Github Projects link:
+https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/projects
+
 <p align="center">
 	<img width="1500" src="https://user-images.githubusercontent.com/56493886/101140019-3a6e4000-35c7-11eb-9a3c-f8e0326883dd.PNG">
 </p>
@@ -145,10 +148,14 @@ Throughout the project (sprints) we followed below stated XP core values:
 </p>
 
 ## Task Sheet 
-https://docs.google.com/spreadsheets/d/1J9DqinS0vujYUJ4aQXAl2qfH844epgCX/edit#gid=637001387
+https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/blob/master/docs/CMPE_202_Team_5_Sprint_Task_Sheet.xlsx
 <p align="center">
 	<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270923-c9e43200-3732-11eb-8d1b-abf450d668bb.PNG">
 </p>
+
+## Wiki Links
+Weekly scrum MOM details
+https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/wiki
 
 ## Burndown Chart
 <p align="center">
