@@ -38,13 +38,18 @@ The design and implemenation includes both frontend and backend applications to 
   - Slack channel (CMPE-202-Zillow-Clone) - To discuss and share any information related to specific story or issues
 
 ## Architecture Diagram
-<img width="650" src="https://user-images.githubusercontent.com/55044852/101270114-be8d0880-372a-11eb-8337-2d3a4c044321.png">
-
+<p align="center">
+	<img width="650" src="https://user-images.githubusercontent.com/55044852/101270114-be8d0880-372a-11eb-8337-2d3a4c044321.png">
+</p>
 ## Database Design
-<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270215-d6b15780-372b-11eb-861e-0bc298e682de.png">
+<p align="center">
+	<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270215-d6b15780-372b-11eb-861e-0bc298e682de.png">
+</p>
 
 ## Depolyment Diagram
-<img width="650" src="https://user-images.githubusercontent.com/55044852/101270257-327be080-372c-11eb-80ef-a319790e3c44.png">
+<p align="center">
+	<img width="650" src="https://user-images.githubusercontent.com/55044852/101270257-327be080-372c-11eb-80ef-a319790e3c44.png">
+</p>
 
 ## Design Decisions
   * **Architecture-level:**
@@ -73,11 +78,10 @@ The design and implemenation includes both frontend and backend applications to 
     * Seller or Realtor or Landlord can create and manage multiple listings
 
 ## Sprint Journal
-
-<img width="1050" src="https://user-images.githubusercontent.com/56493886/101271089-b8038e80-3734-11eb-8e34-0ba9b1171ac2.PNG">
-
-<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
-
+<p align="center">
+	<img width="1050" src="https://user-images.githubusercontent.com/56493886/101271089-b8038e80-3734-11eb-8e34-0ba9b1171ac2.PNG">
+	<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
+</p>
 ## XP Core Values
 
 Throughout the project (sprints) we followed below stated XP core values:
@@ -110,9 +114,9 @@ Throughout the project (sprints) we followed below stated XP core values:
   * Similarly, the frontend code was always available on another Heroku app, which enabled all the team members to test each other’s code without replicating all the changes in the local. This reduced the efforts involved in constantly taking an update of the changes in local.
 
 ## Scrum Dashboard
-
+<p align="center">
 <img width="1500" src="https://user-images.githubusercontent.com/56493886/101140019-3a6e4000-35c7-11eb-9a3c-f8e0326883dd.PNG">
-
+</p>
 ## Individual Contribution
 
 - Our team work division has two categories, Frontend and Backend application development
@@ -120,18 +124,26 @@ Throughout the project (sprints) we followed below stated XP core values:
 - Frontend Application design, implementation and deployments - Aditya Shah and Prashanth Narshima
 
 - Backend Application design, implementation and deployments  - Deepthi Jallepalli and Prerana Shekar
-
-<img width="650" src="https://user-images.githubusercontent.com/55044852/101270624-8e943400-372f-11eb-9ed9-5a42c5435779.png">
-
+<p align="center">
+	<img width="650" src="https://user-images.githubusercontent.com/55044852/101270624-8e943400-372f-11eb-9ed9-5a42c5435779.png">
+</p>
 ## Task Sheet 
-
-<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270923-c9e43200-3732-11eb-8d1b-abf450d668bb.PNG">
-
+<p align="center">
+	<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270923-c9e43200-3732-11eb-8d1b-abf450d668bb.PNG">
+</p>
 ## Burndown Chart
-
-<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270922-c94b9b80-3732-11eb-80d4-b189207a5583.PNG">
+<p align="center">
+	<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270922-c94b9b80-3732-11eb-80d4-b189207a5583.PNG">
+</p>
 
 ## Heroku Screenshots
+<p align="center">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271093-bfc33300-3734-11eb-86fa-7ba022893be1.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271098-c5207d80-3734-11eb-9265-508d98d0c4e5.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271103-cc478b80-3734-11eb-807f-694450311910.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271106-d4073000-3734-11eb-8003-1ef179d37e0a.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271109-d9fd1100-3734-11eb-913a-5281a2a88f01.png">
+</p>
 
 ## Algoli Screenshots
 <p align="center">
@@ -146,4 +158,11 @@ Throughout the project (sprints) we followed below stated XP core values:
 </p>
 
 ## Delivered APIs and Sample Postman requests and responses
+<p align="center">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271022-f9e00500-3733-11eb-8f41-8b4945afa870.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271024-fb113200-3733-11eb-8526-b862211d9440.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271027-fcdaf580-3733-11eb-8673-bfe5e60a55f2.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271029-fe0c2280-3733-11eb-86f5-5925bf8af99b.png">
+</p>
+
 ## Acknowldgement
