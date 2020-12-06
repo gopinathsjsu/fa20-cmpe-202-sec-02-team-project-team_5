@@ -74,7 +74,8 @@ The design and implemenation includes both frontend and backend applications to 
 
 ## Sprint Journal
 
-<img width="1050" src="https://user-images.githubusercontent.com/56493886/101270939-fe57ee00-3732-11eb-827b-bddd514dd5a7.PNG">
+<img width="1050" src="https://user-images.githubusercontent.com/56493886/101271089-b8038e80-3734-11eb-8e34-0ba9b1171ac2.PNG">
+
 <img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
 
 ## XP Core Values
