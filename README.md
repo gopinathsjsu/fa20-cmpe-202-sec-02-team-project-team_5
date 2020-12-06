@@ -95,6 +95,7 @@ https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/ma
 	<img width="1050" src="https://user-images.githubusercontent.com/56493886/101271089-b8038e80-3734-11eb-8e34-0ba9b1171ac2.PNG">
 	<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
   	<img width="1050" src="https://user-images.githubusercontent.com/9063088/101273065-2b160080-3747-11eb-8758-3a0fbe8a80bc.png">
+	<img width="1004" src="https://user-images.githubusercontent.com/6768440/101274575-635c2400-37c5-11eb-927f-b80484058648.png">
 </p>
 
 ## XP Core Values
