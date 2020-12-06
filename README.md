@@ -73,9 +73,7 @@ https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/ma
     
   * **Business-level:**
     Below are listed are decisions or assumptions considered to maintain logically simplified features provided by HomeFinder application:
-   
-   <img width="1050" src="https://user-images.githubusercontent.com/56493886/101271807-0451cd00-373b-11eb-89fa-024b5ad4b1c1.PNG">
-
+    <img width="1050" src="https://user-images.githubusercontent.com/56493886/101271807-0451cd00-373b-11eb-89fa-024b5ad4b1c1.PNG">
     * Users can search and browse through listings without any registration or even when the user registration is in pending status
     * Types of user status: Approved, Pending, Rejected, Deactivated
     * By default all registered user are assigned pending status
