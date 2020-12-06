@@ -50,6 +50,8 @@ The design and implemenation includes both frontend and backend applications to 
 ## Sprint Journal
 
 <img width="650" src="docs/Deepthi_sprint_journal.PNG">
+<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270299-8f779680-372c-11eb-939a-e56a9a2873de.png">
+
 
 ## XP Core Values
 
