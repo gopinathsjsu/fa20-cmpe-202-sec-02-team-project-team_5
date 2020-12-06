@@ -42,10 +42,18 @@ The design and implemenation includes both frontend and backend applications to 
 	<img width="650" src="https://user-images.githubusercontent.com/55044852/101270114-be8d0880-372a-11eb-8337-2d3a4c044321.png">
 </p>
 
+*	In order to design a web application such as a Home-finder which is search intensive, we decided to utilize CQRS architecture. Command query responsibility segregation (CQRS) applies the CQS principle by using separate Query and Command objects to retrieve and modify data, respectively. 
+*	In our project, we have utilized the CQRS architecture in order to separate the reads and write requests hitting the same primary database. As the application has to render a huge amount of data (listings) on the landing page, it can drastically increase the load of querying the database. Hence, in order to overcome such an issue, we utilize Algolia search database to query all the listings.  This helps in increasing the efficiency of rendering all the listings on the web application. The primary database, Postgres, is always in sync with the Algolia Database. The Algolia database helps to render faceted search on the UI and also provides the auto complete, auto correction feature in the search bar on the web application. 
+*	The application was deployed on Heroku, which is Platform as a Service. Heroku gives the ability to have a server and database running for a long time without any cost.  This enabled us to deploy the application within minutes and the ability to test it constantly on staging and production environments. 
+
 ## Database Design
 <p align="center">
 	<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270215-d6b15780-372b-11eb-861e-0bc298e682de.png">
 </p>
+
+## UI Wireframes
+
+https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/master/docs/UI%20Wireframes
 
 ## Depolyment Diagram
 <p align="center">
@@ -65,7 +73,10 @@ The design and implemenation includes both frontend and backend applications to 
     
   * **Business-level:**
     Below are listed are decisions or assumptions considered to maintain logically simplified features provided by HomeFinder application:
-	  * Users can search and browse through listings without any registration or even when the user registration is in pending status
+   
+   <img width="1050" src="https://user-images.githubusercontent.com/56493886/101271807-0451cd00-373b-11eb-89fa-024b5ad4b1c1.PNG">
+
+    * Users can search and browse through listings without any registration or even when the user registration is in pending status
     * Types of user status: Approved, Pending, Rejected, Deactivated
     * By default all registered user are assigned pending status
     * Users need to login to use all other services except searching and browsing.
@@ -162,7 +173,40 @@ Throughout the project (sprints) we followed below stated XP core values:
   <img width="650" src="https://user-images.githubusercontent.com/55044852/101270713-9bfdee00-3730-11eb-8bb2-709e725d0fac.png">
 </p>
 
+## Email Notofication Screenshots
+*	On Registration Approval
+
+<img width="650" src="https://user-images.githubusercontent.com/56493886/101271577-e1261e00-3738-11eb-81bd-094bb2d1641f.PNG">
+
+*	On Registration Rejection
+
+<img width="650" src="https://user-images.githubusercontent.com/56493886/101271579-e1beb480-3738-11eb-9e15-0e1c7cd301fc.PNG">
+
+*	On Recieving new application 
+
+<img width="650" src="https://user-images.githubusercontent.com/56493886/101271578-e1beb480-3738-11eb-8b2b-289c52dce1ec.PNG">
+
+*	On Booking a open house schedule
+
+<img width="650" src="https://user-images.githubusercontent.com/56493886/101271580-e1beb480-3738-11eb-8610-c2d9951af18f.PNG">
+
 ## Delivered APIs and Sample Postman requests and responses
+- Core and Applications Postman screenshots
+
+<p align="center">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271670-eb94e780-3739-11eb-87c0-2bf069b559cc.png">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271671-f0599b80-3739-11eb-9da5-cd36d1151fa8.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271673-f780a980-3739-11eb-8622-5b0574525343.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271680-023b3e80-373a-11eb-8527-ebc22bc0304f.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271681-02d3d500-373a-11eb-966d-6ddc5a716d7b.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271685-07988900-373a-11eb-939f-a7587fbd808a.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271693-141ce180-373a-11eb-824a-b0659b076a05.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271694-14b57800-373a-11eb-906d-bae6653096f8.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271696-14b57800-373a-11eb-919a-e3c84f29c887.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271698-154e0e80-373a-11eb-90cc-37f8b09fbc6c.PNG">
+	<img width="750" src="https://user-images.githubusercontent.com/56493886/101271699-154e0e80-373a-11eb-8096-c94b92d6b77d.PNG">
+</p>
+
 - Listings Postman screenshots
 <p align="center">
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271022-f9e00500-3733-11eb-8f41-8b4945afa870.png">
