@@ -38,8 +38,14 @@ The design and implemenation includes both frontend and backend applications to 
   - Slack channel (CMPE-202-Zillow-Clone) - To discuss and share any information related to specific story or issues
 
 ## Architecture Diagram
+<img width="650" src="https://user-images.githubusercontent.com/55044852/101270114-be8d0880-372a-11eb-8337-2d3a4c044321.png">
+
 ## Database Design
+<img width="1050" src="https://user-images.githubusercontent.com/55044852/101270215-d6b15780-372b-11eb-861e-0bc298e682de.png">
+
 ## Depolyment Diagram
+<img width="650" src="https://user-images.githubusercontent.com/55044852/101270257-327be080-372c-11eb-80ef-a319790e3c44.png">
+
 ## Design Decisions
 ## Sprint Journal
 ## XP Core Values
