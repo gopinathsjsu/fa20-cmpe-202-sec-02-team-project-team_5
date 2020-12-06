@@ -9,7 +9,7 @@ The design and implemenation includes both frontend and backend applications to 
 - Aditya Shah
 - Deepthi Jallepalli
 - Prashanth Narasimha
-- Prerana Shekar
+- Prerana Shekhar
 
 ## Technology Stack
 
@@ -213,5 +213,15 @@ https://docs.google.com/spreadsheets/d/1J9DqinS0vujYUJ4aQXAl2qfH844epgCX/edit#gi
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271027-fcdaf580-3733-11eb-8673-bfe5e60a55f2.png">
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271029-fe0c2280-3733-11eb-86f5-5925bf8af99b.png">
 </p>
+
+- Favorites Postman screenshots
+<p align="center">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101272673-38c98700-3743-11eb-955a-6fb357f9f211.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101272676-3b2be100-3743-11eb-8079-ebbaa32ec683.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101272677-3b2be100-3743-11eb-82f6-aceafd0ed179.png">
+	<img width="750" src="https://user-images.githubusercontent.com/55044852/101272678-3bc47780-3743-11eb-854f-c73d472eeff5.png">
+	<img width="550" src="https://user-images.githubusercontent.com/55044852/101272679-3bc47780-3743-11eb-822b-9dda7e8581ee.png">
+	<img width="550" src="https://user-images.githubusercontent.com/55044852/101272680-3c5d0e00-3743-11eb-967e-69d8e34190e6.png">
+</p>	
 
 ## Acknowldgement
