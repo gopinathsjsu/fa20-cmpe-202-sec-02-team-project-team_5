@@ -4,6 +4,9 @@ As part of the final team project we have designed and developed a web applicati
 It provides a platform to buy, sell and rent different types of houses.
 The design and implemenation includes both frontend and backend applications to support HomeFinder features states in team project requirements.
 
+## Application URL
+https://homefinder-frontend.herokuapp.com/
+
 ## Team Members
 
 - Aditya Shah
@@ -21,7 +24,7 @@ The design and implemenation includes both frontend and backend applications to 
 
 * PostgresSQL - Primary DB
 
-* Algolia - Secondary DB to improvise search performance
+* Algolia - Secondary DB to improve search performance
 
 * Postman - REST API client to test the developed APIs
 
@@ -151,6 +154,14 @@ https://docs.google.com/spreadsheets/d/1J9DqinS0vujYUJ4aQXAl2qfH844epgCX/edit#gi
 	<img width="1500" src="https://user-images.githubusercontent.com/56493886/101270922-c94b9b80-3732-11eb-80d4-b189207a5583.PNG">
 </p>
 
+## Presentation
+Here is the link to our presentation
+https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/blob/master/docs/Home%20Finder%20-%20Team%205.pptx
+
+## Application Screenshots
+Here is the link our Home-finder-Application screenshots
+https://github.com/gopinathsjsu/fa20-cmpe-202-sec-02-team-project-team_5/tree/master/docs/Application%20Screenshots
+
 ## Heroku Screenshots
 <p align="center">
 	<img width="750" src="https://user-images.githubusercontent.com/55044852/101271093-bfc33300-3734-11eb-86fa-7ba022893be1.png">
@@ -224,4 +235,3 @@ https://docs.google.com/spreadsheets/d/1J9DqinS0vujYUJ4aQXAl2qfH844epgCX/edit#gi
 	<img width="550" src="https://user-images.githubusercontent.com/55044852/101272680-3c5d0e00-3743-11eb-967e-69d8e34190e6.png">
 </p>	
 
-## Acknowldgement
